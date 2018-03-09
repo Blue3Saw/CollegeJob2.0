@@ -1,0 +1,261 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DB7625AF-8E0A-429E-AC58-3DAE2128BE5C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CollegeJob</RootNamespace>
+    <AssemblyName>CollegeJob</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Recursos\FrontEnd\css\bootstrap.css" />
+    <Content Include="Recursos\FrontEnd\css\bootstrap.min.css" />
+    <Content Include="Recursos\FrontEnd\css\main.css" />
+    <Content Include="Recursos\FrontEnd\css\mdb.css" />
+    <Content Include="Recursos\FrontEnd\css\mdb.min.css" />
+    <Content Include="Recursos\FrontEnd\css\stylemdb.css" />
+    <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.svg" />
+    <Content Include="Recursos\FrontEnd\img\images\library.jpg" />
+    <Content Include="Recursos\FrontEnd\img\images\documents.jpg" />
+    <Content Include="Recursos\FrontEnd\img\images\thinking.jpg" />
+    <Content Include="Recursos\FrontEnd\img\lightbox\default-skin.png" />
+    <Content Include="Recursos\FrontEnd\img\lightbox\default-skin.svg" />
+    <Content Include="Recursos\FrontEnd\img\lightbox\preloader.gif" />
+    <Content Include="Recursos\FrontEnd\img\overlays\01.png" />
+    <Content Include="Recursos\FrontEnd\img\overlays\02.png" />
+    <Content Include="Recursos\FrontEnd\img\overlays\03.png" />
+    <Content Include="Recursos\FrontEnd\img\overlays\04.png" />
+    <Content Include="Recursos\FrontEnd\img\overlays\05.png" />
+    <Content Include="Recursos\FrontEnd\img\overlays\06.png" />
+    <Content Include="Recursos\FrontEnd\img\overlays\07.png" />
+    <Content Include="Recursos\FrontEnd\img\overlays\08.png" />
+    <Content Include="Recursos\FrontEnd\img\overlays\09.png" />
+    <Content Include="Recursos\FrontEnd\img\svg\arrow_left.svg" />
+    <Content Include="Recursos\FrontEnd\img\svg\arrow_right.svg" />
+    <Content Include="Recursos\FrontEnd\js\bootstrap.js" />
+    <Content Include="Recursos\FrontEnd\js\bootstrap.min.js" />
+    <Content Include="Recursos\FrontEnd\js\jquery-3.1.1.js" />
+    <Content Include="Recursos\FrontEnd\js\jquery-3.1.1.min.js" />
+    <Content Include="Recursos\FrontEnd\js\jquery-3.2.1.js" />
+    <Content Include="Recursos\FrontEnd\js\jquery-3.2.1.min.js" />
+    <Content Include="Recursos\FrontEnd\js\mdb.js" />
+    <Content Include="Recursos\FrontEnd\js\mdb.min.js" />
+    <Content Include="Recursos\FrontEnd\js\popper.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EstudianteController.cs" />
+    <Compile Include="Controllers\PrincipalController.cs" />
+    <Compile Include="Controllers\TareasController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <None Include="packages.config" />
+    <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.eot" />
+    <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.ttf" />
+    <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.woff" />
+    <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.woff2" />
+    <Content Include="Recursos\FrontEnd\font\fa\FontAwesome.otf" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Bold.eot" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Bold.ttf" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Bold.woff" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Bold.woff2" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Light.eot" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Light.ttf" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Light.woff" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Light.woff2" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Medium.eot" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Medium.ttf" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Medium.woff" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Medium.woff2" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Regular.eot" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Regular.ttf" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Regular.woff" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Regular.woff2" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Thin.eot" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Thin.ttf" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Thin.woff" />
+    <Content Include="Recursos\FrontEnd\font\roboto\Roboto-Thin.woff2" />
+    <Content Include="Recursos\FrontEnd\img\overlays\04.png~ecacfc5c730e25dcad92fe8f4a80cba6c23a4b6b" />
+    <Content Include="Recursos\FrontEnd\img\overlays\04.png~HEAD" />
+    <Content Include="Recursos\FrontEnd\sass\mdb.scss" />
+    <Content Include="Recursos\FrontEnd\sass\style.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\_custom.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_animations.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_badge.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_breadcrumb.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_buttons.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_cards-basic.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_carousel-basic.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_carousels-basic.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_collapse.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_deprecated.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_dropdowns.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_footer.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_forms-basic.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_global.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_helpers.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_hover-effects.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_jumbotron.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_list-group.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_masks.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_modals.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_msc.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_navbar.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_navbars.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_pagination.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_progress.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_roboto.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_tables.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_typography.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\_waves.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\data\_colors.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\data\_functions.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\data\_mixins.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\data\_prefixer.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\data\_variables-b4.scss" />
+    <Content Include="Recursos\FrontEnd\sass\mdb\free\data\_variables.scss" />
+    <Content Include="Views\MasterPages\_layoutEstudiante.cshtml" />
+    <Content Include="Views\Estudiante\Index.cshtml" />
+    <Content Include="Views\Estudiante\MisTareas.cshtml" />
+    <Content Include="Views\Estudiante\PerfilEstudiante.cshtml" />
+    <Content Include="Views\Tareas\DetalleTareaDispo.cshtml" />
+    <Content Include="Views\Principal\PrincipalEstudiante.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50288</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50288/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
