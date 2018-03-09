@@ -40,8 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CalificacionesDAO.cs" />
+    <Compile Include="ClasificacionTarea.cs" />
+    <Compile Include="ConexionDAO.cs" />
+    <Compile Include="EstatusDAO.cs" />
+    <Compile Include="FotosDAO.cs" />
+    <Compile Include="InformacionDAO.cs" />
+    <Compile Include="MensajesDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TareasDAO.cs" />
+    <Compile Include="TipoUsuarioDAO.cs" />
+    <Compile Include="UsuariosDAO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business Object\Business Object.csproj">
+      <Project>{08af3dd8-caa7-4edb-95aa-6b71b3ec191a}</Project>
+      <Name>Business Object</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
