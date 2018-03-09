@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Business_Object
 {
-    public class Class1
+    public class FotosBO
     {
+        public int Codigo { get; set; }
+        public byte[] Imagen { get; set; }
+        public int CodigoTarea { get; set; }
     }
 }
