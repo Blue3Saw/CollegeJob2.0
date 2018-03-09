@@ -208,6 +208,7 @@
     <Content Include="Views\Estudiante\PerfilEstudiante.cshtml" />
     <Content Include="Views\Tareas\DetalleTareaDispo.cshtml" />
     <Content Include="Views\Principal\PrincipalEstudiante.cshtml" />
+    <Content Include="Views\Principal\Principal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -218,6 +219,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business Object\Business Object.csproj">
+      <Project>{08af3dd8-caa7-4edb-95aa-6b71b3ec191a}</Project>
+      <Name>Business Object</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data Access Object\Data Access Object.csproj">
+      <Project>{79408ced-61c7-4558-98dc-8ea7b682b215}</Project>
+      <Name>Data Access Object</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

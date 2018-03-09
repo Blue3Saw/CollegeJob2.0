@@ -1,0 +1,406 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>CollegeJob</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Recursos/FrontEnd/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Material Design Bootstrap -->
+    <link href="~/Recursos/FrontEnd/css/mdb.css" rel="stylesheet" />
+
+    <!--Estilo a parte-->
+    <link href="~/Recursos/FrontEnd/css/stylemdb.css" rel="stylesheet" />
+
+    <link href="~/Recursos/FrontEnd/css/main.css" rel="stylesheet" />
+    <!-- Template styles -->
+</head>
+<body>
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" id="navbar">
+        <a class="navbar-brand" href="#"><strong>CollegeJob</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarContent" style="">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="#">
+                        Inicio
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="#">¿Quiénes somos?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="#">Misión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="#">Visión</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#modalRegistroForm">Registro</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#modalContactForm">Inicio sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!--Modal: Contact form-->
+        <div class="modal-dialog cascading-modal" role="document">
+
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header default-color-dark white-text">
+                    <h4 class="title">
+                        <i class="fa fa-user"></i> Inicio de sesión
+                    </h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("Login", "Principal", new AjaxOptions() { HttpMethod = "POST" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <!-- Material input name -->
+                        <div class="md-form form-sm">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input type="text" id="materialFormNameModalEx1" name="Email" class="form-control form-control-sm" required="required">
+                            <label for="materialFormNameModalEx1">Correo electrónico</label>
+                        </div>
+
+                        <!-- Material input email -->
+                        <div class="md-form form-sm">
+                            <i class="fa fa-lock prefix"></i>
+                            <input type="password" id="materialFormEmailModalEx1" name="Contraseña" class="form-control form-control-sm" required="required">
+                            <label for="materialFormEmailModalEx1">Contraseña</label>
+                        </div>
+
+                        <div class="text-center mt-4 mb-2">
+                            <button class="btn default-color-dark">
+                                Iniciar
+                                <i class="fa fa-send ml-2"></i>
+                            </button>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+
+    <div class="modal fade" id="modalRegistroForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!--Modal: Contact form-->
+        <div class="modal-dialog cascading-modal" role="document">
+
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header default-color-dark white-text">
+                    <h4 class="title">
+                        <i class="fa fa-user"></i> Registro
+                    </h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-user prefix"></i>
+                        <input type="text" id="materialFormNameModalNombre" class="form-control form-control-sm">
+                        <label for="materialFormNameModalNombre">Nombre</label>
+                    </div>
+
+                    <!-- Material input name -->
+                    <div class="md-form form-sm">
+                        <i class="fa fa-envelope-o prefix"></i>
+                        <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm">
+                        <label for="materialFormNameModalEx1">Correo electrónico</label>
+                    </div>
+
+                    <!-- Material input email -->
+                    <div class="md-form form-sm">
+                        <i class="fa fa-lock prefix"></i>
+                        <input type="password" id="materialFormEmailModalEx1" class="form-control form-control-sm">
+                        <label for="materialFormEmailModalEx1">Contraseña</label>
+                    </div>
+
+                    <div class="text-center mt-4 mb-2">
+                        <button class="btn default-color-dark">
+                            Iniciar
+                            <i class="fa fa-send ml-2"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+
+    <div id="carousel-example-3" class="carousel slide carousel-fade white-text" data-ride="carousel" data-interval="false">
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-3" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-3" data-slide-to="1" class=""></li>
+            <li data-target="#carousel-example-3" data-slide-to="2" class=""></li>
+        </ol>
+        <!--/.Indicators-->
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+
+            <!-- First slide -->
+            <div class="carousel-item view hm-black-light active" style="background-image: url('../../Recursos/FrontEnd/img/images/documents.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+                <!-- Caption -->
+                <div class="full-bg-img flex-center white-text mask rgba-black-strong">
+                    <ul class="animated fadeInUp col-md-12">
+                        <li>
+                            <h1 class="display-3 flex-item font-bold">¿Estudias y deseas generar ingresos?</h1>
+                        </li>
+
+                        <li>
+                            <h3 class="my-4">¡Puedes hacerlo!</h3>
+                        </li>
+
+                        <li>
+                            <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-default waves-effect btn-lg flex-item waves-light" rel="nofollow">Registrarme</a>
+
+                            <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-outline-white btn-lg flex-item waves-effect waves-light" rel="nofollow">Ver más</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.Caption -->
+
+            </div>
+            <!-- /.First slide -->
+            <!-- Second slide -->
+            <div class="carousel-item view hm-black-light" style="background-image: url('../../Recursos/FrontEnd/img/images/thinking.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+                <!-- Caption -->
+                <div class="full-bg-img flex-center white-text">
+                    <ul class="animated fadeInUp col-md-12">
+                        <li>
+                            <h1 class="display-4 font-bold">¿Tienes tiempo libre?</h1>
+                        </li>
+                        <li>
+                            <h3 class="my-4">Aprovechalo al máximo ganando dinero</h3>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://mdbootstrap.com/bootstrap-tutorial/" class="btn btn-default waves-effect btn-lg waves-light" rel="nofollow">Ver más</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.Caption -->
+
+            </div>
+            <!-- /.Second slide -->
+            <!-- Third slide -->
+            <div class="carousel-item view hm-black-light" style="background-image: url('../../Recursos/FrontEnd/img/images/library.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+                <!-- Caption -->
+                <div class="full-bg-img flex-center white-text mask rgba-black-strong">
+                    <ul class="animated fadeInUp col-md-12">
+                        <li>
+                            <h1 class="display-4 font-bold">¿Eres bueno en algo?</h1>
+                        </li>
+                        <li>
+                            <h3 class="my-4">Sino lo eres también puedes formar parte de nuestra comunidad</h3>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://mdbootstrap.com/forums/forum/support/" class="btn btn-default waves-effect btn-lg waves-light" rel="nofollow">Support forum</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.Caption -->
+
+            </div>
+            <!-- /.Third slide -->
+
+        </div>
+        <!--/.Slides-->
+        <!--Controls-->
+        <a class="carousel-control-prev" href="#carousel-example-3" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-3" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        <!--/.Controls-->
+    </div>
+
+    <section class="text-center py-5 grey lighten-4" id="about">
+        <div class="container">
+            <div class="wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+                <h2 class="h1 pt-5 pb-3">Why work with us?</h2>
+                <p class="px-5 mb-5 pb-3 lead blue-grey-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam.
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-r wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-name: fadeInUp; animation-delay: 0.3s;">
+                    <i class="fa fa-dashboard fa-3x orange-text"></i>
+                    <h3 class="h4 mt-3">Design</h3>
+                    <p class="mt-3 blue-grey-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti
+                        hic.
+                    </p>
+                </div>
+                <div class="col-md-4 mb-r wow fadeInUp" data-wow-delay=".4s" style="visibility: visible; animation-name: fadeInUp; animation-delay: 0.4s;">
+                    <i class="fa fa-comments-o fa-3x cyan-text"></i>
+                    <h3 class="h4 mt-3">Feedback</h3>
+                    <p class="mt-3 blue-grey-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti
+                        hic.
+                    </p>
+                </div>
+                <div class="col-md-4 mb-r wow fadeInUp" data-wow-delay=".5s" style="visibility: visible; animation-name: fadeInUp; animation-delay: 0.5s;">
+                    <i class="fa fa-cubes fa-3x red-text"></i>
+                    <h3 class="h4 mt-3">Execution</h3>
+                    <p class="mt-3 blue-grey-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti
+                        hic.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url(https://mdbootstrap.com/img/Photos/Others/img%20%2844%29.jpg); height: 600px; background-size: 100% 100%; background-attachment: fixed;">
+        <div class="full-bg-img">
+            <div class="mask rgba-white-light">
+                <div class="container flex-center text-center">
+                    <div class="row mt-5">
+                        <div class="col-md-12 wow fadeIn mb-3">
+                            <h1 class="display-1 mb-2 wow fadeInDown" data-wow-delay="0.3s">NATALIE <a class="indigo-text font-weight-bold">SMITH</a></h1>
+                            <h5 class="text-uppercase mb-3 mt-1 font-weight-bold wow fadeIn" data-wow-delay="0.4s">Web developer & graphic designer</h5>
+                            <a class="btn btn-light-blue btn-lg wow fadeIn" data-wow-delay="0.4s">portfolio</a> <a class="btn btn-indigo btn-lg wow fadeIn" data-wow-delay="0.4s">About me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!--Grid row-->
+        <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-12 text-center mb-3">
+
+                <h1 class="font-weight-bold light-blue-text my-3">Lorem ipsum dolor sit amet, consectetur quis elit.</h1>
+                <p align="justify">Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.</p>
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+    </div>
+
+    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url(https://mdbootstrap.com/img/Photos/Others/food2.jpg); height: 800px; background-attachment: fixed;">
+        <div class="full-bg-img">
+            <div class="mask rgba-pink-slight"></div>
+        </div>
+    </div>
+
+    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url(https://mdbootstrap.com/img/Photos/Others/background.jpg);">
+        <div class="full-bg-img">
+            <div class="mask rgba-purple-slight">
+                <div class="container">
+                    <div class="d-flex align-items-center d-flex justify-content-center" style="height: 700px">
+                        <div class="row mt-5">
+                            <div class="col-md-12 wow fadeIn mb-3">
+                                <div class="intro-info-content text-center">
+                                    <h1 class="display-1 white-text mb-2 wow fadeInDown" data-wow-delay="0.3s">Welcome on my page!</h1>
+                                    <h4 class="mb-3 mt-1 white-text font-weight-bold wow fadeIn" data-wow-delay="0.4s">Lorem ipsum dolor sit amet</h4>
+                                    <a class="btn btn-pink wow fadeIn" data-wow-delay="0.4s">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!--Grid row-->
+        <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-12 text-center my-3">
+
+                <h1 class="font-weight-bold pink-text mb-3">Lorem ipsum dolor sit amet, consectetur quis elit.</h1>
+                <p align="justify">Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.Lorem ipsum dolor sit amet, consectetur quis elit. Perspiciatis commodi porro, cumque provident rem corporis odit, ut quas dolores maxime nesciunt possimus quis, soluta velit debitis amet, veritatis cupiditate reprehenderit.</p>
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+    </div>
+
+    <footer class="page-footer darken-2 center-on-small-only pt-0 mt-0" style="background-color:#2A5C56">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-5 flex-center"><a class="px-3"><i class="fa fa-facebook fa-lg white-text"></i></a><a class="px-3"><i class="fa fa-twitter fa-lg white-text"></i></a><a class="px-3"><i class="fa fa-google-plus fa-lg white-text"></i></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                <p>&copy; <a href="/">CollegeJob</a> - Design: <a href="https://templateflip.com/" target="_blank">mdbootstrap</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/jquery-3.1.1.min.js"></script>
+
+    <!-- Bootstrap dropdown -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/popper.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/mdb.min.js"></script>
+</body>
+</html>
+

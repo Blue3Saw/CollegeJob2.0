@@ -153,7 +153,6 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
-
         public DataTable TablaUsuarios2(string email)
         {
             UsuarioBO Datos = new UsuarioBO();
@@ -164,7 +163,6 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
-
         public int BuscarId(string email)
         {
             UsuarioBO Datos = new UsuarioBO();
@@ -200,6 +198,7 @@ namespace Data_Access_Object
             return Datos;
         }
 
+
         public UsuarioBO PerfilUsuario2(int Codigo)
         {
             UsuarioBO Datos = new UsuarioBO();
@@ -225,7 +224,6 @@ namespace Data_Access_Object
             }
             return Datos;
         }
-
         //contine los datos de los estudiantes
         public DataTable TablaUsuarios3(int id)
         {
@@ -237,6 +235,7 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
+
 
         public int ActualizarUsuario2(object ObjU)
         {
@@ -267,7 +266,6 @@ namespace Data_Access_Object
 
             return valor;
         }
-
         public string BuscarPermiso(UsuarioBO datos)
         {
             sentencia = "select TipoUs from Usuarios where Email='" + datos.Email + "'";
@@ -339,7 +337,6 @@ namespace Data_Access_Object
             valor = int.Parse(tablavirtual.Rows[0][0].ToString());
             return valor;
         }
-
         public int tareasRechazadas()
         {
             sentencia = "SELECT COUNT(Estatus)AS Estudiantes FROM Tareas where Estatus=2";
