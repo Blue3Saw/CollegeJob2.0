@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 using System.Web.Mvc;
 using Business_Object;
 using Data_Access_Object;
@@ -10,6 +11,7 @@ namespace CollegeJob.Controllers
 {
     public class PrincipalController : Controller
     {
+        TareasDAO TareasDAO = new TareasDAO();
         // GET: Principal
         public ActionResult Principal()
         {
@@ -18,6 +20,7 @@ namespace CollegeJob.Controllers
 
         public ActionResult PrincipalEstudiante()
         {
+
             return View();
         }
 
@@ -52,6 +55,10 @@ namespace CollegeJob.Controllers
             }
             else if (ObjUsuario.LoginEstudiante(Datos) > 0)
             {
+                Session["longitud"] = "";
+                Session["Latitud"] = "";
+                Session["km"] = "";
+                Session["Cate"] = "";
                 Session["Permiso"] = ObjUsuario.BuscarPermiso(Datos);
                 Session["Codigo"] = ObjUsuario.LoginEstudiante(Datos);
                 Session["msgadm"] = 2;
@@ -65,5 +72,6 @@ namespace CollegeJob.Controllers
                 return RedirectToAction("Index", "Principal");
             }
         }
+
     }
 }

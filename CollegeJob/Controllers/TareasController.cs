@@ -9,8 +9,10 @@ namespace CollegeJob.Controllers
     public class TareasController : Controller
     {
         // GET: Tareas
+
         public ActionResult Index()
         {
+           
             return View();
         }
 
@@ -19,7 +21,7 @@ namespace CollegeJob.Controllers
             return View();
         }
 
-        public ActionResult DetalleTareaAcep()
+        public ActionResult DetalleTareaAcep(string Codigo)
         {
             return View();
         }
