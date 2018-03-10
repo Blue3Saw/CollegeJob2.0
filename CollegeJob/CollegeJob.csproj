@@ -90,6 +90,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Recursos\BackEnd\css\alertify.core.css" />
+    <Content Include="Recursos\BackEnd\css\alertify.default.css" />
+    <Content Include="Recursos\BackEnd\css\animate.min.css" />
+    <Content Include="Recursos\BackEnd\css\bootstrap.min.css" />
+    <Content Include="Recursos\BackEnd\css\demo.css" />
+    <Content Include="Recursos\BackEnd\css\estilospersonalesmaple.css" />
+    <Content Include="Recursos\BackEnd\css\paper-dashboard.css" />
+    <Content Include="Recursos\BackEnd\css\themify-icons.css" />
+    <Content Include="Recursos\BackEnd\js\alertify.js" />
+    <Content Include="Recursos\BackEnd\js\bootstrap-checkbox-radio.js" />
+    <Content Include="Recursos\BackEnd\js\bootstrap-notify.js" />
+    <Content Include="Recursos\BackEnd\js\bootstrap.min.js" />
+    <Content Include="Recursos\BackEnd\js\chartist.min.js" />
+    <Content Include="Recursos\BackEnd\js\demo.js" />
+    <Content Include="Recursos\BackEnd\js\jquery-1.10.2.js" />
+    <Content Include="Recursos\BackEnd\js\jquery-2.0.3.min.js" />
+    <Content Include="Recursos\BackEnd\js\jquery-3.1.1.min.js" />
+    <Content Include="Recursos\BackEnd\js\mdb.min.js" />
+    <Content Include="Recursos\BackEnd\js\paper-dashboard.js" />
+    <Content Include="Recursos\BackEnd\js\popper.min.js" />
     <Content Include="Recursos\FrontEnd\css\bootstrap.css" />
     <Content Include="Recursos\FrontEnd\css\bootstrap.min.css" />
     <Content Include="Recursos\FrontEnd\css\main.css" />
@@ -209,6 +229,35 @@
     <Content Include="Views\Tareas\DetalleTareaDispo.cshtml" />
     <Content Include="Views\Principal\PrincipalEstudiante.cshtml" />
     <Content Include="Views\Principal\Principal.cshtml" />
+    <Content Include="Views\MasterPages\_layoutAdmin.cshtml" />
+    <Content Include="Recursos\BackEnd\sass\paper-dashboard.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_alerts.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_buttons.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_cards.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_chartist.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_checkbox-radio.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_dropdown.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_footers.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_inputs.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_misc.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_mixins.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_navbars.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_responsive.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_sidebar-and-main-panel.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_tables.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_typography.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\_variables.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_buttons.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_cards.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_chartist.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_icons.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_inputs.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_labels.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_navbars.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_sidebar.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_tabs.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_transparency.scss" />
+    <Content Include="Recursos\BackEnd\sass\paper\mixins\_vendor-prefixes.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

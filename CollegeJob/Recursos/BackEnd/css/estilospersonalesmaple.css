@@ -1,0 +1,37 @@
+﻿body {
+    
+}
+
+.centrar{
+    text-align:center;
+}
+.mayusculas{
+    text-transform:uppercase;
+    font-family: "Tahoma", "Geneva", sans-serif;
+}
+.textotareas{
+overflow:hidden; /* Escondemos la parte sobrante */
+white-space:nowrap; /* Indicamos que no realice salto de linea si no cabe en la anchura indicada */
+text-overflow: ellipsis
+}
+
+.letrasindexusuarios{
+    font-weight:bold;
+}
+.mostar{
+        visibility: hidden !important;
+}
+.modal-backdrop {
+    visibility: hidden !important;
+  z-index: -1;
+}
+
+.carousel-inner img {
+    width: 300px;
+    max-height: 400px;
+}
+
+.carousel-inner{
+ height: 200px;
+}
+
