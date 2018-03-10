@@ -1,4 +1,4 @@
-﻿
+﻿@using System.Data;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/MasterPages/_layoutEstudiante.cshtml";
@@ -13,23 +13,24 @@
     <p class="section-description mb-5 mt-lg-5 mx-lg-5 text-center">
         En este apartado podrás encontrar todas las tareas disponibles que han sido subidos por los empleadores
     </p>
-
+@using (Ajax.BeginForm("ParametrosTareas", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+{
     <p class="section-description text-center">
         <div class="row">
             <div class="col s3">
                 <div class="btn-group">
 
                     <div class="dropdown">
-                        <button class="btn btn-outline-default dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu4">
+                        @*<button class="btn btn-outline-default dropdown-toggle" type="button" id="dropdownMenu4" name="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*@
+                        @Html.DropDownList("categoria", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "btn btn-outline-default dropdown-toggle" })
+                        @*</button>*@
+                        @*<div class="dropdown-menu" aria-labelledby="dropdownMenu4" name="cate">
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
+                        </div>*@
                     </div>
 
                 </div>
@@ -46,125 +47,98 @@
             </div>
 
             <div class="col s2">
-                <input class="range-field" type="number" min="0" max="100" />
+                <input class="range-field" type="number" name="Km" min="0" max="100" />
             </div>
 
             <div class="col s2">
-                <button class="btn btn-outline-default waves-effect">Aceptar</button>
+                <button type="submit" class="btn btn-outline-default waves-effect">Aceptar</button>
             </div>
-
+            <div>
+                <div>
+                    @*Latitud:*@<input type="hidden" id="txtLatitud" name="txtLatitud" />
+                </div>
+                <div>
+                    @*Longitud:*@<input type="hidden" id="txtLongitud" name="txtLongitud" />
+                </div>
+            </div>
         </div>
 
     </p>
-
+}
+    @{
+        int indicador = int.Parse(ViewData["Indicador"].ToString());
+        DataTable tareas = ViewData["Tabla"] as DataTable;
+    }
     <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4">
+       @{
+           foreach (DataRow fila in tareas.Rows)
+           {
+               
+            <div class="col-lg-4 col-md-6 mb-4">
 
-            <!--Card-->
-            <div class="card">
+                <!--Card-->
+                <div class="card">
 
-                <!--Card image-->
-                <div class="view overlay rgba-white-slight">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/images/86.jpg" class="img-fluid" alt="">
-                    <a href="#">
-                        <div class="mask waves-effect waves-light"></div>
-                    </a>
+                    <!--Card image-->
+                    <div class="view overlay rgba-white-slight">
+                        @if (fila["Imagen"].ToString() != "")
+                        {
+                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])fila["Imagen"]);
+                            <img src="@Foto" class="img-fluid" alt="">
+                        }
+                        else
+                        {
+                            <img src="https://mdbootstrap.com/img/Photos/Others/images/86.jpg" class="img-fluid" alt="">
+                        }
+                        <a href="#">
+                            <div class="mask waves-effect waves-light"></div>
+                        </a>
+                    </div>
+
+                    <!--Card content-->
+                    <div class="card-body">
+                        <!--Title-->
+                        <h4 class="card-title">@fila["Titulo"]</h4>
+                        <!--Text-->
+                        <p class="card-text">@fila["Descripcion"]</p>
+                        @if (indicador == 1)
+                        {
+                            <p class="card-text"> Aproximadamente a : @fila["distanciaskm"] KM</p>
+                        }
+                        <a href="~/Tareas/DetalleTarea?Codigo=@fila["Codigo"]" class="btn btn-default waves-effect waves-light">Ver más</a>
+                    </div>
+
                 </div>
-
-                <!--Card content-->
-                <div class="card-body">
-                    <!--Title-->
-                    <h4 class="card-title">Card title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-default waves-effect waves-light">Ver más</a>
-                </div>
+                <!--/.Card-->
 
             </div>
-            <!--/.Card-->
+           }
+    }
 
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-
-            <!--Card-->
-            <div class="card">
-
-                <!--Card image-->
-                <div class="view overlay rgba-white-slight">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/images/86.jpg" class="img-fluid" alt="">
-                    <a href="#">
-                        <div class="mask waves-effect waves-light"></div>
-                    </a>
-                </div>
-
-                <!--Card content-->
-                <div class="card-body">
-                    <!--Title-->
-                    <h4 class="card-title">Card title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-default waves-effect waves-light">Ver más</a>
-                </div>
-
-            </div>
-            <!--/.Card-->
-
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-
-            <!--Card-->
-            <div class="card">
-
-                <!--Card image-->
-                <div class="view overlay rgba-white-slight">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/images/86.jpg" class="img-fluid" alt="">
-                    <a href="#">
-                        <div class="mask waves-effect waves-light"></div>
-                    </a>
-                </div>
-
-                <!--Card content-->
-                <div class="card-body">
-                    <!--Title-->
-                    <h4 class="card-title">Card title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-default waves-effect waves-light">Ver más</a>
-                </div>
-
-            </div>
-            <!--/.Card-->
-
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-
-            <!--Card-->
-            <div class="card">
-
-                <!--Card image-->
-                <div class="view overlay rgba-white-slight">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/images/86.jpg" class="img-fluid" alt="">
-                    <a href="#">
-                        <div class="mask waves-effect waves-light"></div>
-                    </a>
-                </div>
-
-                <!--Card content-->
-                <div class="card-body">
-                    <!--Title-->
-                    <h4 class="card-title">Card title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-default waves-effect waves-light">Ver más</a>
-                </div>
-
-            </div>
-            <!--/.Card-->
-
-        </div>
+        
     </div>
 
 </section>
+
+<script src="~/Recursos/FrontEnd/js/jquery-1.7.1.min.js"></script>
+@*este script sirve para obtner la cooordenadas*@
+<script type="text/javascript">
+    $(document).on("ready", function () {
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 45000
+        };
+        navigator.geolocation.getCurrentPosition(GetPosition, funcionError, options);
+        function GetPosition(posicion) {
+            var latitud = posicion.coords.latitude;
+            var longitud = posicion.coords.longitude;
+            $("#txtLatitud").val(latitud);
+            $("#txtLongitud").val(longitud);
+            GetMap(latitud, longitud);
+        }
+        function funcionError(error) {
+            alert(error.message);
+        }
+
+    })
+</script>
