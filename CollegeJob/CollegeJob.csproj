@@ -45,6 +45,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -149,9 +154,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EstudianteController.cs" />
-    <Compile Include="Controllers\PrincipalController.cs" />
-    <Compile Include="Controllers\TareasController.cs" />
+    <Compile Include="Controllers\BackEnd\AgregarEstudianteController.cs" />
+    <Compile Include="Controllers\BackEnd\AprobarTareaController.cs" />
+    <Compile Include="Controllers\BackEnd\CategoriasYTiposController.cs" />
+    <Compile Include="Controllers\BackEnd\EstatusController.cs" />
+    <Compile Include="Controllers\BackEnd\InformacionController.cs" />
+    <Compile Include="Controllers\BackEnd\MesajesAdmController.cs" />
+    <Compile Include="Controllers\BackEnd\PerfilAdminController.cs" />
+    <Compile Include="Controllers\BackEnd\ReportesController.cs" />
+    <Compile Include="Controllers\FrontEnd\EstudianteController.cs" />
+    <Compile Include="Controllers\FrontEnd\PrincipalController.cs" />
+    <Compile Include="Controllers\FrontEnd\TareasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -260,6 +273,7 @@
     <Content Include="Recursos\BackEnd\sass\paper\mixins\_tabs.scss" />
     <Content Include="Recursos\BackEnd\sass\paper\mixins\_transparency.scss" />
     <Content Include="Recursos\BackEnd\sass\paper\mixins\_vendor-prefixes.scss" />
+    <Content Include="Views\AgregarEstudiante\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -270,6 +284,13 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\AprobarTarea\" />
+    <Folder Include="Views\CategoriasYTipos\" />
+    <Folder Include="Views\Estatus\" />
+    <Folder Include="Views\Informacion\" />
+    <Folder Include="Views\MesajesAdm\" />
+    <Folder Include="Views\PerfilAdmin\" />
+    <Folder Include="Views\Reportes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business Object\Business Object.csproj">

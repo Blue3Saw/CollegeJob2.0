@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Business_Object;
+using Data_Access_Object;
+
+namespace CollegeJob.Controllers.BackEnd
+{
+    public class AprobarTareaController : Controller
+    {
+        TareasDAO dao = new TareasDAO();
+        // GET: AprobarTarea
+        public ActionResult Index()
+        {
+            return View(dao.TodasTareas2());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DatosTarea(string boton)
+        {
+            int dato = int.Parse(boton);
+            return View(dao.TablaTareas2(dato));
+        }
+
+        [HttpPost]
+        public ActionResult Aprobar(string codigo, string boton1, string boton2)
+        {
+            TareasBO bo = new TareasBO();
+
+            if (boton1 == "1")
+            {
+                bo.CodigoEstatus = 1;
+                bo.Codigo = int.Parse(codigo);
+                int TarAcep = dao.EliminarTarea(bo);
+                Session["TarAcep"] = TarAcep;
+                ViewBag.TarAcep = Session["TarAcep"];
+            }
+            if (boton2 == "2")
+            {
+                bo.CodigoEstatus = 2;
+                bo.Codigo = int.Parse(codigo);
+                int TarElim = dao.EliminarTarea(bo);
+                Session["TarElim"] = TarElim;
+                ViewBag.TarElim = Session["TarElim"];
+            }
+            Index();
+            return View("Index");
+        }
+    }
+}

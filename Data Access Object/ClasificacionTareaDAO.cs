@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace Data_Access_Object
 {
-    public class ClasificacionTarea
+    public class ClasificacionTareaDAO
     {
         ConexionDAO Conex = new ConexionDAO();
 

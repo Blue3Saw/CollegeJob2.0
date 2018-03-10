@@ -1,0 +1,201 @@
+﻿@using Business_Object;
+@model UsuarioBO
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/MasterPages/_layoutAdmin.cshtml";
+}
+
+<div class="content letrasindexusuarios">
+    <div class="container-fluid card">
+        <h2>Agregar Usuarios</h2>
+        @using (Ajax.BeginForm("AgregarUsuario", "AgregarEstudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @*<div class="row">
+                    <div class="col-md-3">
+                        <h5>ID</h5>
+                        <div>
+                            <input type="text" class="form-control  border-input" name="ID" placeholder="ID" value="" />
+                        </div>
+                    </div>
+                </div>*@
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nombre:</h5>
+                    <div>
+                        <input type="text" class="form-control  border-input" name="Nombre" placeholder="Nombre" required="required" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Apellidos:</h5>
+                    <div>
+                        <input type="text" class="form-control  border-input" name="Apellidos" placeholder="Apellidos" required="required" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Fecha de Nacimiento:</h5>
+                    <div>
+                        <input type="date" name="cumpleanios" step="1" min="1960-01-01" max="2013-12-31" class="form-control  border-input" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="col-md-4">
+                        <h5>Correo Electronico:</h5>
+                        <div>
+                            <input type="email" class="form-control  border-input" name="Email" placeholder="Email" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Contraseña:</h5>
+                        <div>
+                            <input type="text" class="form-control  border-input" name="Contraseña" placeholder="Contraseña" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Imagen:</h5>
+                        <div>
+                            <input type="file" multiple class="form-control  border-input" name="Imagen" accept=".png, .jpg, .jpeg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="col-md-4">
+                        <h5>Tipo:</h5>
+                        <div>
+                            <select name="Tipo" class="form-control  border-input">
+                                <option value="1">Administrador</option>
+                                <option value="2">Empleador</option>
+                                <option value="3">Estudiante</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Dirreccion:</h5>
+                        <div>
+                            <input type="text" class="form-control  border-input" name="dirreccion" placeholder="Contraseña" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Telefono:</h5>
+                        <div>
+                            <input type="tel" pattern="[0-9]{10}" class="form-control  border-input" name="Telefono" placeholder="Telefono" required="required" onkeypress="return valida(event)" maxlength="10" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div>
+                    <button type="submit" class="btn btn-success" name="agregar" value="1" onclick="alerta()">Agregar</button>
+                </div>
+            </div>
+        }
+
+        @using (Ajax.BeginForm("ReporteUsuarios", "Reportes", new AjaxOptions() { HttpMethod = "POST" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success">Reportes</button>
+            </div>
+        }
+
+        @*<div class="row">
+                <div class="col-lg-12">
+                    <div>
+                        <input type="button" id="btn1" value="tabla" onclick="tabla()" />
+                    </div>
+                </div>
+            </div>
+            @ViewBag.Script*@
+    </div>
+</div>
+
+
+
+<div class="content">
+    <div class="container-fluid card">
+        @using (Ajax.BeginForm("datostabla", "AgregarEstudiante", new AjaxOptions() { HttpMethod = "POST" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <h2>Buscar Datos del Usuario</h2>
+            <div class="row centrar">
+                <div class="col-lg-4">
+                    <input type="text" class="form-control  border-input" name="Buscar" placeholder="Buscar" required="required" />
+                </div>
+                <div class="col-lg-4">
+                    <input type="submit" value="Buscar" class="btn btn-success" />
+                </div>
+                <div class="col-lg-4">
+                    <input type="button" id="btn1" class="btn btn-success" value="Mostar tabla" onclick="tabla()" />
+                </div>
+            </div>
+            <div class="row">
+                <div id="Tablausuarios" class="col-sm-12">
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+<div class="content letrasindexusuarios">
+    <div @*class="container-fluid card"*@>
+        <div class="row">
+            <div id="dato"></div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Agregar != null)
+{
+    <script>
+        window.onload = function () {
+            swal('Correcto', 'Se agregó correctamente el nuevo usuario', 'success')
+        }
+    </script>
+}
+
+<script src="@Url.Content("~/Recursos/BackEnd/js/jquery-2.0.3.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    function tabla() {
+        $('#Tablausuarios').load('/AgregarEstudiante/mostartabla');
+    }
+    function datos() {
+        $('#dato').load('/AgregarEstudiante/EditarDatos');
+    }
+</script>
+<script type="text/javascript">
+    function ocultar() {
+        document.getElementById('lol').style.display = 'none';
+    }
+</script>
+<script>
+    function valida(e) {
+        tecla = (document.all) ? e.keyCode : e.which;
+
+        //Tecla de retroceso para borrar, siempre la permite
+        if (tecla == 8) {
+            return true;
+        }
+
+        // Patron de entrada, en este caso solo acepta numeros
+        patron = /[0-9]/;
+        tecla_final = String.fromCharCode(tecla);
+        return patron.test(tecla_final);
+    }
+</script>
+

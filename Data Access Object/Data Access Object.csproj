@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalificacionesDAO.cs" />
-    <Compile Include="ClasificacionTarea.cs" />
+    <Compile Include="ClasificacionTareaDAO.cs" />
     <Compile Include="ConexionDAO.cs" />
     <Compile Include="EstatusDAO.cs" />
     <Compile Include="FotosDAO.cs" />

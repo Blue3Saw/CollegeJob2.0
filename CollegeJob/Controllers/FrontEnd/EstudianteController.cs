@@ -66,9 +66,6 @@ namespace CollegeJob.Controllers
             return View("Index");
         }
 
-
-
-
         //metodo para obtner las distancias
         public DataTable calculardistanciatareas(double logitud, double latitud, double Km, string categoria)
         {
@@ -99,7 +96,6 @@ namespace CollegeJob.Controllers
             distancias.Columns.Add("Clasificacion");
             distancias.Columns.Add("Nombre");
             distancias.Columns.Add("Imagen");
-
 
             foreach (DataRow row in coordenadas.Rows)
             {
