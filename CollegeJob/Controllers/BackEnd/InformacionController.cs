@@ -81,7 +81,7 @@ namespace CollegeJob.Controllers.BackEnd
         {
             ViewData["Empleador"] = usuarios.Empleadores();
             ViewData["Estudiante"] = usuarios.Estudiantes();
-            ViewData["Mensajes"] = usuarios.MensajesSinleer(int.Parse(Session["Codigo"].ToString()));
+            //ViewData["Mensajes"] = usuarios.MensajesSinleer(int.Parse(Session["Codigo"].ToString()));
             ViewData["TareasEjecucion"] = usuarios.tareasEnjecucion();
             ViewData["TareasPorAceptar"] = usuarios.tareasverificar();
             ViewData["TareasRechazadas"] = usuarios.tareasRechazadas();
