@@ -147,6 +147,7 @@
     <Content Include="Recursos\FrontEnd\js\jquery-3.1.1.min.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-3.2.1.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-3.2.1.min.js" />
+    <Content Include="Recursos\FrontEnd\js\locationpicker.jquery.js" />
     <Content Include="Recursos\FrontEnd\js\mdb.js" />
     <Content Include="Recursos\FrontEnd\js\mdb.min.js" />
     <Content Include="Recursos\FrontEnd\js\popper.min.js" />
