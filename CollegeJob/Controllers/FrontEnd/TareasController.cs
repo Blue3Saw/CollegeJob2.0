@@ -25,5 +25,10 @@ namespace CollegeJob.Controllers
         {
             return View();
         }
+
+        public ActionResult AgregarTarea()
+        {
+            return View();
+        }
     }
 }

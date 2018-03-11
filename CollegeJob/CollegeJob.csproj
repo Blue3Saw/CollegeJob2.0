@@ -287,6 +287,8 @@
     <Content Include="Views\Informacion\PaginaPrincipal.cshtml" />
     <Content Include="Views\MesajesAdm\Index.cshtml" />
     <Content Include="Views\PerfilAdmin\DatosPerfil.cshtml" />
+    <Content Include="Views\MasterPages\_layoutEmpleador.cshtml" />
+    <Content Include="Views\Tareas\AgregarTarea.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

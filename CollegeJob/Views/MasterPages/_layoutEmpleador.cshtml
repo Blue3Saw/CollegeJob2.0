@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>CollegeJob-Estudiante</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Recursos/FrontEnd/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Material Design Bootstrap -->
+    <link href="~/Recursos/FrontEnd/css/mdb.css" rel="stylesheet" />
+
+    <!--Estilo a parte-->
+    <link href="~/Recursos/FrontEnd/css/stylemdb.css" rel="stylesheet" />
+    <!-- Template styles -->
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#2A5C56">
+        <a class="navbar-brand" href="#" style="font-size: 32px">CollegeJob</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-3">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href=@Url.Action("Index", "Estudiante") class="nav-link waves-effect waves-light" href="#">
+                        Inicio
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href=@Url.Action("MisTareas", "Estudiante") class="nav-link waves-effect waves-light" href="#">Nueva</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="#">Mensajes</a>
+                </li>
+                <li class="nav-item">
+                    <a href=@Url.Action("PerfilEstudiante", "Estudiante") class="nav-link waves-effect waves-light" href="#">Perfil</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" id="navbarDropdownMenuLink">
+                        <i class="fa fa-user"></i> Cerrar sesión
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar-->
+
+    <div style="height:40px;"></div>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/jquery-3.1.1.min.js"></script>
+
+    <!-- Bootstrap dropdown -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/popper.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/mdb.min.js"></script>
+
+    <script>
+        new WOW().init();
+    </script>
+
+    <footer class="page-footer darken-2 center-on-small-only pt-0 mt-0" style="background-color:#2A5C56">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-5 flex-center"><a class="px-3"><i class="fa fa-facebook fa-lg white-text"></i></a><a class="px-3"><i class="fa fa-twitter fa-lg white-text"></i></a><a class="px-3"><i class="fa fa-google-plus fa-lg white-text"></i></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                <p>&copy; <a href="/">CollegeJob</a> - Design: <a href="https://templateflip.com/" target="_blank">mdbootstrap</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
