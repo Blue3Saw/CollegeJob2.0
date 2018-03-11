@@ -1,0 +1,26 @@
+﻿@using System.Data;
+@model DataTable
+
+<div class="content table-responsive table-full-width col-lg-6">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Rows)
+            {
+                <tr id="fila_@row["Codigo"]">
+                    <td>@row["Codigo"]</td>
+                    <td>@row["Clasificacion"]</td>
+                    <td>
+                        @Html.ActionLink("Eliminar", "Eliminar", "CategoriasYTipos", new { id = @row["Codigo"] }, null)
+                        <div onclick="categor()" style="cursor:pointer">Actualizar</div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

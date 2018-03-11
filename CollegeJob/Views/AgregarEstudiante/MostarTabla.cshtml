@@ -1,0 +1,45 @@
+﻿@using System.Data;
+@model DataTable
+
+<div class="table-responsive">
+    <table class="table-condensed">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th class="textotareas">Ubicacion</th>
+                <th>Fecha</th>
+                <th>Telefono</th>
+                <th class="textotareas">Email</th>
+                <th class="textotareas">Contraseña</th>
+                <th>TipoUs</th>
+                <th>Estatus</th>
+                <th class="textotareas">Imagen</th>
+                <th>Aciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Rows)
+            {
+                <tr id="fila_@row["Codigo"]">
+                    <td>@row["Codigo"]</td>
+                    <td>@row["Nombre"]</td>
+                    <td>@row["Apellidos"]</td>
+                    <td>@row["Direccion"]</td>
+                    <td>@row["FechaNac"]</td>
+                    <td>@row["Telefono"]</td>
+                    <td>@row["Email"]</td>
+                    <td>@row["Contraseña"]</td>
+                    <td>@row["TipoUs"]</td>
+                    <td>@row["Estatus"]</td>
+                    <td>@row["Imagen"]</td>
+                    <td>
+                        @Html.ActionLink("Eliminar", "Eliminar", "AgregarEstudiante", new { id = @row["Codigo"] }, null)
+                        <input type="button" id="btn1" value="tabla" onclick="datos(), ocultar()" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

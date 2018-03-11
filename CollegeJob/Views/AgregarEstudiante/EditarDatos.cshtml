@@ -1,0 +1,119 @@
+﻿@using System.Data;
+@model DataTable
+
+@using (Ajax.BeginForm("Actualizar", "AgregarEstudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid card">
+        @foreach (DataRow row in Model.Rows)
+        {
+            <h2>Editar Usuarios</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>ID:</h5>
+                    <div>
+                        <input type="text" class="form-control border-input" name="ID" placeholder="ID" value="@row["Codigo"]" readonly="readonly" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nombre:</h5>
+                    <div>
+                        <input type="text" class="form-control border-input" name="Nombre" placeholder="Nombre" value="@row["Nombre"]" required="required" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Apellidos:</h5>
+                    <div>
+                        <input type="text" class="form-control border-input" name="Apellidos" placeholder="Apellidos" value="@row["Apellidos"]" required="required" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Fecha de Nacimiento:</h5>
+                    <div>
+                        <input type="text" class="form-control border-input" name="FechaNac" placeholder="FechaNac" value="@row["FechaNac"]" readonly="readonly" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="col-md-4">
+                        <h5>Correo Electronico:</h5>
+                        <div>
+                            <input type="text" class="form-control border-input" name="Correo" placeholder="Correo" value="@row["Email"]" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Contraseña:</h5>
+                        <div>
+                            <input type="text" class="form-control border-input" name="Contraseña" placeholder="Contraseña" value="@row["Contraseña"]" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Imagen:</h5>
+                        <div>
+                            <input type="hidden" class="form-control border-input" name="img" placeholder="img" value="@row["Imagen"]" readonly="readonly" />
+                            <input type="file" class="form-control border-input" name="Imagen" placeholder="Imagen" value="@row["Imagen"]" accept=".png, .jpg, .jpeg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="col-md-4">
+                        <h5>Tipo:</h5>
+                        <div>
+                            <select name="Tipo" class="form-control  border-input">
+                                <option value="1">Administrador</option>
+                                <option value="2">Empleador</option>
+                                <option value="3">Estudiante</option>
+                            </select>
+                            <input type="hidden" class="form-control border-input" name="Tipo2" placeholder="img" value="@row["TipoUs"]" readonly="readonly" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Dirreccion:</h5>
+                        <div>
+                            <input type="text" class="form-control  border-input" name="dirreccion" placeholder="Dirreccion" required="required" value="@row["Direccion"]" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Telefono:</h5>
+                        <div>
+                            <input type="tel" class="form-control border-input" name="Telefono" placeholder="Telefono" value="@row["Telefono"]" onkeypress="return valida(event)" , maxlength="10" pattern="[0-9]{10}" required="required" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <button class="btn btn-info" name="actualizar" value="2">ACTUALIZAR</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@if (ViewBag.Actualizar != null)
+{
+    <script>
+        window.onload = function () {
+            swal('Correcto', 'Datos actualizados correctamente.', 'success')
+        }
+    </script>
+}

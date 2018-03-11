@@ -1,0 +1,66 @@
+﻿@using System.Data;
+@model DataTable
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/MasterPages/_layoutAdmin.cshtml";
+}
+
+<div class="content">
+<div class="container-fluid">
+    @using (Ajax.BeginForm("DatosTarea", "AprobarTarea", new AjaxOptions() { HttpMethod = "POST" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            @foreach (DataRow row in Model.Rows)
+            {
+                <div class="col-md-4">
+                    <div class="thumbnails">
+                        <div class="span4">
+                            <div class="thumbnail">
+                                <img class="img-thumbnail" src="~/Recursos/BackEnd/img/descarga.jpg" />
+                                <div class="caption">
+                                    <h3>@row["Titulo"]</h3>
+                                    <p class="textotareas">@row["Descripcion"]</p>
+                                    <div>
+                                        <h6>@row["Empleador"]</h6>
+                                    </div>
+                                    <button type="submit" class="btn btn-success" name="boton" value="@row["Codigo"]">Visualizar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    @using (Ajax.BeginForm("ReporteTareas", "Reportes", new AjaxOptions() { HttpMethod = "POST" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-success">Reportes</button>
+        </div>
+    }
+</div>
+</div>
+
+@if (ViewBag.TarAcep != null)
+{
+    <script>
+        window.onload = function () {
+            swal('Correcto', 'Haz aprobado la tarea.', 'success')
+        }
+    </script>
+}
+
+@if (ViewBag.TarElim != null)
+{
+    <script>
+        window.onload = function () {
+            swal('Denegado', 'Haz denegado la tarea', 'error')
+        }
+    </script>
+}
+

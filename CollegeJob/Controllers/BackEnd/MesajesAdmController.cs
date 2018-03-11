@@ -18,13 +18,6 @@ namespace CollegeJob.Controllers.BackEnd
             return View(objMensajes.MostarMensajes(int.Parse(Session["Codigo"].ToString())));
         }
 
-
-        public ActionResult lol()
-        {
-            Session["idme"] = 1012;
-            return View(objMensajes.MostarMensajes(int.Parse(Session["idme"].ToString())));
-        }
-
         [HttpPost]
         public ActionResult enviar(string nombre, string Titulo, string Mensaje, string id)
         {

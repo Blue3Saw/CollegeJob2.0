@@ -274,6 +274,19 @@
     <Content Include="Recursos\BackEnd\sass\paper\mixins\_transparency.scss" />
     <Content Include="Recursos\BackEnd\sass\paper\mixins\_vendor-prefixes.scss" />
     <Content Include="Views\AgregarEstudiante\Index.cshtml" />
+    <Content Include="Views\AgregarEstudiante\MostarTabla.cshtml" />
+    <Content Include="Views\AgregarEstudiante\EditarDatos.cshtml" />
+    <Content Include="Views\AprobarTarea\DatosTarea.cshtml" />
+    <Content Include="Views\AprobarTarea\Index.cshtml" />
+    <Content Include="Views\CategoriasYTipos\actualizarcategoria.cshtml" />
+    <Content Include="Views\CategoriasYTipos\AgregarCategoria.cshtml" />
+    <Content Include="Views\CategoriasYTipos\TablaActualizarCategoria.cshtml" />
+    <Content Include="Views\CategoriasYTipos\tablacategorias.cshtml" />
+    <Content Include="Views\CategoriasYTipos\tablausuarios.cshtml" />
+    <Content Include="Views\Informacion\Index.cshtml" />
+    <Content Include="Views\Informacion\PaginaPrincipal.cshtml" />
+    <Content Include="Views\MesajesAdm\Index.cshtml" />
+    <Content Include="Views\PerfilAdmin\DatosPerfil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -284,12 +297,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\AprobarTarea\" />
-    <Folder Include="Views\CategoriasYTipos\" />
     <Folder Include="Views\Estatus\" />
-    <Folder Include="Views\Informacion\" />
-    <Folder Include="Views\MesajesAdm\" />
-    <Folder Include="Views\PerfilAdmin\" />
     <Folder Include="Views\Reportes\" />
   </ItemGroup>
   <ItemGroup>
