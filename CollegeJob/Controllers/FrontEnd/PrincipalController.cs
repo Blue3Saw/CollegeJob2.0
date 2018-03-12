@@ -15,6 +15,9 @@ namespace CollegeJob.Controllers
         // GET: Principal
         public ActionResult Principal()
         {
+            InformacionDAO Info = new InformacionDAO();
+            ViewBag.Codigo = Session["Codigo"];
+            ViewBag.Informacion = Info.Datos();
             return View();
         }
 
