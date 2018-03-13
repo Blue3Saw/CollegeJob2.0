@@ -1,5 +1,4 @@
-﻿@using System.Data;
-@model DataTable
+﻿
 @{
     ViewBag.Title = "PerfilEstudiante";
     Layout = "~/Views/MasterPages/_layoutEstudiante.cshtml";
@@ -49,8 +48,6 @@
         En este apartado podrás encontrar y cambiar la información de tu perfil
     </p>
     <div class="row">
-@*@foreach (DataRow row in Model.Rows)
-{*@
         <div class="col-sm-4">
             <!--Card-->
             <div class="card testimonial-card">
@@ -123,7 +120,7 @@
                     </div>
 
                     <div class="text-center py-4 mt-3">
-                        <button class="btn btn-outline-default waves-effect" type="submit" id="notificationButton">Confirmar cambios</button>
+                        <button class="btn btn-outline-default waves-effect" type="submit">Confirmar cambios</button>
                     </div>
                     <!-- Material form register -->
 
@@ -132,43 +129,8 @@
 
             </div>
             <!-- Card -->
-            <button id="buttonP">Dar Permisos</button>
-            <button id="buttonN">Lanzar notificación</button>
+
         </div>
-@*}*@
+
     </div>
 </section>
-
-
-<script>
-    var btnNotificacion = document.getElementById("buttonN"),
-    btnPermiso = document.getElementById("buttonP")
-    titulo = "Fili Santillán",
-    opciones = {
-        icon: "/Recursos/FrontEnd/img/images/library.jpg",
-        body: "Notificación de prueba",
-        url: 'https://www.jasoft.org/Blog/post/Mostrando-notificaciones-desde-el-navegador-con-HTML5.aspx'
-    };
-    function permiso() {
-        Notification.requestPermission();
-    };
-
-    function mostrarNotificacion() {
-        if (Notification) {
-            if (Notification.permission == "granted") {
-                var n = new Notification(titulo, opciones);
-            }
-
-            else if (Notification.permission == "default") {
-                alert("Primero da los permisos de notificación");
-            }
-
-            else {
-                alert("Bloqueaste los permisos de notificación");
-            }
-        }
-    };
-
-    btnPermiso.addEventListener("click", permiso);
-    btnNotificacion.addEventListener("click", mostrarNotificacion);
-</script>

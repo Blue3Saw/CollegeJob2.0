@@ -1,5 +1,4 @@
-﻿@using System.Data;
-@model DataTable
+﻿
 @{
     ViewBag.Title = "MisTareas";
     Layout = "~/Views/MasterPages/_layoutEstudiante.cshtml";
@@ -16,48 +15,79 @@
     </p>
 
     <div class="row">
-       @foreach (DataRow item in Model.Rows)
-       {
-        <div class="col-md-12">
-@using (Ajax.BeginForm("TerminarTareaEstudiante", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
-{
+        <div class="col-xs-12">
             <div class="card">
                 <div class="row">
                     <div class="col-lg-4">
-                        @if (item["Imagen"].ToString() != "")
-                        {
-                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])item["Imagen"]);
-                            <img src="@Foto" alt="" class="img-fluid">
-                        }
-                        else
-                        {
-                            <img src="https://i.ytimg.com/vi/-bysikWgkm4/maxresdefault.jpg" alt="" class="img-fluid">
-                        }
+                        <img src="https://i.ytimg.com/vi/-bysikWgkm4/maxresdefault.jpg" alt="" class="img-fluid">
                     </div>
                     <div class="col-lg-8">
                         <div class="card-body text-center">
-                            <h4 class="color-royal">@item["Titulo"]</h4>
-                            <p>@item["Descripcion"]</p>
-                            <p>Fecha: @item["Fecha"]</p>
-                            <input type="hidden" name="Tarea" value="@item["Codigo"]" />
+                            <h4 class="color-royal">Lorem ipsum dolor sit</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam sed labore autem nesciunt ea veniam recusandae necessitatibus reprehenderit.</p>
                             <button type="button" class="btn btn-outline-default waves-effect waves-light">
                                 <i class="fa fa-envelope-o left"></i>
                                 <span>Mensaje</span>
                             </button>
-                            <a href="/Tareas/DetalleTareaDispo?Codigo=@item["Codigo"]" class="btn btn-outline-default waves-effect">
+                            <a href="javascript:void(0)" class="btn btn-outline-default waves-effect">
                                 <i class="fa fa-plus-square left"></i> Ver más
                             </a>
-                            <button type="submit" class="btn btn-outline-default waves-effect waves-light">
-                                <i class="fa fa-close"></i>
-                                <span>Terminar</span>
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-}
         </div>
-       }
 
+        <hr class="dashed" />
+
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img src="https://i.ytimg.com/vi/-bysikWgkm4/maxresdefault.jpg" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card-body text-center">
+                            <h4 class="color-royal">Lorem ipsum dolor sit</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam sed labore autem nesciunt ea veniam recusandae necessitatibus reprehenderit.</p>
+                            <button type="button" class="btn btn-outline-default waves-effect waves-light">
+                                <i class="fa fa-envelope-o left"></i>
+                                <span>Mensaje</span>
+                            </button>
+                            <a href="javascript:void(0)" class="btn btn-outline-default waves-effect">
+                                <i class="fa fa-plus-square left"></i> Ver más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="dashed" />
+
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img src="https://i.ytimg.com/vi/-bysikWgkm4/maxresdefault.jpg" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card-body text-center">
+                            <h4 class="color-royal">Lorem ipsum dolor sit</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam sed labore autem nesciunt ea veniam recusandae necessitatibus reprehenderit.</p>
+                            <button type="button" class="btn btn-outline-default waves-effect waves-light">
+                                <i class="fa fa-envelope-o left"></i>
+                                <span>Mensaje</span>
+                            </button>
+                            <a href="javascript:void(0)" class="btn btn-outline-default waves-effect">
+                                <i class="fa fa-plus-square left"></i> Ver más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="dashed" />
     </div>
 </section>
