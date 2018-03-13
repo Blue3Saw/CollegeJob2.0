@@ -16,8 +16,8 @@
     </p>
 
     <div class="row">
-       @foreach (DataRow item in Model.Rows)
-       {
+@foreach (DataRow item in Model.Rows)
+{
         <div class="col-md-12">
 @using (Ajax.BeginForm("TerminarTareaEstudiante", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
 {
@@ -40,7 +40,7 @@
                             <p>@item["Descripcion"]</p>
                             <p>Fecha: @item["Fecha"]</p>
                             <input type="hidden" name="Tarea" value="@item["Codigo"]" />
-                            <button type="button" class="btn btn-outline-default waves-effect waves-light">
+                            <button type="button" class="btn btn-outline-default waves-effect waves-light" data-toggle="modal" data-target="#@item["Codigo"]">
                                 <i class="fa fa-envelope-o left"></i>
                                 <span>Mensaje</span>
                             </button>
@@ -56,6 +56,59 @@
                 </div>
             </div>
 }
+@using (Ajax.BeginForm("EnviarMensaje", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }))
+{
+    //inicio del modal de los mensajes
+    <div class="modal fade" id="@item["Codigo"]" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!--Modal: Contact form-->
+        <div class="modal-dialog cascading-modal" role="document">
+
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header default-color-dark white-text">
+                    <h4 class="title">
+                        <i class="fa fa-envelope prefix"></i> Enviar Mensaje
+                    </h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <!-- Material input name -->
+                    <div class="md-form form-sm">
+                        <i class="fa fa-user">    Para: @item["Nombre"]
+                        </i>
+                    </div>
+                    <div class="md-form form-sm">
+                        <i class="fa fa-user prefix"></i>
+                        <input type="text" id="materialFormNameModalNombre" class="form-control form-control-sm" name="Titulo">
+                        <label for="materialFormNameModalNombre">Titulo</label>
+                    </div>
+
+                    <!-- Material input email -->
+                    <div class="md-form form-sm">
+                        <i class="fa fa-lock prefix"></i>
+                        <textarea class="form-control form-control-sm" name="Mensaje" id="materialFormEmailModalEx1" required="required"></textarea>
+                        <label for="materialFormEmailModalEx1">Mesaje</label>
+                    </div>
+
+                    <div class="text-center mt-4 mb-2">
+                        <button  type="submit" class="btn default-color-dark" name="Codigo" value="@item["UsuarioEmpleador"]">
+                            Enviar
+                            <i class="fa fa-send ml-2"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+    }
         </div>
        }
 

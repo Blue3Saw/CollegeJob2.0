@@ -31,20 +31,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-3">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href=@Url.Action("Index", "Estudiante") class="nav-link waves-effect waves-light" href="#">
+                    <a href=@Url.Action("Index", "Empleador") class="nav-link waves-effect waves-light" href="#">
                         Inicio
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href=@Url.Action("MisTareas", "Estudiante") class="nav-link waves-effect waves-light" href="#">Nueva</a>
+                    <a href=@Url.Action("AgregarTarea", "Tareas") class="nav-link waves-effect waves-light" href="#">Nueva</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#">Mensajes</a>
+                    <a  href=@Url.Action("Mensajes", "Empleador") class="nav-link waves-effect waves-light" href="#">Mensajes</a>
                 </li>
                 <li class="nav-item">
-                    <a href=@Url.Action("PerfilEstudiante", "Estudiante") class="nav-link waves-effect waves-light" href="#">Perfil</a>
+                    <a href=@Url.Action("Perfil", "Empleador") class="nav-link waves-effect waves-light" href="#">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a href=@Url.Action("Notificaciones", "Empleador") class="nav-link waves-effect waves-light" href="#">Notificaciones</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
@@ -97,3 +100,25 @@
     </footer>
 </body>
 </html>
+<script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyBSXxq36QGkz0tczm7l3soE77raxPCbDb8'></script>
+<script src="~/Recursos/FrontEnd/js/locationpicker.jquery.js"></script>
+<script>
+    $('#MapPreview').locationpicker({
+        radius: 0,
+        location: {
+            latitude: 20.938297181414647,
+            longitude: -89.61501516379462
+        },
+        enableAutocomplete: true,
+        inputBinding: {
+            latitudeInput: $('#Latitud'),
+            longitudeInput: $('#Longitud'),
+            locationNameInput: $('#Direccion')
+        },
+        onchanged: function (currentLocation, radius, isMarkerDropped) {
+            $('#ubicacion').html($('#Direccion').val())
+
+        }
+
+    })
+</script>

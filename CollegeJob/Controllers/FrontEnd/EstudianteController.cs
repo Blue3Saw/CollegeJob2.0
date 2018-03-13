@@ -15,6 +15,8 @@ namespace CollegeJob.Controllers
     {
         TareasDAO tareasdao = new TareasDAO();
         UsuariosDAO usuarioDAO = new UsuariosDAO();
+        MensajesBO bo = new MensajesBO();
+        MensajesDAO objMensajes = new MensajesDAO();
         // GET: Principal
 
         public ActionResult Index()
@@ -255,6 +257,20 @@ namespace CollegeJob.Controllers
             Cliente.Credentials = new NetworkCredential("collegeJobSGM@gmail.com", "SGM123456");
 
             Cliente.Send(Correo);
+        }
+
+
+        public ActionResult EnviarMensaje(string Mensaje,string Titulo,string Codigo)
+        {
+            bo.HoraFecha = DateTime.Now;
+            bo.Mensaje = Mensaje;
+            bo.UsRecibe = int.Parse(Codigo);
+            bo.UsEnvia = int.Parse(Session["Codigo"].ToString());
+            //bo.idmensaje = int.Parse(id);
+            bo.Titulo = Titulo;
+            objMensajes.ActualizarEstatus(bo);
+            objMensajes.AgregarMensaje(bo);
+            return Redirect("~/Estudiante/MisTareas");
         }
 
     }
