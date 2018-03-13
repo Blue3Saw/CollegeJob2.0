@@ -29,8 +29,6 @@
     <link href="~/Recursos/FrontEnd/css/stylemdb.css" rel="stylesheet" />
 
     <link href="~/Recursos/FrontEnd/css/main.css" rel="stylesheet" />
-
-    <link href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled.min.css?ver=4.4.0" rel="stylesheet" />
     <!-- Template styles -->
 </head>
 <body>
@@ -40,7 +38,7 @@
         <div class="collapse navbar-collapse" id="navbarContent" style="">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#Quienes">¿Quiénes somos?</a>
+                    <a class="nav-link waves-effect waves-light" href="#">¿Quiénes somos?</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link waves-effect waves-light" href="#">Misión</a>
@@ -222,7 +220,7 @@
                 <div class="full-bg-img flex-center white-text">
                     <ul class="animated fadeInUp col-md-12">
                         <li>
-                            <h1 class="display-4 font-bold">¿Tienes algún pendiente?</h1>
+                            <h1 class="display-4 font-bold">¿Tienes alguún pendiente?</h1>
                         </li>
                         <li>
                             <h3 class="my-4">Pero estás ocupado o simplemente no quieres hacerlo</h3>
@@ -250,11 +248,6 @@
                         <li>
                             <h3 class="my-4">Si respondiste sí a cualquier pregunta anterior la solución es CollegeJob</h3>
                         </li>
-                        <li>
-                            <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-default waves-effect btn-lg flex-item waves-light" rel="nofollow">Registrarme</a>
-
-                            <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-outline-white btn-lg flex-item waves-effect waves-light" rel="nofollow">Inicia sesión</a>
-                        </li>
                     </ul>
                 </div>
                 <!-- /.Caption -->
@@ -281,7 +274,7 @@
         <section class="section pb-3 text-center text-lg-left">
 
             <!--Grid row-->
-            <div class="row pt-lg-5" id="Quienes">
+            <div class="row pt-lg-5">
 
                 <!--Grid column-->
                 <div class="col-lg-5 col-xl-5 mb-5">
@@ -298,7 +291,7 @@
                     <h4 class="mb-4 font-bold dark-grey-text">
                         <strong>¿Quienes somos?</strong>
                     </h4>
-                    <p class="dark-grey-text">
+                    <p class="dark-grey-text" >
                         @ViewBag.Informacion.Quienes
                     </p>
                     <p>
@@ -376,297 +369,64 @@
 
     </div>
 
-    <div class="container">
-        <!--Carousel Wrapper-->
-        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-            <!--Controls-->
-            <div class="controls-top">
-                <a class="btn-floating btn-default" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-                <a class="btn-floating btn-default" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
-            </div>
-            <!--/.Controls-->
-            <!--Indicators-->
-            <ol class="carousel-indicators">
-                <li data-target="#multi-item-example" data-slide-to="0" class="active btn-default"></li>
-                <li data-target="#multi-item-example" data-slide-to="1" class="btn-default"></li>
-                <li data-target="#multi-item-example" data-slide-to="2" class="btn-default"></li>
-            </ol>
-            <!--/.Indicators-->
-            <!--Slides-->
-            <div class="carousel-inner" role="listbox">
-
-                <!--First slide-->
-                <div class="carousel-item active">
-
-                    <div class="col-md-4">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 clearfix d-none d-md-block">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 clearfix d-none d-md-block">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!--/.First slide-->
-                <!--Second slide-->
-                <div class="carousel-item">
-
-                    <div class="col-md-4">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 clearfix d-none d-md-block">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 clearfix d-none d-md-block">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!--/.Second slide-->
-                <!--Third slide-->
-                <div class="carousel-item">
-
-                    <div class="col-md-4">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(53).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 clearfix d-none d-md-block">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(45).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 clearfix d-none d-md-block">
-                        <div class="card mb-2">
-                            <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!--/.Third slide-->
-
-            </div>
-            <!--/.Slides-->
-
-        </div>
-        <!--/.Carousel Wrapper-->
-    </div>
-
-    <div class="container">
-        <!--Carousel Wrapper-->
-        <div id="multi-item-example2" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-            <!--Controls-->
-            <div class="controls-top">
-                <a class="btn-floating btn-default" href="#multi-item-example2" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-                <a class="btn-floating btn-default" href="#multi-item-example2" data-slide="next"><i class="fa fa-chevron-right"></i></a>
-            </div>
-            <!--/.Controls-->
-            <!--Indicators-->
-            <ol class="carousel-indicators">
-                <li data-target="#multi-item-example2" data-slide-to="0" class="active btn-default"></li>
-                <li data-target="#multi-item-example2" data-slide-to="1" class="btn-default"></li>
-            </ol>
-            <!--/.Indicators-->
-
-            <div class="carousel-inner" role="listbox">
-                <!--First slide-->
-                <div class="carousel-item active">
-                    @{ 
-                        DataTable filaTop1 = ViewData["TopParte1"] as DataTable;
-                        int Cont = 0;
-                        foreach (DataRow row in  filaTop1.Rows)
-                        {
-                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-
-                            if(Cont == 0)
-                            {
-                                <div class="col-md-4">
-                                    <div class="card md-2">
-                                        <img class="img-fluid" src="@Foto" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card md-2">
-                                        <img class="img-fluid" src="@Foto" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
-                                        </div>
-                                    </div>
-                                </div> 
-                            }
-                            Cont++;
-                        }
-                    }
-
-                </div>
-                <!--/.First slide-->
-                <!--Second slide-->
-                <div class="carousel-item">
-                    @{ 
-                        DataTable filaTop2 = ViewData["TopParte2"] as DataTable;
-                        int ContP2 = 0;
-
-                        foreach (DataRow row in filaTop2.Rows)
-                        {
-                            string FotoP2 = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-
-                            if(ContP2 == 0)
-                            {
-                                <div class="col-md-4">
-                                    <div class="card md-2">
-                                        <img class="img-fluid" src="@FotoP2" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="col-md-4 clearfix d-none d-md-block">
-                                <div class="card md-2">
-                                    <img class="img-fluid" src="@FotoP2" />
-                                    <div class="card-body">
-                                        <h4 class="card-title">@row["Nombre"]</h4>
-                                        <p class="card-text">Texto prueba</p>
-                                    </div>
-                                </div>
-                            </div>
-                            }
-                            ContP2++;
-                        }
-                    }
-
-                </div>
-                <!--/.Second slide-->
-            </div>
-        </div>
-    </div>
-
-            <div class="view" data-jarallax='{"speed": 0.2}' style="background-image: url('../../Recursos/FrontEnd/img/images/cell phone.jpg'); background-size: 100% 100%; height: 400px; background-attachment: fixed;">
-                <div class="full-bg-img">
-                    <div class="mask rgba-green-slight">
-                        <div class="container">
-                            <div class="row no-gutters">
-                                <div class="col-md-10 col-lg-6 text-center text-md-left margins">
-                                    <div class="black-text">
-                                        <div class="wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;">
-                                            <h1 class="h1-responsive font-bold mt-sm-5">CollegeJob App</h1>
-                                            <div class="h6">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt
-                                                dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae
-                                                iste.
-                                            </div>
-                                        </div><br>
-                                        <div class="wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;"><a class="btn btn-default dark-grey-text font-bold ml-0 waves-effect waves-light" href="https://www.youtube.com/watch?v=60ItHLz5WEA" target="_blank"><i class="fa fa-play mr-1"></i> View Demo</a><a class="btn btn-outline-white waves-effect waves-light" href="#">Learn more</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="page-footer darken-2 center-on-small-only pt-0 mt-0" style="background-color:#2A5C56">
+    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('../../Recursos/FrontEnd/img/images/cell phone.jpg'); background-size: 100% 100%; height: 400px; background-attachment: fixed;">
+        <div class="full-bg-img">
+            <div class="mask rgba-green-slight">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-5 flex-center"><a class="px-3"><i class="fa fa-facebook fa-lg white-text"></i></a><a class="px-3"><i class="fa fa-twitter fa-lg white-text"></i></a><a class="px-3"><i class="fa fa-google-plus fa-lg white-text"></i></a></div>
+                    <div class="row no-gutters">
+                        <div class="col-md-10 col-lg-6 text-center text-md-left margins">
+                            <div class="black-text">
+                                <div class="wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;">
+                                    <h1 class="h1-responsive font-bold mt-sm-5">CollegeJob App</h1>
+                                    <div class="h6">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt
+                                        dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae
+                                        iste.
+                                    </div>
+                                </div><br>
+                                <div class="wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;"><a class="btn btn-white dark-grey-text font-bold ml-0 waves-effect waves-light" href="https://www.youtube.com/watch?v=60ItHLz5WEA" target="_blank"><i class="fa fa-play mr-1"></i> View Demo</a><a class="btn btn-outline-white waves-effect waves-light" href="#">Learn more</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="footer-copyright">
-                    <div class="container-fluid">
-                        <p>&copy; <a href="/">CollegeJob</a> - Design: <a href="https://templateflip.com/" target="_blank">mdbootstrap</a></p>
-                    </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer darken-2 center-on-small-only pt-0 mt-0" style="background-color:#2A5C56">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-5 flex-center"><a class="px-3"><i class="fa fa-facebook fa-lg white-text"></i></a><a class="px-3"><i class="fa fa-twitter fa-lg white-text"></i></a><a class="px-3"><i class="fa fa-google-plus fa-lg white-text"></i></a></div>
                 </div>
-            </footer>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                <p>&copy; <a href="/">CollegeJob</a> - Design: <a href="https://templateflip.com/" target="_blank">mdbootstrap</a></p>
+            </div>
+        </div>
+    </footer>
 
-            <!-- SCRIPTS -->
-            <!-- JQuery -->
-            <script type="text/javascript" src="~/Recursos/FrontEnd/js/jquery-3.1.1.min.js"></script>
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/jquery-3.1.1.min.js"></script>
 
-            <!-- Bootstrap dropdown -->
-            <script type="text/javascript" src="~/Recursos/FrontEnd/js/popper.min.js"></script>
+    <!-- Bootstrap dropdown -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/popper.min.js"></script>
 
-            <!-- Bootstrap core JavaScript -->
-            <script type="text/javascript" src="~/Recursos/FrontEnd/js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/bootstrap.min.js"></script>
 
-            <!-- MDB core JavaScript -->
-            <script type="text/javascript" src="~/Recursos/FrontEnd/js/mdb.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/Recursos/FrontEnd/js/mdb.min.js"></script>
 
-            <script>
-                // Tooltips Initialization
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip()
-                })
-            </script>
+    <script>
+        // Tooltips Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
 </html>
+
