@@ -121,20 +121,18 @@
     <Content Include="Recursos\FrontEnd\css\main.css" />
     <Content Include="Recursos\FrontEnd\css\mdb.css" />
     <Content Include="Recursos\FrontEnd\css\mdb.min.css" />
+    <Content Include="Recursos\FrontEnd\css\starrr.css" />
     <Content Include="Recursos\FrontEnd\css\stylemdb.css" />
     <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.svg" />
     <Content Include="Recursos\FrontEnd\img\images\busy.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\cell phone.jpg" />
-    <Content Include="Recursos\FrontEnd\img\images\clock.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\library.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\documents.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Mision.jpg" />
-    <Content Include="Recursos\FrontEnd\img\images\offer.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Quienes.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\thinking.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Vision.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\way.jpg" />
-    <Content Include="Recursos\FrontEnd\img\images\write.jpg" />
     <Content Include="Recursos\FrontEnd\img\lightbox\default-skin.png" />
     <Content Include="Recursos\FrontEnd\img\lightbox\default-skin.svg" />
     <Content Include="Recursos\FrontEnd\img\lightbox\preloader.gif" />
@@ -160,6 +158,7 @@
     <Content Include="Recursos\FrontEnd\js\mdb.js" />
     <Content Include="Recursos\FrontEnd\js\mdb.min.js" />
     <Content Include="Recursos\FrontEnd\js\popper.min.js" />
+    <Content Include="Recursos\FrontEnd\js\starrr.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -299,7 +298,8 @@
     <Content Include="Views\PerfilAdmin\DatosPerfil.cshtml" />
     <Content Include="Views\MasterPages\_layoutEmpleador.cshtml" />
     <Content Include="Views\Tareas\AgregarTarea.cshtml" />
-    <Content Include="Views\Principal\PrincipalEmpleador.cshtml" />
+    <Content Include="Views\Tareas\Notificaciones.cshtml" />
+    <Content Include="Views\Tareas\Calificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

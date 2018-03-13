@@ -46,6 +46,9 @@
                 <li class="nav-item">
                     <a href=@Url.Action("PerfilEstudiante", "Estudiante") class="nav-link waves-effect waves-light" href="#">Perfil</a>
                 </li>
+                <li class="nav-item">
+                    <a href=@Url.Action("Notificaciones", "Tareas") class="nav-link waves-effect waves-light" href="#">Notificaciones</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item">
@@ -97,3 +100,19 @@
     </footer>
 </body>
 </html>
+<script src="~/Recursos/FrontEnd/js/starrr.js"></script>
+<link href="~/Recursos/FrontEnd/css/starrr.css" rel="stylesheet" />
+<script>
+            $('#Estrellas').starrr({
+                rating: 0,
+                change: function (e, valor) {
+
+                }
+
+            });
+            //$(function () { $("#Estrellas").starrr() });
+            $(document).ready(function () {
+                $('#ModalCalif').modal('show');
+            });
+
+</script>

@@ -4,23 +4,29 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using Data_Access_Object;
+using Business_Object;
 using System.Web.Mvc;
+using System.Net.Mail;
+using System.Net;
 
 namespace CollegeJob.Controllers
 {
     public class EstudianteController : Controller
     {
         TareasDAO tareasdao = new TareasDAO();
+        UsuariosDAO usuarioDAO = new UsuariosDAO();
         // GET: Principal
 
         public ActionResult Index()
         {
             //trae el contenido del dropdown
+            double km = 0;
             DataTable categorias = tareasdao.categorias();
             List<string> cate = new List<string>();
+            cate.Add("Todas");
             foreach (DataRow item in categorias.Rows)
             {
-                cate.Add(item["Clasificacion"].ToString());
+               cate.Add(item["Clasificacion"].ToString());
             }
 
             ViewData["categoria"] = new SelectList(cate);
@@ -30,7 +36,14 @@ namespace CollegeJob.Controllers
             {
                 double Latitud = double.Parse(Session["Latitud"].ToString());
                 double Longitud = double.Parse(Session["longitud"].ToString());
-                double km = double.Parse(Session["km"].ToString());
+                if (Session["Km"].ToString() != "")
+                {
+                     km = double.Parse(Session["km"].ToString());
+                }
+                else
+                {
+                     km = 0;
+                }
                 string categoria = Session["Cate"].ToString();
                 ViewData["Indicador"] = 1;
                 ViewData["Tabla"] = calculardistanciatareas(Longitud,Latitud,km,categoria);
@@ -46,12 +59,44 @@ namespace CollegeJob.Controllers
 
         public ActionResult MisTareas()
         {
-            return View();
+            int codigo = int.Parse(Session["Codigo"].ToString());
+            return View(tareasdao.MisTareasEstudiante(codigo));
         }
 
         public ActionResult PerfilEstudiante()
         {
-            return View();
+            int sesion = int.Parse(Session["Codigo"].ToString());
+            return View(usuarioDAO.TablaUsuarios3(sesion));
+        }
+
+        [HttpPost]
+        public ActionResult ActualizarPerfil(string ID, string Nombre, string Apellidos, string Correo, string Contraseña, string FechaNac, string Telefono, string direccion, byte[] img, HttpPostedFileBase Imagen)
+        {
+            UsuarioBO bo = new UsuarioBO();
+            if (Imagen != null)
+            {
+                bo.Imagen = new byte[Imagen.ContentLength];
+                Imagen.InputStream.Read(bo.Imagen, 0, Imagen.ContentLength);
+            }
+            else
+            {
+                bo.Imagen = img;
+            }
+            bo.Codigo = int.Parse(ID);
+            bo.Nombre = Nombre;
+            bo.Apellidos = Apellidos;
+            bo.Email = Correo;
+            bo.Contraseña = Contraseña;
+            bo.Direccion = direccion;
+            bo.FechaNac = Convert.ToDateTime(FechaNac);
+            bo.Telefono = long.Parse(Telefono);
+            int ActPerf = usuarioDAO.ActualizarUsuario2(bo);
+            Session["ActPerf"] = ActPerf;
+            ViewBag.ActPerf = Session["ActPerf"];
+
+            PerfilEstudiante();
+            return View("PerfilEstudiante");
+
         }
 
         [HttpPost]
@@ -134,6 +179,25 @@ namespace CollegeJob.Controllers
                     distancias.Rows.Add(fila);
                     final = 0;
                 }
+                else
+                {
+                    //creamos la fila del nuevo datatable
+                    fila["Titulo"] = row[0].ToString();
+                    fila["Descripcion"] = row[1].ToString();
+                    fila["Clasificacion"] = row[2].ToString();
+                    fila["longitud"] = row[3].ToString();
+                    fila["latitud"] = row[4].ToString();
+                    fila["Codigo"] = row[5].ToString();
+                    fila["Nombre"] = row[6].ToString() + " " + row[7].ToString();
+                    fila["Imagen"] = row[8].ToString();
+
+                    fila["distanciaskm"] = Math.Round(final * 100) / 100;
+
+                    //agregamos la fila
+                    distancias.Rows.Add(fila);
+                    final = 0;
+                }
+                
                 int rows = distancias.Rows.Count;
                 ViewData["ResultadoBusqueda"] = rows;
 
@@ -151,6 +215,46 @@ namespace CollegeJob.Controllers
         public static double radianes(double angle)
         {
             return Math.PI * angle / 180.0;
+        }
+
+
+        public ActionResult TerminarTareaEstudiante(string Tarea)
+        {
+            string estado = "Terminado";
+            int codigotarea = int.Parse(Tarea);
+            int codigoalumno = int.Parse(Session["Codigo"].ToString());
+            int lol = tareasdao.TerminarTareaEmpleador(codigotarea, estado, codigoalumno);
+            if (lol == 0)
+            {
+                EnviarCorreoEmpleador(codigotarea);
+            }
+            MisTareas();
+            return View("MisTareas");
+        }
+
+
+        public void EnviarCorreoEmpleador(int IDtarea)
+        {
+            //DAO.TareasDAO tareas = new TareasDAO();
+            var tarea = tareasdao.BuscarTareaSaidy(IDtarea, int.Parse(Session["codigo"].ToString()));
+            //DAO.UsuariosDAO User = new UsuariosDAO();
+            UsuarioBO Usuario = usuarioDAO.PerfilUsuario(int.Parse(Session["codigo"].ToString()));
+            string CorreoRemitente = "collegeJobSGM@gmail.com";
+            string CorreoDestinatario = Usuario.Email;
+            MailMessage Correo = new MailMessage();
+            Correo.To.Add(new MailAddress(CorreoDestinatario));
+            Correo.From = new MailAddress(CorreoRemitente);
+            Correo.Subject = "Tarea: " + tarea.Titulo;
+            Correo.Body = "La tarea" + tarea.Titulo + " ha finalizado <a href='http://localhost:50288/Tareas/Calificar?Codigo=" + IDtarea + "'><img src='http://noeliareginelli.com/wp-content/uploads/2017/10/boton-clic-aqui.png' width='120px'/></a>";
+            Correo.IsBodyHtml = true;
+            Correo.Priority = MailPriority.Normal;
+            SmtpClient Cliente = new SmtpClient();
+            Cliente.Host = "smtp.gmail.com";
+            Cliente.Port = 587;
+            Cliente.EnableSsl = true;
+            Cliente.Credentials = new NetworkCredential("collegeJobSGM@gmail.com", "SGM123456");
+
+            Cliente.Send(Correo);
         }
 
     }

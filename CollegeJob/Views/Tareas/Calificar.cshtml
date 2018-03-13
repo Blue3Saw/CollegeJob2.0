@@ -1,0 +1,57 @@
+﻿@using System.Data;
+@model DataTable
+@{
+    ViewBag.Title = "Calificar";
+    Layout = "~/Views/MasterPages/_layoutEstudiante.cshtml";
+}
+
+<section class="section pb-3 text-center text-lg-left">
+
+    <!--Section heading-->
+    <h1 class="section-heading h1 dark-grey-text text-center mt-5 pt-lg-3">Calificar Empleador</h1>
+    <hr>
+    <!--Section description-->
+    <p class="section-description mb-5 mt-lg-5 mx-lg-5 text-center">
+        En este apartado podrás encontrar y gestionar las calificaciones sobre las tareas que haz realizado
+    </p>
+
+    <div class="row">
+        @foreach (DataRow item in Model.Rows)
+        {
+            <div class="col-md-12">
+                <div class="card">
+@using (Ajax.BeginForm("", "", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+{
+                    <div class="row">
+                        <div class="col-lg-4">
+                            @if (item["Imagen"].ToString() != "")
+                            {
+                                string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])item["Imagen"]);
+                                <img src="@Foto" alt="" class="img-fluid">
+                            }
+                            else
+                            {
+                                <img src="https://i.ytimg.com/vi/-bysikWgkm4/maxresdefault.jpg" alt="" class="img-fluid">
+                            }
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card-body text-center">
+                                <h4 class="color-royal">@item["Titulo"]</h4>
+                                <p>@item["Descripcion"]</p>
+                                <p>Fecha: @item["Fecha"]</p>
+                                <input type="hidden" name="Tarea" value="@item["Codigo"]" />
+                                <div class="col-xl-12 bann-info">
+
+                                    Calificar: <div id="Estrellas" name="Estrellas"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+}
+                </div>
+            </div>
+        }
+
+    </div>
+</section>
+
