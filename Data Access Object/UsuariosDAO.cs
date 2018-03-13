@@ -15,6 +15,9 @@ namespace Data_Access_Object
         string sentencia;
         int valor = 0;
 
+        public DataTable CarroselP1 = new DataTable();
+        public DataTable CarroselP2 = new DataTable();
+
         public int AgregarUsuario(object ObjU)
         {
             UsuarioBO Dato = (UsuarioBO)ObjU;
@@ -350,6 +353,7 @@ namespace Data_Access_Object
 
         //metodos para la vista donde el empleador ve el perfil del alumno
 
+        //---------------------------------------------Top Estudiantes y Empleadores--------------------------------------------------------
         public DataTable TopEstudiantes()
         {
             sentencia = "SELECT TOP (5) (US.Nombre + ' ' + US.Apellidos) AS 'Estudiante', AVG(Calif.Calificacion) AS 'Promedio' FROM Calificaciones Calif INNER JOIN Usuarios US ON Calif.CodigoCalificado = US.Codigo WHERE Calif.CodigoCalificado IN (SELECT US.Codigo FROM Usuarios US WHERE US.TipoUs = 3) GROUP BY Calif.CodigoCalificado, US.Nombre, US.Apellidos ORDER BY AVG(Calif.Calificacion)DESC";
@@ -358,5 +362,42 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
+
+        public DataTable TopEmpleadores()
+        {
+            sentencia = "SELECT TOP (5) (US.Nombre + ' ' + US.Apellidos) AS 'Estudiante', AVG(Calif.Calificacion) AS 'Promedio' FROM Calificaciones Calif INNER JOIN Usuarios US ON Calif.CodigoCalificado = US.Codigo WHERE Calif.CodigoCalificado IN (SELECT US.Codigo FROM Usuarios US WHERE US.TipoUs = 2) GROUP BY Calif.CodigoCalificado, US.Nombre, US.Apellidos ORDER BY AVG(Calif.Calificacion)DESC";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+
+        public void PruebaCarrusel()
+        {
+            sentencia = "SELECT TOP(6) (Nombre + ' ' + Apellidos) AS 'Nombre', Imagen FROM Usuarios U WHERE U.TipoUs  NOT LIKE '1'";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+
+            CarroselP1 = tablavirtual.Clone(); //para tener la misma estructura del dt1 y no tener problemas
+            CarroselP2 = tablavirtual.Clone();
+
+            int Cont = 0;
+            foreach (DataRow row in tablavirtual.Rows)
+            {
+                if (Cont < 3)
+                {
+                    CarroselP1.ImportRow(row); //se copia la  fila del  dt1  en el  DataTable nuevo
+                }
+                else
+                {
+                    CarroselP2.ImportRow(row);
+                }
+                Cont++;
+            }
+
+        }
+
+        //---------------------------------------------------------Fin Top ----------------------------------------------------------------------
     }
 }

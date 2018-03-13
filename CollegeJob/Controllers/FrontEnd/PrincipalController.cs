@@ -12,18 +12,23 @@ namespace CollegeJob.Controllers
     public class PrincipalController : Controller
     {
         TareasDAO TareasDAO = new TareasDAO();
+        UsuariosDAO ObjUsuario = new UsuariosDAO();
+
         // GET: Principal
         public ActionResult Principal()
         {
             InformacionDAO Info = new InformacionDAO();
             ViewBag.Codigo = Session["Codigo"];
             ViewBag.Informacion = Info.Datos();
+            ObjUsuario.PruebaCarrusel();
+
+            ViewData["TopParte1"] = ObjUsuario.CarroselP1;
+            ViewData["TopParte2"] = ObjUsuario.CarroselP2;
             return View();
         }
 
         public ActionResult PrincipalEstudiante()
         {
-
             return View();
         }
 

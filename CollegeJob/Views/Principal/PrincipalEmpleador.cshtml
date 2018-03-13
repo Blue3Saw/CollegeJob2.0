@@ -1,4 +1,7 @@
-﻿
+﻿@using Business_Object;
+@using System.Data;
+@model UsuarioBO
+
 @{
     Layout = null;
 }
@@ -41,6 +44,8 @@
         </div>
     </nav>
 
+
+    <!--Modal login-->
     <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <!--Modal: Contact form-->
         <div class="modal-dialog cascading-modal" role="document">
@@ -59,27 +64,30 @@
                 </div>
                 <!--Body-->
                 <div class="modal-body">
+                    @using (Ajax.BeginForm("Login", "Principal", new AjaxOptions() { HttpMethod = "POST" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <!-- Material input name -->
+                        <div class="md-form form-sm">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input type="text" id="materialFormNameModalEx1" name="Email" class="form-control form-control-sm" required="required">
+                            <label for="materialFormNameModalEx1">Correo electrónico</label>
+                        </div>
 
-                    <!-- Material input name -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-envelope prefix"></i>
-                        <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm">
-                        <label for="materialFormNameModalEx1">Correo electrónico</label>
-                    </div>
+                        <!-- Material input email -->
+                        <div class="md-form form-sm">
+                            <i class="fa fa-lock prefix"></i>
+                            <input type="password" id="materialFormEmailModalEx1" name="Contraseña" class="form-control form-control-sm" required="required">
+                            <label for="materialFormEmailModalEx1">Contraseña</label>
+                        </div>
 
-                    <!-- Material input email -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-lock prefix"></i>
-                        <input type="password" id="materialFormEmailModalEx1" class="form-control form-control-sm">
-                        <label for="materialFormEmailModalEx1">Contraseña</label>
-                    </div>
-
-                    <div class="text-center mt-4 mb-2">
-                        <button class="btn default-color-dark">
-                            Iniciar
-                            <i class="fa fa-send ml-2"></i>
-                        </button>
-                    </div>
+                        <div class="text-center mt-4 mb-2">
+                            <button class="btn default-color-dark">
+                                Iniciar
+                                <i class="fa fa-send ml-2"></i>
+                            </button>
+                        </div>
+                    }
 
                 </div>
             </div>
@@ -87,7 +95,9 @@
         </div>
         <!--/Modal: Contact form-->
     </div>
+    <!--Fin Modal Login-->
 
+    <!--Modal registro-->
     <div class="modal fade" id="modalRegistroForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <!--Modal: Contact form-->
         <div class="modal-dialog cascading-modal" role="document">
@@ -98,7 +108,7 @@
                 <!--Header-->
                 <div class="modal-header default-color-dark white-text">
                     <h4 class="title">
-                        <i class="fa fa-user"></i> Registro estudiante
+                        <i class="fa fa-user"></i> Registro empleador
                     </h4>
                     <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -110,7 +120,24 @@
                     <div class="md-form form-sm">
                         <i class="fa fa-user prefix"></i>
                         <input type="text" id="materialFormNameModalNombre" class="form-control form-control-sm">
-                        <label for="materialFormNameModalNombre">Nombre</label>
+                        <label for="materialFormNameModalNombre">Nombre(s)</label>
+                    </div>
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-user prefix"></i>
+                        <input type="text" id="materialFormNameModalNombre" class="form-control form-control-sm">
+                        <label for="materialFormNameModalNombre">Apellidos</label>
+                    </div>
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-calendar prefix"></i>
+                        <input type="date" id="materialFormNameModalNombre" class="form-control form-control-sm" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento">
+                    </div>
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-phone prefix"></i>
+                        <input type="tel" id="materialFormNameModalNombre" class="form-control form-control-sm">
+                        <label for="materialFormNameModalNombre">Teléfono</label>
                     </div>
 
                     <!-- Material input name -->
@@ -140,6 +167,7 @@
         </div>
         <!--/Modal: Contact form-->
     </div>
+    <!--Fin Modal Registro-->
 
     <div id="carousel-example-3" class="carousel slide carousel-fade white-text" data-ride="carousel" data-interval="false">
         <!--Indicators-->
@@ -159,11 +187,11 @@
                 <div class="full-bg-img flex-center white-text mask rgba-black-strong">
                     <ul class="animated fadeInUp col-md-12">
                         <li>
-                            <h1 class="display-3 flex-item font-bold">¿Estudias y deseas generar ingresos?</h1>
+                            <h1 class="display-3 flex-item font-bold">¿Tienes alguna actividad que realizar...</h1>
                         </li>
 
                         <li>
-                            <h3 class="my-4">¡Puedes hacerlo!</h3>
+                            <h3 class="my-4">pero no tienes tiempo?</h3>
                         </li>
 
                         <li>
@@ -178,19 +206,21 @@
             </div>
             <!-- /.First slide -->
             <!-- Second slide -->
-            <div class="carousel-item view hm-black-light" style="background-image: url('../../Recursos/FrontEnd/img/images/thinking.jpg'); background-repeat: no-repeat; background-size: cover;">
+            <div class="carousel-item view hm-black-light" style="background-image: url('../../Recursos/FrontEnd/img/images/busy.jpg'); background-repeat: no-repeat; background-size: cover;">
 
                 <!-- Caption -->
                 <div class="full-bg-img flex-center white-text">
                     <ul class="animated fadeInUp col-md-12">
                         <li>
-                            <h1 class="display-4 font-bold">¿Tienes tiempo libre?</h1>
+                            <h1 class="display-4 font-bold">¿Tienes algún pendiente?</h1>
                         </li>
                         <li>
-                            <h3 class="my-4">Aprovechalo al máximo ganando dinero</h3>
+                            <h3 class="my-4">Pero estás ocupado o simplemente no quieres hacerlo</h3>
                         </li>
                         <li>
-                            <a target="_blank" href="https://mdbootstrap.com/bootstrap-tutorial/" class="btn btn-default waves-effect btn-lg waves-light" rel="nofollow">Ver más</a>
+                            <a data-toggle="modal" data-target="#modalRegistroForm" class="btn btn-default waves-effect btn-lg flex-item waves-light" rel="nofollow">Registrarme</a>
+
+                            <a href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-outline-white btn-lg flex-item waves-effect waves-light" rel="nofollow">Ver más</a>
                         </li>
                     </ul>
                 </div>
@@ -199,19 +229,16 @@
             </div>
             <!-- /.Second slide -->
             <!-- Third slide -->
-            <div class="carousel-item view hm-black-light" style="background-image: url('../../Recursos/FrontEnd/img/images/library.jpg'); background-repeat: no-repeat; background-size: cover;">
+            <div class="carousel-item view hm-black-light" style="background-image: url('../../Recursos/FrontEnd/img/images/way.jpg'); background-repeat: no-repeat; background-size: cover;">
 
                 <!-- Caption -->
                 <div class="full-bg-img flex-center white-text mask rgba-black-strong">
                     <ul class="animated fadeInUp col-md-12">
                         <li>
-                            <h1 class="display-4 font-bold">¿Eres bueno en algo?</h1>
+                            <h1 class="display-4 font-bold">La solución está aquí</h1>
                         </li>
                         <li>
-                            <h3 class="my-4">Sino lo eres también puedes formar parte de nuestra comunidad</h3>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://mdbootstrap.com/forums/forum/support/" class="btn btn-default waves-effect btn-lg waves-light" rel="nofollow">Support forum</a>
+                            <h3 class="my-4">Si respondiste sí a cualquier pregunta anterior la solución es CollegeJob</h3>
                         </li>
                     </ul>
                 </div>
@@ -257,7 +284,7 @@
                         <strong>Paso 1</strong>
                     </h4>
                     <p class="dark-grey-text">
-                        Consulta la amplia variedad de las tareas subidas a la página
+                        Agrega el trabajo con el que tienes inconvenientes
                     </p>
                     <p>
                 </div>
@@ -277,7 +304,7 @@
                         <strong>Paso 2</strong>
                     </h4>
                     <p class="dark-grey-text">
-                        Oferta por cuanto dinero harías la actividad
+                        Espera a que algún estudiante se postule
                     </p>
                 </div>
                 <!--Grid column-->
@@ -287,7 +314,7 @@
                     <!--Featured image-->
                     <div class="">
                         <a>
-                            <img src="~/Recursos/FrontEnd/img/images/offer.jpg" alt="Second image in the first version of blog listing" class="img-fluid  z-depth-1-half rounded">
+                            <img src="~/Recursos/FrontEnd/img/images/Mision.jpg" alt="Second image in the first version of blog listing" class="img-fluid  z-depth-1-half rounded">
                         </a>
                     </div>
                 </div>
@@ -307,7 +334,7 @@
                     <!--Featured image-->
                     <div class="">
                         <a>
-                            <img src="~/Recursos/FrontEnd/img/images/clock.jpg" alt="Second image in the first version of blog listing" class="img-fluid z-depth-1-half rounded">
+                            <img src="~/Recursos/FrontEnd/img/images/Vision.jpg" alt="Second image in the first version of blog listing" class="img-fluid  z-depth-1-half rounded">
                         </a>
                     </div>
                 </div>
@@ -318,7 +345,7 @@
                         <strong>Paso 3</strong>
                     </h4>
                     <p class="dark-grey-text">
-                        Espera a que te seleccionen para hacer la actividad
+                        Selecciona al estudiante que deseas que realice el trabajo
                     </p>
                 </div>
                 <!--Grid column-->
@@ -337,7 +364,7 @@
                         <strong>Paso 4</strong>
                     </h4>
                     <p class="dark-grey-text">
-                        Califica al empleador que te contrato
+                        Califica y realiza el pago por el trabajo realizado
                     </p>
                 </div>
                 <!--Grid column-->
@@ -377,8 +404,8 @@
                                     </div>
                                 </div><br>
                                 <div class="wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;">
-                                    <a class="btn btn-white dark-grey-text font-bold ml-0 waves-effect waves-light" href="https://www.youtube.com/watch?v=60ItHLz5WEA" target="_blank"><i class="fa fa-play mr-1"></i> View Demo</a>
-                                    <a class="btn btn-outline-white waves-effect waves-light" href="#"><i class="fa fa-download mr-1"></i>Descargar</a>
+                                <a class="btn btn-white dark-grey-text font-bold ml-0 waves-effect waves-light" href="https://www.youtube.com/watch?v=60ItHLz5WEA" target="_blank"><i class="fa fa-play mr-1"></i> View Demo</a>
+                                <a class="btn btn-outline-white waves-effect waves-light" href="#"><i class="fa fa-download mr-1"></i>Descargar</a>
                                 </div>
                             </div>
                         </div>
@@ -415,5 +442,12 @@
 
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="~/Recursos/FrontEnd/js/mdb.min.js"></script>
+
+    <script>
+        // Tooltips Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
 </html>
