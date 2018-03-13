@@ -70,11 +70,12 @@ namespace Data_Access_Object
             return Conex.EjecutarSentencia(Com).Tables[0];
         }
 
-        public TareasBO BuscarTareaSaidy(int Codigo)
+        public TareasBO BuscarTareaSaidy(int Codigo,int idcodigo)
         {
             TareasBO Tarea = new TareasBO();
-            SqlCommand Cmd = new SqlCommand("SELECT * FROM Tareas WHERE Codigo = @Codigo");
+            SqlCommand Cmd = new SqlCommand("SELECT t.Titulo,t.Codigo,t.Fecha,t.Descripcion,t.Direccion,t.HoraInicio FROM Tareas t,UsuariosTareas u,Usuarios us WHERE t.Codigo=u.CodigoTarea and u.estado='Terminado' and u.CodigoEstudiante=us.Codigo and us.Codigo=@IDCodigo and u.CodigoTarea = @Codigo");
             Cmd.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
+            Cmd.Parameters.Add("@IDCodigo", SqlDbType.Int).Value = idcodigo;
             Cmd.CommandType = CommandType.Text;
             SqlDataReader Reader;
             Cmd.Connection = Conex.ConectarBD();
@@ -105,7 +106,7 @@ namespace Data_Access_Object
         public int AceptarTarea2(int CodigoE, int CodigoT, int oferta)
         {
             TareasBO Dato = new TareasBO();
-            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO UsuariosTareas (CodigoEstudiante, CodigoTarea, Fecha,Precio,estado,CE) VALUES (@CodigoE, @CodigoT, @Fecha,@Precio,'Aceptar',0)");
+            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO UsuariosTareas (CodigoEstudiante, CodigoTarea, Fecha,Precio,estado,CE) VALUES (@CodigoE, @CodigoT, @Fecha,@Precio,'Pendiente',0)");
             SentenciaSQL.Parameters.Add("@CodigoE", SqlDbType.Int).Value = CodigoE;
             SentenciaSQL.Parameters.Add("@CodigoT", SqlDbType.Int).Value = CodigoT;
             SentenciaSQL.Parameters.Add("@Precio", SqlDbType.Int).Value = oferta;
@@ -305,6 +306,14 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
+        public DataTable cordenadastareas2()
+        {
+            Sentencia = "select T.Titulo,T.Descripcion,c.Clasificacion,t.Longitud,t.Latitud,t.Codigo,u.Nombre,u.Apellidos,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' from Tareas T,ClasificacionTarea C ,Usuarios u where t.Tipo=c.Codigo and t.Estatus=1 and t.UsuarioEmpleador=u.Codigo";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
 
 
         public DataTable categorias()
@@ -395,6 +404,14 @@ namespace Data_Access_Object
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
         }
+        public int Rechazarpostulados(int codigoE, int codigoTarea)
+        {
+            SqlCommand SentenciaSQL = new SqlCommand("update UsuariosTareas set estado='Rechazado', CE=2 where CodigoEstudiante=@CodigoEstudiante and CodigoTarea=@CodigoTarea");
+            SentenciaSQL.Parameters.Add("@CodigoTarea", SqlDbType.Int).Value = codigoTarea;
+            SentenciaSQL.Parameters.Add("@CodigoEstudiante", SqlDbType.Int).Value = codigoE;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
 
         public string BuscarFecha(string tarea)
         {
@@ -422,6 +439,16 @@ namespace Data_Access_Object
         public int AceptoTareaEmpleador(int Codigo, string estado, int estudiante)
         {
             TareasBO Dato = new TareasBO();
+            SqlCommand SentenciaSQL = new SqlCommand("Update UsuariosTareas set estado=@estado,CE=3 where CodigoTarea= @Codigo and CodigoEstudiante=@estudiante");
+            SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
+            SentenciaSQL.Parameters.Add("@estado", SqlDbType.VarChar).Value = estado;
+            SentenciaSQL.Parameters.Add("@estudiante", SqlDbType.Int).Value = estudiante;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
+        public int RechazoTareaEmpleador(int Codigo, string estado, int estudiante)
+        {
+            TareasBO Dato = new TareasBO();
             SqlCommand SentenciaSQL = new SqlCommand("Update UsuariosTareas set estado=@estado,CE=2 where CodigoTarea= @Codigo and CodigoEstudiante=@estudiante");
             SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
             SentenciaSQL.Parameters.Add("@estado", SqlDbType.VarChar).Value = estado;
@@ -429,7 +456,16 @@ namespace Data_Access_Object
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
         }
-
+        public int TerminarTareaEmpleador(int Codigo, string estado, int estudiante)
+        {
+            TareasBO Dato = new TareasBO();
+            SqlCommand SentenciaSQL = new SqlCommand("Update UsuariosTareas set estado=@estado,CE=4 where CodigoTarea= @Codigo and CodigoEstudiante=@estudiante");
+            SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
+            SentenciaSQL.Parameters.Add("@estado", SqlDbType.VarChar).Value = estado;
+            SentenciaSQL.Parameters.Add("@estudiante", SqlDbType.Int).Value = estudiante;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
         public int NopersonasTareas(int Codigotarea)
         {
             string sentencia = "Select count(estado)as estado from UsuariosTareas where CodigoTarea='" + Codigotarea + "' and estado='En curso'";
@@ -450,5 +486,25 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
+
+        public DataTable MisTareasEstudiante(int codigo)
+        {
+            Sentencia = "select T.Codigo,T.Titulo,T.Fecha,T.Descripcion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' from Tareas T,UsuariosTareas UT,Usuarios U where T.Codigo=UT.CodigoTarea and UT.CodigoEstudiante=U.Codigo and U.Codigo='" + codigo+"' and UT.estado='Aceptado'";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+
+        public DataTable calificaciones(int codigoUsuaurio,int CodigoTarea)
+        {
+            Sentencia = "SELECT t.Titulo,t.Codigo,t.Fecha,t.Descripcion,t.Direccion,t.HoraInicio,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas t,UsuariosTareas u,Usuarios us WHERE t.Codigo=u.CodigoTarea and u.estado='Aceptado' and u.CodigoEstudiante=us.Codigo and us.Codigo='" + codigoUsuaurio+"' and u.CodigoTarea = '"+CodigoTarea+"'";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+
+
     }
 }

@@ -1,13 +1,20 @@
-﻿
+﻿@using System.Data;
 @{
     ViewBag.Title = "DetalleTareaDispo";
     Layout = "~/Views/MasterPages/_layoutEstudiante.cshtml";
 }
 
+@*googlemaps*@
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyBN5HQEgifKCN5mq9cqkHQ7biWnKGusKok"></script>
+<script src="~/Recursos/FrontEnd/js/locationpicker.jquery.js"></script>
+
 <div style="height:50px"></div>
 
 <div class="row pt-lg-5">
-
+@foreach (DataRow row in Model.Rows)
+{
+    string permiso = ViewData["permiso"].ToString();
     <!--Grid column-->
     <div class="col-lg-5 col-xl-5 mb-5">
         <!--Featured image-->
@@ -17,14 +24,37 @@
             <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel" style="height:300px">
                 <!--Indicators-->
                 <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+                    @*<li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
                     <li data-target="#carousel-example-1z" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+                    <li data-target="#carousel-example-1z" data-slide-to="2"></li>*@
+                    @{
+                        DataTable contenido = ViewData["Imagenes"] as DataTable;
+                        int numerofilas = contenido.Rows.Count;
+                        int n = 0;
+                        if (numerofilas == 0)
+                        {
+                            <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+                        }
+                        else
+                        {
+                            for (int i = 0; i < numerofilas; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    <li data-target="#carousel-example-1z" data-slide-to="@i" class="active"></li>
+                                }
+                                else
+                                {
+                                    <li data-target="#carousel-example-1z" data-slide-to="@i"></li>
+                                }
+                            }
+                        }
+                    }
                 </ol>
                 <!--/.Indicators-->
                 <!--Slides-->
                 <div class="carousel-inner" role="listbox">
-                    <!--First slide-->
+                    @*<!--First slide-->
                     <div class="carousel-item active">
                         <img class="d-block w-100 h-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg" alt="First slide">
                     </div>
@@ -38,7 +68,40 @@
                     <div class="carousel-item">
                         <img class="d-block w-100 h-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Third slide">
                     </div>
-                    <!--/Third slide-->
+                    <!--/Third slide-->*@
+                    @{
+                        DataTable imagenesreal = ViewData["Imagenes"] as DataTable;
+                        if (numerofilas == 0)
+                        {
+                            <div class="carousel-item active">
+                                <img class="d-block w-100 h-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg" alt="First slide">
+                            </div>
+                        }
+                        else
+                        {
+                            int indice = 0;
+                            foreach (DataRow filas in imagenesreal.Rows)
+                            {
+
+                                string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])filas["Imagen"]);
+                                if (indice == 0)
+                                {
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100 h-100" src="@Foto" alt="First slide">
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100 h-100" src="@Foto" alt="Second slide">
+                                    </div>
+                                }
+                                indice = indice + 1;
+                            }
+                        }
+
+                    }
                 </div>
                 <!--/.Slides-->
                 <!--Controls-->
@@ -60,22 +123,25 @@
     <!--Grid column-->
     <div class="col-lg-7 col-xl-7">
         <h4 class="mb-4 font-bold dark-grey-text">
-            <strong>This is title of the news.</strong>
+            <strong>@row["Titulo"]</strong>
 
         </h4>
 
         <p>
-            Por:
+            Empleador:
             <a>
-                <strong>Carine Fox</strong>
-            </a>, 06/03/2018
+                <strong> @row["Empleador"]</strong>
+            </a>
         </p>
         <p class="dark-grey-text">
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus quod maxime
-            placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis
-            aut rerum. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+            @row["Descripcion"]
         </p>
-
+        <p>
+            <strong class="font-weight-bold pb-1">
+                <i class="fa fa-location-arrow"></i> Dirrección: @row["Direccion"]
+            </strong>
+        </p>
+       
         <div class="row">
             <div class="col-sm-2">
                 <p>
@@ -87,7 +153,7 @@
 
             <div class="col-sm-4">
                 <p>
-                    12/03/18
+                    @row["Fecha"]
                 </p>
 
                 <p>
@@ -105,22 +171,36 @@
 
             <div class="col-sm-4">
                 <p>
-                    6:30 p.m.
+                     @row["HoraInicio"] hasta las @row["HoraFinal"]
                 </p>
 
                 <p>
-                    <button type="button" class="btn btn-outline-default waves-effect waves-light" data-toggle="modal" data-target="#exampleModal">
-                        <i class="fa fa-money left"></i>
-                        <span>Ofertar</span>
-                    </button>
+                    @{
+                        if (permiso =="3")
+                        {
+                            <button type="button" class="btn btn-outline-default waves-effect waves-light" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fa fa-money left"></i>
+                                <span>Ofertar</span>
+                            </button>
+                        }
+                    }
                 </p>
             </div>
         </div>
     </div>
     <!--Grid column-->
 
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1862.577597421442!2d-89.67546164205477!3d20.986415196505355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5673657ec3d959%3A0xd8c5353b9cd5acdd!2sCalle+3+%E1%B4%AE+330%2C+Nora+Quintana%2C+97238+M%C3%A9rida%2C+Yuc.!5e0!3m2!1ses-419!2smx!4v1520307765966" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-
+    @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1862.577597421442!2d-89.67546164205477!3d20.986415196505355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5673657ec3d959%3A0xd8c5353b9cd5acdd!2sCalle+3+%E1%B4%AE+330%2C+Nora+Quintana%2C+97238+M%C3%A9rida%2C+Yuc.!5e0!3m2!1ses-419!2smx!4v1520307765966" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>*@
+    <div id="ModalMapPreview" style="width:100%; height: 300px; border:0px;" allowfullscreen></div>
+    <div class="row">
+        <div class="col-sm-6">
+            <input type="text" id="txtLat" value=@row["Latitud"] class="control-label" style="visibility:hidden">
+        </div>
+        <div class="col-sm-6">
+            <input type="text" id="txtLgt" value=@row["Longitud"] class="control-label" style="visibility:hidden">
+        </div>
+    </div>
+}
 </div>
 
 <!-- Full Height Modal Let -->
@@ -141,45 +221,74 @@
                     <p>
                         Estudiantes postulados junto con sus ofertas a realizar la tarea
                     </p>
+@{
+
+    DataTable postulados2 = ViewData["Postulados"] as DataTable;
+    DateTime fechatarea = DateTime.Parse(ViewData["Fecha"].ToString());
+    DateTime fecha = DateTime.Today;
+
+    foreach (DataRow fila in postulados2.Rows)
+    {
+        using (Ajax.BeginForm("AceptarPostulado", "Tareas", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+        {
 
                     <ul class="list-group z-depth-0">
                         <li class="list-group-item justify-content-between">
-                            Cras justo odio
-                            <span class="badge badge-primary badge-pill">14</span>
-                        </li>
-                        <li class="list-group-item justify-content-between">
-                            Dapibus ac facilisis in
-                            <span class="badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item justify-content-between">
-                            Dapibus ac facilisis in
-                            <span class="badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item justify-content-between">
-                            Dapibus ac facilisis in
-                            <span class="badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item justify-content-between">
-                            Dapibus ac facilisis in
-                            <span class="badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item justify-content-between">
-                            Morbi leo risus
-                            <span class="badge badge-primary badge-pill">1</span>
-                        </li>
-                        <li class="list-group-item justify-content-between">
-                            Cras justo odio
-                            <span class="badge badge-primary badge-pill">14</span>
-                        </li>
-                        <li class="list-group-item justify-content-between">
-                            Dapibus ac facilisis in
-                            <span class="badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item justify-content-between">
-                            Morbi leo risus
-                            <span class="badge badge-primary badge-pill">1</span>
+                           <div class="row">
+                               <div class="col-md-6">
+                                   @fila["Nombre"]
+                                   <p><h4>Ofertó: $ @fila["Precio"]</h4></p>
+                                   <input type="hidden" name="Codigo" value="@fila["codigo"]" />
+                                   <input type="hidden" name="Tarea" value="@ViewData["Tarea"]" />
+                               </div>
+                               @if (fila["CE"].ToString()=="1")
+                               {
+                                <div class="col-md-6">
+                                    <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
+                                        <i class="fa fa-check"></i>
+                                        <span>Enviado</span>
+                                    </button>
+                                </div>
+                               }
+                               else if (fila["CE"].ToString() == "2")
+                               {
+                                   <div class="col-md-6">
+                                       <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
+                                           <i class="fa fa-check"></i>
+                                           <span>Rechazado</span>
+                                       </button>
+                                   </div>
+                               }
+                               else if (fila["CE"].ToString() == "3")
+                               {
+                                <div class="col-md-6">
+                                    <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
+                                        <i class="fa fa-check"></i>
+                                        <span>Aceptado</span>
+                                    </button>
+                                </div>
+                               }
+                               else
+                               {
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
+                                        <i class="fa fa-check"></i>
+                                        <span>Aceptar</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-outline-default waves-effect waves-light" name="Accion" value="2">
+                                        <i class="fa fa-close"></i>
+                                        <span>Rechazar</span>
+                                    </button>
+                                </div>
+                               }
+                           </div>
                         </li>
                     </ul>
+            }
+        }
+    }
                 </div>
             </div>
             <!--Footer-->
@@ -195,6 +304,8 @@
 
 
 <div class="bd-example">
+    @using (Ajax.BeginForm("DetalleTareaPostular", "Tareas", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+    {
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -207,7 +318,8 @@
                 <div class="modal-body">
                     <form>
                         <div class="md-form">
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="recipient-name" name="oferta" required="required">
+                            <input type="hidden" class="form-control" id="recipient-name" name="Tarea2" value="@ViewData["Tarea"]">
                             <label for="recipient-name" class="font-weight-light">Monto $</label>
                         </div>
                     </form>
@@ -219,8 +331,25 @@
             </div>
         </div>
     </div>
+    }
 </div>
 
 
 
 <div style="height:50px"></div>
+
+
+<script>
+        $("#ModalMapPreview").locationpicker({
+            radius: 0,
+            location: {
+                longitude: $("#txtLgt").val(),
+                latitude: $("#txtLat").val()
+            },
+            inputBinding: {
+                latitudeInput: $("#txtLat"),
+                longitudeInput: $("#txtLgt")
+            },
+            enableAutocomplete: true
+        });
+</script>
