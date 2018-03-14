@@ -14,6 +14,8 @@ namespace Data_Access_Object
         ConexionDAO Conex = new ConexionDAO();
         string sentencia;
         int valor = 0;
+        public DataTable TopParte1 = new DataTable();
+        public DataTable TopParte2 = new DataTable();
 
         public int AgregarUsuario(object ObjU)
         {
@@ -357,6 +359,31 @@ namespace Data_Access_Object
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
             return tablavirtual;
+        }
+
+        public void PruebaCarrusel()
+        {
+            sentencia = "SELECT TOP(6) (U.Nombre + ' ' + U.Apellidos) AS 'Nombre', U.Imagen FROM Usuarios U WHERE U.TipoUs NOT LIKE '1'";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+
+            TopParte1 = tablavirtual.Clone(); //para tener la misma estructura del dt1 y no tener problemas
+            TopParte2 = tablavirtual.Clone();
+
+            int cont = 0;
+            foreach (DataRow row in tablavirtual.Rows)
+            {
+                if (cont < 3)
+                {
+                    TopParte1.ImportRow(row); //se copia la  fila del  dt1  en el  DataTable nuevo
+                }
+                else
+                {
+                    TopParte2.ImportRow(row);
+                }
+                cont++;
+            }
         }
     }
 }
