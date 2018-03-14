@@ -27,6 +27,11 @@ namespace CollegeJob.Controllers
             return View();
         }
 
+        public ActionResult CerrarSesion()
+        {
+            Session.Remove("Codigo");
+            return RedirectToAction("Principal", "Principal");
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -71,6 +76,7 @@ namespace CollegeJob.Controllers
                 return RedirectToAction("Index", "Principal");
             }
         }
+
 
     }
 }

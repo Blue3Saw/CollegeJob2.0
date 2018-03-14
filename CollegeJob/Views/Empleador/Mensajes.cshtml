@@ -1,8 +1,119 @@
-﻿
+﻿@using System.Data;
+@model DataTable
 @{
     ViewBag.Title = "Mensajes";
     Layout = "~/Views/MasterPages/_layoutEmpleador.cshtml";
 }
 
-<h2>Mensajes</h2>
+<style>
+    .color{
+        background-color: #ddd8d8;
+    }
+</style>
+<section class="section pb-3 text-center text-lg-left">
+
+    <!--Section heading-->
+    <h1 class="section-heading h1 dark-grey-text text-center mt-5 pt-lg-3">Notificaciones</h1>
+    <hr>
+    <!--Section description-->
+    <p class="section-description mb-5 mt-lg-5 mx-lg-5 text-center">
+        En este apartado podrás encontrar todas las tareas en donde tus postulaciones fueron aceptadas
+    </p>
+    <p class="section-description text-center">
+        <div class="row">
+            @foreach (DataRow item in Model.Rows)
+            {
+            
+                    if (item["Estatus"].ToString() == "1")
+                    {
+                        <div class="col-lg-12" data-toggle="modal" data-target="#@item["Codigo"]" style="cursor:pointer">
+                            <!--Card-->
+                            <div class="card">
+                                <!--Card content-->
+                                <div class="card-body">
+                                    <h4 class="card-title">@item["Titulo"]</h4>
+                                     Enviado por: @item["Nombre"]
+                                    <i class="fa fa-clock-o"></i>@item["FechaHora"]
+                                    @item["Mensaje"]
+                                </div>
+                            </div>
+                            <!--/.Card-->
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-lg-12" data-toggle="modal" data-target="#@item["Codigo"]" style="cursor:pointer">
+                            <!--Card-->
+                            <div class="card color">
+                                <!--Card content-->
+                                <div class="card-body">
+                                    <h4 class="card-title">@item["Titulo"]</h4>
+                                    Enviado por: @item["Nombre"]
+                                    <i class="fa fa-clock-o"></i>@item["FechaHora"]
+                                    @item["Mensaje"]
+                                </div>
+                            </div>
+                            <!--/.Card-->
+                        </div>
+                }
+        using (Ajax.BeginForm("enviar", "Empleador", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+        {
+            //inicio del modal de los mensajes
+            <div class="modal fade" id="@item["Codigo"]" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <!--Modal: Contact form-->
+                <div class="modal-dialog cascading-modal" role="document">
+
+                    <!--Content-->
+                    <div class="modal-content">
+
+                        <!--Header-->
+                        <div class="modal-header default-color-dark white-text">
+                            <h4 class="title">
+                                <i class="fa fa-envelope prefix"></i> Enviar Mensaje
+                            </h4>
+                            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body">
+                            <!-- Material input name -->
+                            <div class="md-form form-sm">
+                                <i class="fa fa-user">
+                                    Para: @item["Nombre"]
+                                </i>
+                            </div>
+                            <div class="md-form form-sm">
+                                <i class="fa fa-user prefix"></i>
+                                <input type="text" id="materialFormNameModalNombre" class="form-control form-control-sm" name="Titulo">
+                                <label for="materialFormNameModalNombre">Titulo</label>
+                            </div>
+
+                            <!-- Material input email -->
+                            <div class="md-form form-sm">
+                                <i class="fa fa-lock prefix"></i>
+                                <textarea class="form-control form-control-sm" name="Mensaje" id="materialFormEmailModalEx1" required="required"></textarea>
+                                <label for="materialFormEmailModalEx1">Mesaje</label>
+                            </div>
+
+                            <div class="text-center mt-4 mb-2">
+                                <button type="submit" class="btn default-color-dark" name="Codigo" value="@item["Codigo"]">
+                                    Enviar
+                                    <i class="fa fa-send ml-2"></i>
+                                </button>
+                                <input type="hidden" name="id" value="@item["Codigo"]">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--/.Content-->
+                </div>
+                <!--/Modal: Contact form-->
+            </div>
+        }
+            }
+
+        </div>
+    </p>
+</section>
 

@@ -40,7 +40,7 @@ namespace Data_Access_Object
         {
             MensajesBO Datos = new MensajesBO();
             Datos.UsRecibe = usuario;
-            sentencia = "select u.Nombre,u.Codigo,m.UsRecibe,m.FechaHora,m.Mensaje,m.Estatus,m.Titulo,m.id  from Usuarios u,Mensajes m where u.Codigo = m.UsEnvia and m.Estatus=1 and m.UsRecibe = '" + Datos.UsRecibe + "'";
+            sentencia = "select u.Nombre,u.Codigo,m.UsRecibe,m.FechaHora,m.Mensaje,m.Estatus,m.Titulo,m.id  from Usuarios u,Mensajes m where u.Codigo = m.UsEnvia and m.UsRecibe = '" + Datos.UsRecibe + "'";
             SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
