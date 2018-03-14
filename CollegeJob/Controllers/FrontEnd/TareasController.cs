@@ -47,7 +47,7 @@ namespace CollegeJob.Controllers
             //ObjDAO.AceptarTarea(Clave);
             ObjDAO.AceptarTarea2(Estudiante, Clave, precio);
             //Session["Tarea"] = Codigo;
-            return View("/Tareas/DetalleTareaDispo?Codigo="+Clave);
+            return Redirect("~/Tareas/DetalleTareaDispo?Codigo="+Clave);
         }
 
         public ActionResult AgregarTarea()

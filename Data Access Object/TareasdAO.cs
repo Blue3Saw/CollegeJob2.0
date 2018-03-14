@@ -134,63 +134,13 @@ namespace Data_Access_Object
             return Conex.EjecutarComando(SentenciaSQL);
         }
 
-        public DataTable TodasTareasEmpleador(int Codigo, int filtro)
+        public DataTable TodasTareasEmpleador(int Codigo)
         {
-            DataTable lol = new DataTable();
-            //cambie a lo ultimo Una T por una U
-            if (filtro == 0)
-            {
-                SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = @Codigo");
-                Com.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
-                Com.CommandType = CommandType.Text;
-                lol = Conex.EjecutarSentencia(Com).Tables[0];
-
-            }
-            if (filtro == 1)
-            {
-                SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = @Codigo and T.Tipo=@Filtro");
-                Com.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
-                Com.Parameters.Add("@Filtro", SqlDbType.Int).Value = filtro;
-                Com.CommandType = CommandType.Text;
-                lol = Conex.EjecutarSentencia(Com).Tables[0];
-
-            }
-            if (filtro == 2)
-            {
-                SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = @Codigo and T.Tipo=@Filtro");
-                Com.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
-                Com.Parameters.Add("@Filtro", SqlDbType.Int).Value = filtro;
-                Com.CommandType = CommandType.Text;
-                lol = Conex.EjecutarSentencia(Com).Tables[0];
-            }
-            if (filtro == 3)
-            {
-                SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = @Codigo and T.Tipo=@Filtro");
-                Com.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
-                Com.Parameters.Add("@Filtro", SqlDbType.Int).Value = filtro;
-                Com.CommandType = CommandType.Text;
-                lol = Conex.EjecutarSentencia(Com).Tables[0];
-            }
-            if (filtro == 4)
-            {
-                SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = @Codigo and T.Tipo=@Filtro");
-                Com.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
-                Com.Parameters.Add("@Filtro", SqlDbType.Int).Value = filtro;
-                Com.CommandType = CommandType.Text;
-                lol = Conex.EjecutarSentencia(Com).Tables[0];
-
-            }
-            if (filtro == 5)
-            {
-                SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = @Codigo and T.Tipo=@Filtro");
-                Com.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
-                Com.Parameters.Add("@Filtro", SqlDbType.Int).Value = filtro;
-                Com.CommandType = CommandType.Text;
-                lol = Conex.EjecutarSentencia(Com).Tables[0];
-
-            }
-            return lol;
-
+            Sentencia = "SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = '"+Codigo+"'";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
         }
 
         public DataTable TareasAprobadas(int Codigo)
@@ -489,7 +439,7 @@ namespace Data_Access_Object
 
         public DataTable MisTareasEstudiante(int codigo)
         {
-            Sentencia = "select T.Codigo,T.Titulo,T.Fecha,T.Descripcion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' from Tareas T,UsuariosTareas UT,Usuarios U where T.Codigo=UT.CodigoTarea and UT.CodigoEstudiante=U.Codigo and U.Codigo='" + codigo+"' and UT.estado='Aceptado'";
+            Sentencia = "select T.Codigo,T.Titulo,T.Fecha,T.UsuarioEmpleador,T.Descripcion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen',(SELECT (u.Nombre+' '+u.Apellidos) as nombre FROM Usuarios u WHERE T.UsuarioEmpleador=u.Codigo ) AS 'Nombre' from Tareas T,UsuariosTareas UT,Usuarios U where T.Codigo=UT.CodigoTarea and UT.CodigoEstudiante=U.Codigo and U.Codigo='"+codigo+"' and UT.estado='Aceptado'";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);

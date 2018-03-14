@@ -27,10 +27,6 @@ namespace CollegeJob.Controllers
             return View();
         }
 
-        public ActionResult PrincipalEmpleador()
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -54,7 +50,7 @@ namespace CollegeJob.Controllers
                 Session["msgadm"] = 1;
                 Session["Filtro"] = 0;
                 Session["Nombre"] = ObjUsuario.Buscarnombre(Datos);
-                return RedirectToAction("Index", "Estudiante");
+                return RedirectToAction("Index", "Empleador");
             }
             else if (ObjUsuario.LoginEstudiante(Datos) > 0)
             {
