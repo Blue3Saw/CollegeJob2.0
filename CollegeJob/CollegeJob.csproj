@@ -45,8 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
@@ -298,11 +299,8 @@
     <Content Include="Views\PerfilAdmin\DatosPerfil.cshtml" />
     <Content Include="Views\MasterPages\_layoutEmpleador.cshtml" />
     <Content Include="Views\Tareas\AgregarTarea.cshtml" />
-<<<<<<< HEAD
-=======
     <Content Include="Views\Tareas\Notificaciones.cshtml" />
     <Content Include="Views\Tareas\Calificar.cshtml" />
->>>>>>> parent of 7327dc9... Revert "Cambios"
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
