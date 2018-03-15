@@ -130,6 +130,7 @@
     <Content Include="Recursos\FrontEnd\img\images\documents.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Mision.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Quienes.jpg" />
+    <Content Include="Recursos\FrontEnd\img\images\student.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\thinking.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Vision.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\way.jpg" />
@@ -305,6 +306,7 @@
     <Content Include="Views\Empleador\Mensajes.cshtml" />
     <Content Include="Views\Empleador\Notificaciones.cshtml" />
     <Content Include="Views\Empleador\Perfil.cshtml" />
+    <Content Include="Recursos\FrontEnd\css\compiled.min.css" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
