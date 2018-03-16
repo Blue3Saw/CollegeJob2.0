@@ -16,8 +16,13 @@ namespace CollegeJob.Controllers
         public ActionResult Principal()
         {
             InformacionDAO Info = new InformacionDAO();
+            UsuariosDAO ObjUsuario = new UsuariosDAO();
             ViewBag.Codigo = Session["Codigo"];
             ViewBag.Informacion = Info.Datos();
+
+            ObjUsuario.PruebaCarrusel();
+            ViewData["TopParte1"] = ObjUsuario.TopParte1;
+            ViewData["TopParte2"] = ObjUsuario.TopParte2;
             return View();
         }
 
