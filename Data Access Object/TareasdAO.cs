@@ -13,6 +13,8 @@ namespace Data_Access_Object
     {
         ConexionDAO Conex = new ConexionDAO();
         string Sentencia, Sentencia2, Sentencia3, Sentencia4, Sentencia5;
+        public DataTable TopParte1 = new DataTable();
+        public DataTable TopParte2 = new DataTable();
 
         public int AgregarTarea(object ObjT)
         {
@@ -227,7 +229,6 @@ namespace Data_Access_Object
             }
             return Datos;
         }
-
 
         public DataTable TablaTareas2(int id)
         {
@@ -455,6 +456,54 @@ namespace Data_Access_Object
             return tablavirtual;
         }
 
+        public void TopTareas()
+        {
+            Sentencia = "SELECT TOP(6) T.Titulo, T.Descripcion, F.Imagen FROM Tareas T INNER JOIN Fotos F ON F.TareaID = T.Codigo";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
 
+            TopParte1 = tablavirtual.Clone(); //para tener la misma estructura del dt1 y no tener problemas
+            TopParte2 = tablavirtual.Clone();
+
+            int cont = 0;
+            foreach (DataRow row in tablavirtual.Rows)
+            {
+                if (cont < 3)
+                {
+                    TopParte1.ImportRow(row); //se copia la  fila del  dt1  en el  DataTable nuevo
+                }
+                else
+                {
+                    TopParte2.ImportRow(row);
+                }
+                cont++;
+            }
+        }
+
+        public void UltimasTareas()
+        {
+            Sentencia = "SELECT TOP(6) * FROM Tareas T WHERE T.Estatus = 1 ORDER BY T.Fecha ASC";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+
+            TopParte1 = tablavirtual.Clone(); //para tener la misma estructura del dt1 y no tener problemas
+            TopParte2 = tablavirtual.Clone();
+
+            int cont = 0;
+            foreach (DataRow row in tablavirtual.Rows)
+            {
+                if (cont < 3)
+                {
+                    TopParte1.ImportRow(row); //se copia la  fila del  dt1  en el  DataTable nuevo
+                }
+                else
+                {
+                    TopParte2.ImportRow(row);
+                }
+                cont++;
+            }
+        }
     }
 }
