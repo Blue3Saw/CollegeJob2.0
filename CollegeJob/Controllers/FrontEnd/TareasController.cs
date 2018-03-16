@@ -107,12 +107,14 @@ namespace CollegeJob.Controllers
                     if (npos < pos)
                     {
                         tareas2.Rows.Add(fila);
+
                     }
 
                 }
                 catch { }
                
             }
+            ViewData["Medidor"] = tareas2.Rows.Count;
 
             return View(tareas2);
         }
