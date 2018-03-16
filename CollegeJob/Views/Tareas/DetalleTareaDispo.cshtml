@@ -213,7 +213,7 @@
     {
         using (Ajax.BeginForm("AceptarPostulado", "Tareas", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
         {
-
+               string permiso = ViewData["permiso"].ToString();
                     <ul class="list-group z-depth-0">
                         <li class="list-group-item justify-content-between">
                            <div class="row">
@@ -223,47 +223,50 @@
                                    <input type="hidden" name="Codigo" value="@fila["codigo"]" />
                                    <input type="hidden" name="Tarea" value="@ViewData["Tarea"]" />
                                </div>
-                               @if (fila["CE"].ToString()=="1")
+                               @if (permiso=="2")
                                {
-                                <div class="col-md-6">
-                                    <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
-                                        <i class="fa fa-check"></i>
-                                        <span>Enviado</span>
-                                    </button>
-                                </div>
-                               }
-                               else if (fila["CE"].ToString() == "2")
-                               {
-                                   <div class="col-md-6">
-                                       <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
-                                           <i class="fa fa-check"></i>
-                                           <span>Rechazado</span>
-                                       </button>
-                                   </div>
-                               }
-                               else if (fila["CE"].ToString() == "3")
-                               {
-                                <div class="col-md-6">
-                                    <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
-                                        <i class="fa fa-check"></i>
-                                        <span>Aceptado</span>
-                                    </button>
-                                </div>
-                               }
-                               else
-                               {
-                                <div class="col-md-3">
-                                    <button type="submit" class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
-                                        <i class="fa fa-check"></i>
-                                        <span>Aceptar</span>
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="submit" class="btn btn-outline-default waves-effect waves-light" name="Accion" value="2">
-                                        <i class="fa fa-close"></i>
-                                        <span>Rechazar</span>
-                                    </button>
-                                </div>
+                                if (fila["CE"].ToString() == "1")
+                                {
+                                    <div class="col-md-6">
+                                        <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
+                                            <i class="fa fa-check"></i>
+                                            <span>Enviado</span>
+                                        </button>
+                                    </div>
+                                }
+                                else if (fila["CE"].ToString() == "2")
+                                {
+                                    <div class="col-md-6">
+                                        <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
+                                            <i class="fa fa-check"></i>
+                                            <span>Rechazado</span>
+                                        </button>
+                                    </div>
+                                }
+                                else if (fila["CE"].ToString() == "3")
+                                {
+                                    <div class="col-md-6">
+                                        <button class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
+                                            <i class="fa fa-check"></i>
+                                            <span>Aceptado</span>
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
+                                            <i class="fa fa-check"></i>
+                                            <span>Aceptar</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-outline-default waves-effect waves-light" name="Accion" value="2">
+                                            <i class="fa fa-close"></i>
+                                            <span>Rechazar</span>
+                                        </button>
+                                    </div>
+                                }
                                }
                            </div>
                         </li>

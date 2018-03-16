@@ -62,7 +62,9 @@ namespace CollegeJob.Controllers
         public ActionResult MisTareas()
         {
             int codigo = int.Parse(Session["Codigo"].ToString());
-            return View(tareasdao.MisTareasEstudiante(codigo));
+            DataTable tareas = tareasdao.MisTareasEstudiante(codigo);
+            ViewData["Medidor"] = tareas.Rows.Count;
+            return View(tareas);
         }
 
         public ActionResult PerfilEstudiante()
@@ -271,6 +273,28 @@ namespace CollegeJob.Controllers
             objMensajes.ActualizarEstatus(bo);
             objMensajes.AgregarMensaje(bo);
             return Redirect("~/Estudiante/MisTareas");
+        }
+
+        public ActionResult Mensajes()
+        {
+            DataTable mensajes = objMensajes.MostarMensajes(int.Parse(Session["Codigo"].ToString()));
+            ViewData["Medidor"] = mensajes.Rows.Count;
+            return View(mensajes);
+        }
+
+        [HttpPost]
+        public ActionResult enviar(string Titulo, string Mensaje, string id)
+        {
+            bo.HoraFecha = DateTime.Now;
+            bo.Mensaje = Mensaje;
+            bo.UsRecibe = int.Parse(id);
+            bo.UsEnvia = int.Parse(Session["Codigo"].ToString());
+            bo.idmensaje = int.Parse(id);
+            bo.Titulo = Titulo;
+            objMensajes.ActualizarEstatus(bo);
+            objMensajes.AgregarMensaje(bo);
+            Mensajes();
+            return View("Mensajes");
         }
 
     }

@@ -306,6 +306,7 @@
     <Content Include="Views\Empleador\Mensajes.cshtml" />
     <Content Include="Views\Empleador\Notificaciones.cshtml" />
     <Content Include="Views\Empleador\Perfil.cshtml" />
+    <Content Include="Views\Estudiante\Mensajes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
