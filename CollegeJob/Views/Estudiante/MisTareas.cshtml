@@ -39,24 +39,33 @@
                                         <img src="https://i.ytimg.com/vi/-bysikWgkm4/maxresdefault.jpg" alt="" class="img-fluid">
                                     }
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-6">
                                     <div class="card-body text-center">
                                         <h4 class="color-royal">@item["Titulo"]</h4>
                                         <p>@item["Descripcion"]</p>
                                         <p>Fecha: @item["Fecha"]</p>
                                         <input type="hidden" name="Tarea" value="@item["Codigo"]" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <p>
                                         <button type="button" class="btn btn-outline-default waves-effect waves-light" data-toggle="modal" data-target="#@item["Codigo"]">
                                             <i class="fa fa-envelope-o left"></i>
                                             <span>Mensaje</span>
                                         </button>
+                                    </p>
+                                    <p>
                                         <a href="/Tareas/DetalleTareaDispo?Codigo=@item["Codigo"]" class="btn btn-outline-default waves-effect">
                                             <i class="fa fa-plus-square left"></i> Ver más
                                         </a>
+                                    </p>
+                                    <p>
                                         <button type="submit" class="btn btn-outline-default waves-effect waves-light">
                                             <i class="fa fa-close"></i>
                                             <span>Terminar</span>
                                         </button>
-                                    </div>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +132,7 @@
     else
     {
         <div style="height:250px; text-align:center">
-            todavia no tienes tareas, busca tareas y postulate
+            Todavia no tienes tareas, busca tareas y postulate
         </div>
     }
 </section>

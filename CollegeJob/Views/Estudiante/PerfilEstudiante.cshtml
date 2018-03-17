@@ -101,6 +101,29 @@
                         <label for="materialFormCardNameEx" class="font-weight-light">Nombre(s)</label>
                     </div>
 
+                    <div class="md-form">
+                        <i class="fa fa-user prefix grey-text"></i>
+                        <input type="text" id="materialFormCardNameEx" class="form-control">
+                        <label for="materialFormCardNameEx" class="font-weight-light">Apellidos</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fa fa-calendar prefix grey-text"></i>
+                                <input type="text" id="materialFormCardNameEx" class="form-control">
+                                <label for="materialFormCardNameEx" class="font-weight-light">Fecha de nacimiento</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                <i class="fa fa-phone prefix grey-text"></i>
+                                <input type="text" id="materialFormCardNameEx" class="form-control">
+                                <label for="materialFormCardNameEx" class="font-weight-light">Teléfono</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Material input email -->
                     <div class="md-form">
                         <i class="fa fa-envelope prefix grey-text"></i>
@@ -108,21 +131,8 @@
                         <label for="materialFormCardEmailEx" class="font-weight-light">Correo electrónico</label>
                     </div>
 
-                    <!-- Material input email -->
-                    <div class="md-form">
-                        <i class="fa fa-exclamation-triangle prefix grey-text"></i>
-                        <input type="email" id="materialFormCardConfirmEx" class="form-control">
-                        <label for="materialFormCardConfirmEx" class="font-weight-light">Confirma tu correo</label>
-                    </div>
-
-                    <!-- Material input password -->
-                    <div class="md-form">
-                        <i class="fa fa-lock prefix grey-text"></i>
-                        <input type="password" id="materialFormCardPasswordEx" class="form-control">
-                        <label for="materialFormCardPasswordEx" class="font-weight-light">Contraseña</label>
-                    </div>
-
                     <div class="text-center py-4 mt-3">
+                        <button class="btn btn-outline-default waves-effect" data-toggle="modal" data-target="#exampleModal">Cambiar contraseña</button>
                         <button class="btn btn-outline-default waves-effect" type="submit" id="notificationButton">Confirmar cambios</button>
                     </div>
                     <!-- Material form register -->
@@ -131,6 +141,40 @@
                 <!-- Card body -->
 
             </div>
+
+            <!--Modal contrseña-->
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cambio de contraseña</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="md-form form-sm">
+                                <input type="password" id="materialFormNameModalNombre" class="form-control form-control-sm">
+                                <label for="materialFormNameModalNombre">Nueva contraseña</label>
+                            </div>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="md-form form-sm">
+                                <input type="password" id="materialFormNameModalNombre" class="form-control form-control-sm">
+                                <label for="materialFormNameModalNombre">Confirmar contraseña</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-default">Guardar cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Fin modal contraseña-->
             <!-- Card -->
             <button id="buttonP">Dar Permisos</button>
             <button id="buttonN">Lanzar notificación</button>
