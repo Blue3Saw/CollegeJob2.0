@@ -249,7 +249,7 @@ namespace CollegeJob.Controllers
             Correo.To.Add(new MailAddress(CorreoDestinatario));
             Correo.From = new MailAddress(CorreoRemitente);
             Correo.Subject = "Tarea: " + tarea.Titulo;
-            Correo.Body = "La tarea" + tarea.Titulo + " ha finalizado <a href='http://localhost:50288/Tareas/Calificar?Codigo=" + IDtarea + "'><img src='http://noeliareginelli.com/wp-content/uploads/2017/10/boton-clic-aqui.png' width='120px'/></a>";
+            Correo.Body = "La tarea" + tarea.Titulo + " ha finalizado</br> <a href='http://localhost:50288/Tareas/Calificar?Codigo=" + IDtarea + "'><img src='http://noeliareginelli.com/wp-content/uploads/2017/10/boton-clic-aqui.png' width='120px'/></a>";
             Correo.IsBodyHtml = true;
             Correo.Priority = MailPriority.Normal;
             SmtpClient Cliente = new SmtpClient();

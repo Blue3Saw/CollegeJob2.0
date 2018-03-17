@@ -158,13 +158,24 @@
 
                 <p>
                     @{
-                        if (permiso =="3")
+                        if (permiso == "3")
                         {
-                            <button type="button" class="btn btn-outline-default waves-effect waves-light" data-toggle="modal" data-target="#exampleModal">
-                                <i class="fa fa-money left"></i>
-                                <span>Ofertar</span>
-                            </button>
-                        }
+                            int algo = int.Parse(ViewData["Postulacion"].ToString());
+                            if (algo > 0)
+                            {
+                                <button type="button" class="btn btn-outline-default waves-effect waves-light">
+                                    <i class="fa fa-money left"></i>
+                                    <span>Ya te postulaste</span>
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-default waves-effect waves-light" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fa fa-money left"></i>
+                                    <span>Ofertar</span>
+                                </button>
+                            }
+                    }
                     }
                 </p>
             </div>
@@ -267,7 +278,7 @@
                                         </button>
                                     </div>
                                 }
-                               }
+                           }
                            </div>
                         </li>
                     </ul>

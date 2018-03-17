@@ -31,6 +31,8 @@ namespace CollegeJob.Controllers
             ViewData["Fecha"] = ObjDAO.BuscarFecha(Codigo);
             ViewData["permiso"] = Session["Permiso"].ToString();
             int Clave = int.Parse(Codigo);
+            ViewData["Codigo"] = Session["Codigo"].ToString();
+            ViewData["Postulacion"] = ObjTareas.Postulacion(Clave,int.Parse(Session["Codigo"].ToString()));
             ViewData["Tarea"] = Clave;
             ViewData["Postulados"] = ObjDAO.postulados(Clave);
             ViewData["Imagenes"] = ObjDAO.ImgenesTarea(Clave);

@@ -307,13 +307,21 @@
                         int Cont = 0;
                         foreach (DataRow row in filaTop1.Rows)
                         {
-                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                           
 
                             if (Cont == 0)
                             {
                                 <div class="col-md-4">
                                     <div class="card md-2">
-                                        <img class="img-fluid" src="@Foto" />
+                                        @if (row["Imagen"].ToString() != "")
+                                        {
+                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                            <img class="img-fluid" src="@Foto" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="" />
+                                        }
                                         <div class="card-body">
                                             <h4 class="card-title">@row["Nombre"]</h4>
                                             <p class="card-text">Texto prueba</p>
@@ -325,7 +333,15 @@
                             {
                                 <div class="col-md-4 clearfix d-none d-md-block">
                                     <div class="card md-2">
-                                        <img class="img-fluid" src="@Foto" />
+                                        @if (row["Imagen"].ToString() != "")
+                                        {
+                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                            <img class="img-fluid" src="@Foto" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="" />
+                                        }
                                         <div class="card-body">
                                             <h4 class="card-title">@row["Nombre"]</h4>
                                             <p class="card-text">Texto prueba</p>
@@ -345,13 +361,20 @@
                         int ContP2 = 0;
                         foreach (DataRow row in filaTop2.Rows)
                         {
-                            string FotoP2 = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
 
                             if (ContP2 == 0)
                             {
                                 <div class="col-md-4">
                                     <div class="card md-2">
-                                        <img class="img-fluid" src="@FotoP2" />
+                                        @if (row["Imagen"].ToString() != "")
+                                        {
+                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                            <img class="img-fluid" src="@Foto" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="" />
+                                        }
                                         <div class="card-body">
                                             <h4 class="card-title">@row["Nombre"]</h4>
                                             <p class="card-text">Texto prueba</p>
@@ -363,7 +386,15 @@
                             {
                                 <div class="col-md-4 clearfix d-none d-md-block">
                                     <div class="card md-2">
-                                        <img class="img-fluid" src="@FotoP2" />
+                                        @if (row["Imagen"].ToString() != "")
+                                        {
+                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                            <img class="img-fluid" src="@Foto" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="" />
+                                        }
                                         <div class="card-body">
                                             <h4 class="card-title">@row["Nombre"]</h4>
                                             <p class="card-text">Texto prueba</p>
@@ -417,13 +448,21 @@
                         int ContParte4 = 0;
                         foreach (DataRow row in filaTop4.Rows)
                         {
-                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                           
 
                             if (Cont == 0)
                             {
                                 <div class="col-md-4">
                                     <div class="card md-2">
-                                        <img class="img-fluid" src="@Foto" />
+                                        @if (row["Imagen"].ToString() != "")
+                                        {
+                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                            <img class="img-fluid" src="@Foto" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="" />
+                                        }
                                         <div class="card-body">
                                             <h4 class="card-title">@row["Nombre"]</h4>
                                             <p class="card-text">Texto prueba</p>
@@ -435,7 +474,15 @@
                             {
                                 <div class="col-md-4 clearfix d-none d-md-block">
                                     <div class="card md-2">
-                                        <img class="img-fluid" src="@Foto" />
+                                        @if (row["Imagen"].ToString() != "")
+                                        {
+                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                            <img class="img-fluid" src="@Foto" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="" />
+                                        }
                                         <div class="card-body">
                                             <h4 class="card-title">@row["Nombre"]</h4>
                                             <p class="card-text">Texto prueba</p>
@@ -455,13 +502,21 @@
                         int ContP3 = 0;
                         foreach (DataRow row in filaTop3.Rows)
                         {
-                            string FotoP2 = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                        
 
                             if (ContP2 == 0)
                             {
                                 <div class="col-md-4">
                                     <div class="card md-2">
-                                        <img class="img-fluid" src="@FotoP2" />
+                                        @if (row["Imagen"].ToString() != "")
+                                        {
+                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                            <img class="img-fluid" src="@Foto" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="" />
+                                        }
                                         <div class="card-body">
                                             <h4 class="card-title">@row["Nombre"]</h4>
                                             <p class="card-text">Texto prueba</p>
@@ -473,7 +528,15 @@
                             {
                                 <div class="col-md-4 clearfix d-none d-md-block">
                                     <div class="card md-2">
-                                        <img class="img-fluid" src="@FotoP2" />
+                                        @if (row["Imagen"].ToString() != "")
+                                        {
+                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                            <img class="img-fluid" src="@Foto" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid" src="" />
+                                        }
                                         <div class="card-body">
                                             <h4 class="card-title">@row["Nombre"]</h4>
                                             <p class="card-text">Texto prueba</p>
