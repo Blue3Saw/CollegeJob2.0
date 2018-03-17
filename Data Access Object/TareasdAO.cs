@@ -344,6 +344,14 @@ namespace Data_Access_Object
             return tablavirtual;
         }
 
+        public int Postulacion(int Codigo,int sesion)
+        {
+            SqlCommand SentenciaSQL = new SqlCommand("select u.Codigo,ut.CodigoTarea,(u.Nombre+' '+u.Apellidos) as Nombre, ut.Precio,ut.CE from UsuariosTareas ut, Usuarios u where ut.CodigoEstudiante=u.Codigo and ut.CodigoTarea=@Codigo and u.Codigo=@Sesion");
+            SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
+            SentenciaSQL.Parameters.Add("@Sesion", SqlDbType.Int).Value = sesion;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
 
         //Aceptar postulacíon
 
@@ -449,7 +457,7 @@ namespace Data_Access_Object
 
         public DataTable calificaciones(int codigoUsuaurio,int CodigoTarea)
         {
-            Sentencia = "SELECT t.Titulo,t.Codigo,t.Fecha,t.Descripcion,t.Direccion,t.HoraInicio,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas t,UsuariosTareas u,Usuarios us WHERE t.Codigo=u.CodigoTarea and u.estado='Aceptado' and u.CodigoEstudiante=us.Codigo and us.Codigo='" + codigoUsuaurio+"' and u.CodigoTarea = '"+CodigoTarea+"'";
+            Sentencia = "SELECT t.Titulo,t.Codigo,t.Fecha,t.Descripcion,t.Direccion,t.HoraInicio,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas t,UsuariosTareas u,Usuarios us WHERE t.Codigo=u.CodigoTarea and u.estado='Terminado' and u.CodigoEstudiante=us.Codigo and us.Codigo='" + codigoUsuaurio+"' and u.CodigoTarea = '"+CodigoTarea+"'";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
