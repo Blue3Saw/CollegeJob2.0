@@ -17,18 +17,23 @@ namespace CollegeJob.Controllers
         {
             InformacionDAO Info = new InformacionDAO();
             UsuariosDAO ObjUsuario = new UsuariosDAO();
+            TareasDAO ObjTareas = new TareasDAO();
+
             ViewBag.Codigo = Session["Codigo"];
             ViewBag.Informacion = Info.Datos();
 
             ObjUsuario.PruebaCarrusel();
             ViewData["TopParte1"] = ObjUsuario.TopParte1;
             ViewData["TopParte2"] = ObjUsuario.TopParte2;
+
+            ObjTareas.UltimasTareas();
+            ViewData["TopTareas1"] = ObjTareas.TopParte1;
+            ViewData["TopTareas2"] = ObjTareas.TopParte2;
             return View();
         }
 
         public ActionResult PrincipalEstudiante()
         {
-
             return View();
         }
 
