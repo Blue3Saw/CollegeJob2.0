@@ -491,7 +491,7 @@ namespace Data_Access_Object
 
         public void UltimasTareas()
         {
-            Sentencia = "SELECT TOP(6) * FROM Tareas T WHERE T.Estatus = 1 ORDER BY T.Fecha ASC";
+            Sentencia = "SELECT TOP(6) T.Titulo, T.Descripcion, (SELECT TOP(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T WHERE T.Estatus = 1 ORDER BY T.Fecha ASC";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);

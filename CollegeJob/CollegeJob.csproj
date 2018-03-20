@@ -137,6 +137,7 @@
     <Content Include="Recursos\FrontEnd\img\images\thinking.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Vision.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\way.jpg" />
+    <Content Include="Recursos\FrontEnd\img\images\worry.jpg" />
     <Content Include="Recursos\FrontEnd\img\lightbox\default-skin.png" />
     <Content Include="Recursos\FrontEnd\img\lightbox\default-skin.svg" />
     <Content Include="Recursos\FrontEnd\img\lightbox\preloader.gif" />
@@ -311,6 +312,7 @@
     <Content Include="Views\Empleador\Perfil.cshtml" />
     <Content Include="Views\Estudiante\Mensajes.cshtml" />
     <Content Include="Recursos\FrontEnd\css\compiled.min.css" />
+    <Content Include="Views\Principal\PrincipalEmpleador.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

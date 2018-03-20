@@ -15,17 +15,15 @@ namespace CollegeJob.Controllers
         // GET: Principal
         public ActionResult Principal()
         {
-            InformacionDAO Info = new InformacionDAO();
+            //CARRUSEL MEJORES EMPLEADORES
+            //CAMBIAR POR PROMEDIOS VERDADEROS
             UsuariosDAO ObjUsuario = new UsuariosDAO();
-            TareasDAO ObjTareas = new TareasDAO();
-
-            ViewBag.Codigo = Session["Codigo"];
-            ViewBag.Informacion = Info.Datos();
-
             ObjUsuario.PruebaCarrusel();
             ViewData["TopParte1"] = ObjUsuario.TopParte1;
             ViewData["TopParte2"] = ObjUsuario.TopParte2;
 
+            //CARRUSEL ULTIMAS TAREAS
+            TareasDAO ObjTareas = new TareasDAO();
             ObjTareas.UltimasTareas();
             ViewData["TopTareas1"] = ObjTareas.TopParte1;
             ViewData["TopTareas2"] = ObjTareas.TopParte2;
@@ -34,6 +32,23 @@ namespace CollegeJob.Controllers
 
         public ActionResult PrincipalEstudiante()
         {
+            //CARRUSEL MEJORES EMPLEADORES
+            //CAMBIAR POR PROMEDIOS VERDADEROS
+            UsuariosDAO ObjUsuario = new UsuariosDAO();
+            ObjUsuario.PruebaCarrusel();
+            ViewData["TopParte1"] = ObjUsuario.TopParte1;
+            ViewData["TopParte2"] = ObjUsuario.TopParte2;
+            return View();
+        }
+
+        public ActionResult PrincipalEmpleador()
+        {
+            //CARRUSEL MEJORES EMPLEADORES
+            //CAMBIAR POR PROMEDIOS VERDADEROS
+            UsuariosDAO ObjUsuario = new UsuariosDAO();
+            ObjUsuario.PruebaCarrusel();
+            ViewData["TopParte1"] = ObjUsuario.TopParte1;
+            ViewData["TopParte2"] = ObjUsuario.TopParte2;
             return View();
         }
 
