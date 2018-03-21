@@ -73,7 +73,7 @@ namespace CollegeJob.Controllers
                 Session["Codigo"] = ObjUsuario.LoginAdministrador(Datos);
                 Session["Nombre"] = ObjUsuario.Buscarnombre(Datos);
                 Session["Permiso"] = ObjUsuario.BuscarPermiso(Datos);
-                return RedirectToAction("Index", "Estudiante");
+                return RedirectToAction("PaginaPrincipal", "Informacion");
             }
             else if (ObjUsuario.LoginEmpleador(Datos) > 0)
             {
@@ -130,8 +130,9 @@ namespace CollegeJob.Controllers
             }
             else
             {
-                ViewBag.Recuperar = "";
+                ViewBag.Recuperar = "Error";
             }
+            Principal();
             return View("Principal");
         }
     }
