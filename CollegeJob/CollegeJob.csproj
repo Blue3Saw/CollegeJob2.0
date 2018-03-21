@@ -124,12 +124,13 @@
     <Content Include="Recursos\FrontEnd\css\starrr.css" />
     <Content Include="Recursos\FrontEnd\css\stylemdb.css" />
     <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.svg" />
-    <Content Include="Recursos\FrontEnd\img\images\busy.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\cell phone.jpg" />
+    <Content Include="Recursos\FrontEnd\img\images\clean.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\employer_alt.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\library.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\documents.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Mision.jpg" />
+    <Content Include="Recursos\FrontEnd\img\images\papers.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Quienes.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\student.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\student_alt.jpg" />
