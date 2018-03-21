@@ -46,5 +46,15 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
+        public DataTable MostarMensajes2(int usuario,int filtro)
+        {
+            MensajesBO Datos = new MensajesBO();
+            Datos.UsRecibe = usuario;
+            sentencia = "select u.Nombre,u.Codigo,m.UsRecibe,m.FechaHora,m.Mensaje,m.Estatus,m.Titulo,m.id  from Usuarios u,Mensajes m where u.Codigo = m.UsEnvia and m.UsRecibe = '" + Datos.UsRecibe + "' and m.Estatus='"+filtro+"'";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace CollegeJob.Controllers
 
         TareasDAO ObjDAO = new TareasDAO();
         UsuariosDAO UsuarioDao = new UsuariosDAO();
+        CalificacionesBO califbo = new CalificacionesBO();
+        CalificacionesDAO califDao = new CalificacionesDAO();
         public ActionResult Index()
         {
            
@@ -134,7 +136,7 @@ namespace CollegeJob.Controllers
             else
             {
                 string estado = "Rechazado";
-                ObjDAO.AceptoTareaEmpleador(ta,estado, cod);
+                ObjDAO.RechazoTareaEmpleador(ta,estado, cod);
             }
             Notificaciones();
             return View("Notificaciones");
@@ -148,9 +150,15 @@ namespace CollegeJob.Controllers
             return View(ObjDAO.calificaciones(codigoUSuario, tarea));
         }
 
-        public ActionResult GuardarCalificacion()
+        public ActionResult GuardarCalificacion(string comentario,string Tarea,string calif,string Empleador)
         {
-            return View();
+            califbo.Calificacion = int.Parse(calif);
+            califbo.CodigoTarea = int.Parse(Tarea);
+            califbo.UsCalificado = int.Parse(Empleador);
+            califbo.UsCalifica = int.Parse(Session["Codigo"].ToString());
+            califbo.Comentario = comentario;
+            califDao.AgregarCalificacion(califbo);
+            return Redirect("~/Estudiante/MisTareas");
         }
 
         

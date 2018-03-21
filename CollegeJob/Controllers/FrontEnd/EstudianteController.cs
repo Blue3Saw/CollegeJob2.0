@@ -61,10 +61,30 @@ namespace CollegeJob.Controllers
 
         public ActionResult MisTareas()
         {
-            int codigo = int.Parse(Session["Codigo"].ToString());
-            DataTable tareas = tareasdao.MisTareasEstudiante(codigo);
-            ViewData["Medidor"] = tareas.Rows.Count;
-            return View(tareas);
+            string opcion;
+            try
+            {
+                opcion = Session["FiltroTareas"].ToString();
+            }
+            catch
+            {
+                opcion = "Todas";
+            }
+            if (opcion=="Todas")
+            {
+                int codigo = int.Parse(Session["Codigo"].ToString());
+                DataTable tareas = tareasdao.MisTareasEstudiante(codigo);
+                ViewData["Medidor"] = tareas.Rows.Count;
+                return View(tareas);
+            }
+            else
+            {
+                int codigo = int.Parse(Session["Codigo"].ToString());
+                DataTable tareas = tareasdao.MisTareasEstudiante2(codigo,opcion);
+                ViewData["Medidor"] = tareas.Rows.Count;
+                Session["FiltroTareas"] = "Todas";
+                return View(tareas);
+            }
         }
 
         public ActionResult PerfilEstudiante()
@@ -74,7 +94,7 @@ namespace CollegeJob.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarPerfil(string ID, string Nombre, string Apellidos, string Correo, string Contraseña, string FechaNac, string Telefono, string direccion, byte[] img, HttpPostedFileBase Imagen)
+        public ActionResult ActualizarPerfil(string Nombre, string Apellidos, string Correo, string FechaNac, string Telefono, byte[] img, HttpPostedFileBase Imagen)
         {
             UsuarioBO bo = new UsuarioBO();
             if (Imagen != null)
@@ -86,12 +106,10 @@ namespace CollegeJob.Controllers
             {
                 bo.Imagen = img;
             }
-            bo.Codigo = int.Parse(ID);
+            bo.Codigo = int.Parse(Session["Codigo"].ToString());
             bo.Nombre = Nombre;
             bo.Apellidos = Apellidos;
             bo.Email = Correo;
-            bo.Contraseña = Contraseña;
-            bo.Direccion = direccion;
             bo.FechaNac = Convert.ToDateTime(FechaNac);
             bo.Telefono = long.Parse(Telefono);
             int ActPerf = usuarioDAO.ActualizarUsuario2(bo);
@@ -277,9 +295,30 @@ namespace CollegeJob.Controllers
 
         public ActionResult Mensajes()
         {
-            DataTable mensajes = objMensajes.MostarMensajes(int.Parse(Session["Codigo"].ToString()));
-            ViewData["Medidor"] = mensajes.Rows.Count;
-            return View(mensajes);
+            int filtro;
+            try
+            {
+                filtro = int.Parse(Session["FiltroMsg"].ToString());
+            }
+            catch
+            {
+                filtro = 0;
+            }
+            if (filtro==0)
+            {
+                DataTable mensajes = objMensajes.MostarMensajes(int.Parse(Session["Codigo"].ToString()));
+                ViewData["Medidor"] = mensajes.Rows.Count;
+                Session["FiltroMsg"] = 0;
+                return View(mensajes);
+            }
+            else
+            {
+                DataTable mensajes = objMensajes.MostarMensajes2(int.Parse(Session["Codigo"].ToString()),filtro);
+                ViewData["Medidor"] = mensajes.Rows.Count;
+                Session["FiltroMsg"] = 0;
+                return View(mensajes);
+            }
+           
         }
 
         [HttpPost]
@@ -295,6 +334,40 @@ namespace CollegeJob.Controllers
             objMensajes.AgregarMensaje(bo);
             Mensajes();
             return View("Mensajes");
+        }
+
+        [HttpPost]
+        public ActionResult CambiarContra(string contra1,string contra2)
+        {
+            if (contra1 == contra2)
+            {
+                UsuarioBO bo = new UsuarioBO();
+                bo.Codigo = int.Parse(Session["Codigo"].ToString());
+                bo.Contraseña = contra1;
+                usuarioDAO.ActualizaContra(bo);
+            }
+            else
+            {
+                //alertas bro
+            }
+            PerfilEstudiante();
+            return View("PerfilEstudiante");
+        }
+
+        [HttpPost]
+        public ActionResult FiltroMsg(string opcion)
+        {
+            Session["FiltroMsg"] = opcion;
+            Mensajes();
+            return View("Mensajes");
+        }
+
+        [HttpPost]
+        public ActionResult FiltroMisTareas(string opcion)
+        {
+            Session["FiltroTareas"] = opcion;
+            MisTareas();
+            return View("MisTareas");
         }
 
     }

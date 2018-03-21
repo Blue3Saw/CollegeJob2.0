@@ -7,22 +7,22 @@
 
 <style>
     file-field {
-        position: relative
+        position: relative;
     }
 
     .file-field .file-path-wrapper {
         overflow: hidden;
         padding-left: 10px;
-        height: 2.5rem
+        height: 2.5rem;
     }
 
     .file-field input.file-path {
         width: 100%;
-        height: 2.1rem
+        height: 2.1rem;
     }
 
     .file-field span {
-        cursor: pointer
+        cursor: pointer;
     }
 
     .file-field input[type=file] {
@@ -35,7 +35,7 @@
         margin: 0;
         padding: 0;
         cursor: pointer;
-        opacity: 0
+        opacity: 0;
     }
 </style>
 
@@ -48,141 +48,152 @@
     <p class="section-description mb-5 mt-lg-5 mx-lg-5 text-center">
         En este apartado podrás encontrar y cambiar la información de tu perfil
     </p>
-    <div class="row">
-@*@foreach (DataRow row in Model.Rows)
-{*@
-        <div class="col-sm-4">
-            <!--Card-->
-            <div class="card testimonial-card">
+    @using (Ajax.BeginForm("ActualizarPerfil", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
 
-                <!--Bacground color-->
-                <div class="card-up indigo lighten-1">
+            @foreach (DataRow row in Model.Rows)
+            {
+                <div class="col-sm-4">
+                    <!--Card-->
+                    <div class="card testimonial-card">
+
+                        <!--Bacground color-->
+                        <div class="card-up indigo lighten-1">
+                        </div>
+
+                        <!--Avatar-->
+                        <div class="avatar mx-auto white text-center">
+                            @if (row["Imagen"].ToString() != "")
+                            {
+                                string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                <p></p>
+                                <img class="img-fluid rounded-circle" src="@Foto" alt="team member">
+                                <input type="hidden" value="@Foto" name="img">
+                                <p></p>
+                            }
+                            else
+                            {
+                                <p></p>
+                                <img class="img-fluid rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" alt="team member">
+                                <p></p>
+                            }
+                            <p>
+                                <div class="text-center py-4 mt-3">
+                                    <div class="md-form">
+                                        <div class="file-field">
+                                            <div class="btn default-color-dark btn-sm float-left">
+                                                <span>Cambiar foto</span>
+                                                <input type="file" name="Imagen">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
                 </div>
 
-                <!--Avatar-->
-                <div class="avatar mx-auto white text-center">
-                    <p></p>
-                    <img class="img-fluid rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" alt="team member">
-                    <p></p>
-                    <p>
-                        <div class="text-center py-4 mt-3">
+                <div class="col-sm-8">
+
+                    <!-- Card -->
+                    <div class="card">
+
+                        <!-- Card body -->
+                        <div class="card-body">
+
+                            <!-- Material form register -->
+                            <!-- Material input text -->
                             <div class="md-form">
-                                <div class="file-field">
-                                    <div class="btn default-color-dark btn-sm float-left">
-                                        <span>Cambiar foto</span>
-                                        <input type="file">
+                                <i class="fa fa-user prefix grey-text"></i>
+                                <input type="text" id="materialFormCardNameEx" class="form-control" value="@row["Nombre"]" name="Nombre" required>
+                                <label for="materialFormCardNameEx" class="font-weight-light">Nombre(s)</label>
+                            </div>
+
+                            <div class="md-form">
+                                <i class="fa fa-user prefix grey-text"></i>
+                                <input type="text" id="materialFormCardNameEx" class="form-control" value="@row["Apellidos"]" name="Apellidos" required>
+                                <label for="materialFormCardNameEx" class="font-weight-light">Apellidos</label>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                        <i class="fa fa-calendar prefix grey-text"></i>
+                                        <input type="text" id="datepicker" class="form-control" value="@row["FechaNac"]" readonly name="Fecha" required>
+                                        <label for="materialFormCardNameEx" class="font-weight-light">Fecha de nacimiento</label>
                                     </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                        <i class="fa fa-phone prefix grey-text"></i>
+                                        <input type="text" id="materialFormCardNameEx" class="form-control" value="@row["Telefono"]" name="Telefono" required>
+                                        <label for="materialFormCardNameEx" class="font-weight-light">Teléfono</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Material input email -->
+                            <div class="md-form">
+                                <i class="fa fa-envelope prefix grey-text"></i>
+                                <input type="email" id="materialFormCardEmailEx" class="form-control" value="@row["Email"]" name="Correo" required>
+                                <label for="materialFormCardEmailEx" class="font-weight-light">Correo electrónico</label>
+                            </div>
+
+                            <div class="text-center py-4 mt-3">
+                                <button class="btn btn-outline-default waves-effect" data-toggle="modal" data-target="#exampleModal">Cambiar contraseña</button>
+                                <button class="btn btn-outline-default waves-effect" type="submit" id="notificationButton">Confirmar cambios</button>
+                            </div>
+                            <!-- Material form register -->
+
+                        </div>
+                        <!-- Card body -->
+
+                    </div>
+
+                    <!--Modal contrseña-->
+                    @using (Ajax.BeginForm("CambiarContra", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Cambio de contraseña</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="md-form form-sm">
+                                            <input type="password" id="materialFormNameModalNombre" class="form-control form-control-sm" name="contra1" required>
+                                            <label for="materialFormNameModalNombre">Nueva contraseña</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="md-form form-sm">
+                                            <input type="password" id="materialFormNameModalNombre" class="form-control form-control-sm" name="contra2" required>
+                                            <label for="materialFormNameModalNombre">Confirmar contraseña</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-default">Guardar cambios</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </p>
-                </div>
+                    }
 
-            </div>
-            <!--/.Card-->
+                    <!--Fin modal contraseña-->
+                    <!-- Card -->
+                </div>
+            }
         </div>
-
-        <div class="col-sm-8">
-
-            <!-- Card -->
-            <div class="card">
-
-                <!-- Card body -->
-                <div class="card-body">
-
-                    <!-- Material form register -->
-                    <!-- Material input text -->
-                    <div class="md-form">
-                        <i class="fa fa-user prefix grey-text"></i>
-                        <input type="text" id="materialFormCardNameEx" class="form-control">
-                        <label for="materialFormCardNameEx" class="font-weight-light">Nombre(s)</label>
-                    </div>
-
-                    <div class="md-form">
-                        <i class="fa fa-user prefix grey-text"></i>
-                        <input type="text" id="materialFormCardNameEx" class="form-control">
-                        <label for="materialFormCardNameEx" class="font-weight-light">Apellidos</label>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="md-form">
-                                <i class="fa fa-calendar prefix grey-text"></i>
-                                <input type="text" id="materialFormCardNameEx" class="form-control">
-                                <label for="materialFormCardNameEx" class="font-weight-light">Fecha de nacimiento</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="md-form">
-                                <i class="fa fa-phone prefix grey-text"></i>
-                                <input type="text" id="materialFormCardNameEx" class="form-control">
-                                <label for="materialFormCardNameEx" class="font-weight-light">Teléfono</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Material input email -->
-                    <div class="md-form">
-                        <i class="fa fa-envelope prefix grey-text"></i>
-                        <input type="email" id="materialFormCardEmailEx" class="form-control">
-                        <label for="materialFormCardEmailEx" class="font-weight-light">Correo electrónico</label>
-                    </div>
-
-                    <div class="text-center py-4 mt-3">
-                        <button class="btn btn-outline-default waves-effect" data-toggle="modal" data-target="#exampleModal">Cambiar contraseña</button>
-                        <button class="btn btn-outline-default waves-effect" type="submit" id="notificationButton">Confirmar cambios</button>
-                    </div>
-                    <!-- Material form register -->
-
-                </div>
-                <!-- Card body -->
-
-            </div>
-
-            <!--Modal contrseña-->
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Cambio de contraseña</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="md-form form-sm">
-                                <input type="password" id="materialFormNameModalNombre" class="form-control form-control-sm">
-                                <label for="materialFormNameModalNombre">Nueva contraseña</label>
-                            </div>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="md-form form-sm">
-                                <input type="password" id="materialFormNameModalNombre" class="form-control form-control-sm">
-                                <label for="materialFormNameModalNombre">Confirmar contraseña</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-default" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-default">Guardar cambios</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Fin modal contraseña-->
-            <!-- Card -->
-            <button id="buttonP">Dar Permisos</button>
-            <button id="buttonN">Lanzar notificación</button>
-        </div>
-@*}*@
-    </div>
+    }
 </section>
-
 
 <script>
     var btnNotificacion = document.getElementById("buttonN"),

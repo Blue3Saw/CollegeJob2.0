@@ -45,8 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
@@ -116,12 +117,16 @@
     <Content Include="Recursos\BackEnd\js\mdb.min.js" />
     <Content Include="Recursos\BackEnd\js\paper-dashboard.js" />
     <Content Include="Recursos\BackEnd\js\popper.min.js" />
+    <Content Include="Recursos\FrontEnd\css\animate.css" />
     <Content Include="Recursos\FrontEnd\css\bootstrap.css" />
     <Content Include="Recursos\FrontEnd\css\bootstrap.min.css" />
+    <Content Include="Recursos\FrontEnd\css\github.css" />
+    <Content Include="Recursos\FrontEnd\css\jPages.css" />
     <Content Include="Recursos\FrontEnd\css\main.css" />
     <Content Include="Recursos\FrontEnd\css\mdb.css" />
     <Content Include="Recursos\FrontEnd\css\mdb.min.css" />
     <Content Include="Recursos\FrontEnd\css\starrr.css" />
+    <Content Include="Recursos\FrontEnd\css\style.css" />
     <Content Include="Recursos\FrontEnd\css\stylemdb.css" />
     <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.svg" />
     <Content Include="Recursos\FrontEnd\img\images\busy.jpg" />
@@ -153,16 +158,22 @@
     <Content Include="Recursos\FrontEnd\img\svg\arrow_right.svg" />
     <Content Include="Recursos\FrontEnd\js\bootstrap.js" />
     <Content Include="Recursos\FrontEnd\js\bootstrap.min.js" />
+    <Content Include="Recursos\FrontEnd\js\highlight.pack.js" />
+    <Content Include="Recursos\FrontEnd\js\jPages.js" />
+    <Content Include="Recursos\FrontEnd\js\jPages.min.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-1.7.1.min.js" />
+    <Content Include="Recursos\FrontEnd\js\jquery-1.8.2.min.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-3.1.1.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-3.1.1.min.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-3.2.1.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-3.2.1.min.js" />
+    <Content Include="Recursos\FrontEnd\js\jquery-ui.js" />
     <Content Include="Recursos\FrontEnd\js\locationpicker.jquery.js" />
     <Content Include="Recursos\FrontEnd\js\mdb.js" />
     <Content Include="Recursos\FrontEnd\js\mdb.min.js" />
     <Content Include="Recursos\FrontEnd\js\popper.min.js" />
     <Content Include="Recursos\FrontEnd\js\starrr.js" />
+    <Content Include="Recursos\FrontEnd\js\tabifier.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +322,7 @@
     <Content Include="Views\Empleador\Perfil.cshtml" />
     <Content Include="Views\Estudiante\Mensajes.cshtml" />
     <Content Include="Recursos\FrontEnd\css\compiled.min.css" />
+    <Content Include="Views\Empleador\Calificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
