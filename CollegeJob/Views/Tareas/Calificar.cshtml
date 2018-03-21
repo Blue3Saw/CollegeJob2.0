@@ -4,6 +4,39 @@
     ViewBag.Title = "Calificar";
     Layout = "~/Views/MasterPages/_layoutEstudiante.cshtml";
 }
+<style>
+    file-field {
+        position: relative;
+    }
+
+    .file-field .file-path-wrapper {
+        overflow: hidden;
+        padding-left: 10px;
+        height: 2.5rem;
+    }
+
+    .file-field input.file-path {
+        width: 100%;
+        height: 2.1rem;
+    }
+
+    .file-field span {
+        cursor: pointer;
+    }
+
+    .file-field input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        opacity: 0;
+    }
+</style>
 
 <section class="section pb-3 text-center text-lg-left">
 
@@ -18,38 +51,78 @@
     <div class="row">
         @foreach (DataRow item in Model.Rows)
         {
-            <div class="col-md-12">
-                <div class="card">
-@using (Ajax.BeginForm("", "", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
-{
-                    <div class="row">
-                        <div class="col-lg-4">
-                            @if (item["Imagen"].ToString() != "")
-                            {
-                                string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])item["Imagen"]);
-                                <img src="@Foto" alt="" class="img-fluid">
-                            }
-                            else
-                            {
-                                <img src="https://i.ytimg.com/vi/-bysikWgkm4/maxresdefault.jpg" alt="" class="img-fluid">
-                            }
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="card-body text-center">
-                                <h4 class="color-royal">@item["Titulo"]</h4>
-                                <p>@item["Descripcion"]</p>
-                                <p>Fecha: @item["Fecha"]</p>
-                                <input type="hidden" name="Tarea" value="@item["Codigo"]" />
-                                <div class="col-xl-12 bann-info">
-
-                                    Calificar: <div id="Estrellas" name="Estrellas"></div>
+            int sesion = int.Parse(Session["Codigo"].ToString());
+            int valor = int.Parse(item["CodigoEstudiante"].ToString());
+            if (sesion==valor)
+            {
+                <div class="col-md-12">
+                    <div class="card">
+                        @using (Ajax.BeginForm("GuardarCalificacion", "Tareas", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    @if (item["Imagen"].ToString() != "")
+                                    {
+                                        string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])item["Imagen"]);
+                                        <div class="avatar mx-auto white text-center">
+                                            <p></p>
+                                            <img class="img-fluid rounded-circle" src="@Foto" alt="team member">
+                                            <p></p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="avatar mx-auto white text-center">
+                                            <p></p>
+                                            <img class="img-fluid rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" alt="team member">
+                                            <p></p>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="card-body text-center">
+                                        <h4 class="color-royal">@item["Nombre"]</h4>
+                                        <p>Por la Tarea: @item["Titulo"]</p>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="col-form-label">Comentarios:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <textarea type="text" name="comentario" class="form-control md-textarea" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="Empleador" value="@item["UsuarioEmpleador"]" />
+                                        <input type="hidden" name="Tarea" value="@item["Codigo"]" />
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label class="col-form-label">Calificación:</label>
+                                                <input id="ValEst" name="calif" type="text" style="display:none" />
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div id="Estrellas" name="Estrellas"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-outline-default waves-effect waves-light" data-toggle="modal" data-target="#exampleModal">
+                                                <i class="fa fa-check"></i>
+                                                <span>Guardar</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
-}
                 </div>
-            </div>
+            }
+            else
+            {
+                <div style="width:200px">
+                    <p class="section-description mb-5 mt-lg-5 mx-lg-5 text-center">
+                        Esta tarea no la puedes calificar tú, ya que no fuiste aceptado
+                    </p>
+                </div>
+            }
         }
 
     </div>

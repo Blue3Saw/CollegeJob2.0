@@ -138,7 +138,15 @@ namespace Data_Access_Object
 
         public DataTable TodasTareasEmpleador(int Codigo)
         {
-            Sentencia = "SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = '"+Codigo+"'";
+            Sentencia = "SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal,T.Estatus,(U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = '" + Codigo+"'";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+        public DataTable TodasTareasEmpleador2(int Codigo,string categoria)
+        {
+            Sentencia = "SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal,T.Estatus,(U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion, (SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE U.Codigo = 3 and Ct.Clasificacion='"+categoria+"'";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -448,7 +456,15 @@ namespace Data_Access_Object
 
         public DataTable MisTareasEstudiante(int codigo)
         {
-            Sentencia = "select T.Codigo,T.Titulo,T.Fecha,T.UsuarioEmpleador,T.Descripcion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen',(SELECT (u.Nombre+' '+u.Apellidos) as nombre FROM Usuarios u WHERE T.UsuarioEmpleador=u.Codigo ) AS 'Nombre' from Tareas T,UsuariosTareas UT,Usuarios U where T.Codigo=UT.CodigoTarea and UT.CodigoEstudiante=U.Codigo and U.Codigo='"+codigo+"' and UT.estado='Aceptado'";
+            Sentencia = "select T.Codigo,UT.estado,T.Titulo,T.Fecha,T.UsuarioEmpleador,T.Descripcion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen',(SELECT (u.Nombre+' '+u.Apellidos) as nombre FROM Usuarios u WHERE T.UsuarioEmpleador=u.Codigo ) AS 'Nombre' from Tareas T,UsuariosTareas UT,Usuarios U where T.Codigo=UT.CodigoTarea and UT.CodigoEstudiante=U.Codigo and U.Codigo='" + codigo+ "' and UT.estado in('Aceptado','Terminado','Aceptar')";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+        public DataTable MisTareasEstudiante2(int codigo,string opcion)
+        {
+            Sentencia = "select T.Codigo,UT.estado,T.Titulo,T.Fecha,T.UsuarioEmpleador,T.Descripcion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen',(SELECT (u.Nombre+' '+u.Apellidos) as nombre FROM Usuarios u WHERE T.UsuarioEmpleador=u.Codigo ) AS 'Nombre' from Tareas T,UsuariosTareas UT,Usuarios U where T.Codigo=UT.CodigoTarea and UT.CodigoEstudiante=U.Codigo and U.Codigo='" + codigo + "' and UT.estado in('"+opcion+"')";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -457,7 +473,15 @@ namespace Data_Access_Object
 
         public DataTable calificaciones(int codigoUsuaurio,int CodigoTarea)
         {
-            Sentencia = "SELECT t.Titulo,t.Codigo,t.Fecha,t.Descripcion,t.Direccion,t.HoraInicio,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas t,UsuariosTareas u,Usuarios us WHERE t.Codigo=u.CodigoTarea and u.estado='Terminado' and u.CodigoEstudiante=us.Codigo and us.Codigo='" + codigoUsuaurio+"' and u.CodigoTarea = '"+CodigoTarea+"'";
+            Sentencia = "select t.Titulo,t.Codigo,(u.Nombre+' '+u.Apellidos)as Nombre,t.UsuarioEmpleador,u.Imagen,ut.CodigoEstudiante from Usuarios u, Tareas t, UsuariosTareas ut where u.Codigo=t.UsuarioEmpleador and t.Codigo=ut.CodigoTarea and ut.estado='Terminado' and ut.CodigoEstudiante='" + codigoUsuaurio+"' and ut.CodigoTarea='"+CodigoTarea+"'";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+        public DataTable calificacionesEmpleador(int CodigoTarea)
+        {
+            Sentencia = "select (u.Nombre+' '+u.Apellidos)as Nombre,u.Codigo as Empleador,t.Codigo,u.Imagen from Tareas t, UsuariosTareas ut,Usuarios u where u.Codigo=ut.CodigoEstudiante and t.Codigo=ut.CodigoTarea and ut.CodigoTarea='" + CodigoTarea+"' and ut.CE in(2,4)";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
