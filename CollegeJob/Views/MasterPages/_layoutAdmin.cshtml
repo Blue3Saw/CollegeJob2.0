@@ -78,10 +78,28 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("AgregarCategoria", "CategoriasYTipos")">
+                        <a class="nav-link" data-toggle="collapse" href="#pagesExamples" aria-expanded="true">
                             <i class="fa fa-plus-square"></i>
-                            <p>Agregar</p>
+                            <p>
+                                Agregar
+                                <b class="caret"></b>
+                            </p>
                         </a>
+
+                        <div class="collapse" id="pagesExamples" style="">
+                            <ul class="nav">
+                                <li>
+                                    <a href="./pages/pricing.html">
+                                        <span class="sidebar-normal"> Pricing </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="./pages/rtl.html">
+                                        <span class="sidebar-normal"> RTL Support </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="@Url.Action("Index","Informacion")">
