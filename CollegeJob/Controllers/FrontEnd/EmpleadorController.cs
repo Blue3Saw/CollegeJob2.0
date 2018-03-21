@@ -186,8 +186,6 @@ namespace CollegeJob.Controllers.FrontEnd
             return Redirect("~/Empleador/Index");
         }
 
-
-
         public ActionResult TerminarTareaEmpleador(string Tarea)
         {
             TareasBO.CodigoEstatus= 6;

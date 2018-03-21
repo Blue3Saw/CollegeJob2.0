@@ -392,5 +392,15 @@ namespace Data_Access_Object
                 cont++;
             }
         }
+
+        public string BuscarContraseña(string Correo)
+        {
+            UsuarioBO Datos = new UsuarioBO();
+            SqlCommand Com = new SqlCommand("SELECT U.Contraseña FROM Usuarios U WHERE U.Email = @Correo");
+            Com.Parameters.Add("@Correo", SqlDbType.VarChar).Value = Correo;
+            Com.CommandType = CommandType.Text;
+            string Contraseña = Datos.Desencriptar(Conex.EjecutarSentencia(Com).Tables[0].Rows[0].ToString());
+            return Contraseña;
+        }
     }
 }

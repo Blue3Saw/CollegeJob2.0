@@ -6,6 +6,8 @@ using System.Data;
 using System.Web.Mvc;
 using Business_Object;
 using Data_Access_Object;
+using System.Net.Mail;
+using System.Net;
 
 namespace CollegeJob.Controllers
 {
@@ -102,6 +104,35 @@ namespace CollegeJob.Controllers
             }
         }
 
+        public ActionResult RecuperarContraseña(string Email)
+        {
+            UsuariosDAO ObjUsuario = new UsuariosDAO();
+            string Contraseña = ObjUsuario.BuscarContraseña(Email);
 
+            if(Contraseña != "")
+            {
+                string CorreoRemitente = "collegeJobSGM@gmail.com";
+                MailMessage Correo = new MailMessage();
+                Correo.To.Add(new MailAddress(Email));
+                Correo.From = new MailAddress(CorreoRemitente);
+                Correo.Subject = "Recuperar contraseña CollegeJob";
+                Correo.Body = "Tu contraseña para acceder a la plataforma es: " + Contraseña;
+                Correo.IsBodyHtml = true;
+                Correo.Priority = MailPriority.Normal;
+                SmtpClient Cliente = new SmtpClient();
+                Cliente.Host = "smtp.gmail.com";
+                Cliente.Port = 587;
+                Cliente.EnableSsl = true;
+                Cliente.Credentials = new NetworkCredential("collegeJobSGM@gmail.com", "SGM123456");
+                Cliente.Send(Correo);
+                Session["Recuperar"] = Contraseña;
+                ViewBag.Recuperar = Session["Recuperar"];
+            }
+            else
+            {
+                ViewBag.Recuperar = "";
+            }
+            return View("Principal");
+        }
     }
 }
