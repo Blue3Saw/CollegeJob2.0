@@ -40,13 +40,16 @@
         <div class="collapse navbar-collapse" id="navbarContent" style="">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#">¿Quiénes somos?</a>
+                    <a class="nav-link waves-effect waves-light" href="#CarruselEmpleadores">Empleadores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#">Misión</a>
+                    <a class="nav-link waves-effect waves-light" href="#CarruselEstudiantes">Estudiantes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#">Visión</a>
+                    <a class="nav-link waves-effect waves-light" href="#CarruselTareas">Tareas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="#App">App</a>
                 </li>
             </ul>
 
@@ -127,6 +130,9 @@
                 </div>
                 <!--Body-->
                 <div class="modal-body">
+                    <p>
+                        Este registro corresponde únicamente al empleador si deseas registrarte como estudiante da clic <a href="">aquí</a>
+                    </p>
 
                     <div class="md-form form-sm">
                         <i class="fa fa-user prefix"></i>
@@ -206,9 +212,7 @@
                         </li>
 
                         <li>
-                            <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-default waves-effect btn-lg flex-item waves-light" rel="nofollow">Registrarme</a>
-
-                            <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-outline-white btn-lg flex-item waves-effect waves-light" rel="nofollow">Ver más</a>
+                            <a data-toggle="modal" data-target="#modalRegistroForm" class="btn btn-default waves-effect btn-lg flex-item waves-light">Ver más</a>
                         </li>
                     </ul>
                 </div>
@@ -217,7 +221,7 @@
             </div>
             <!-- /.First slide -->
             <!-- Second slide -->
-            <div class="carousel-item view hm-black-light" style="background-image: url('../../Recursos/FrontEnd/img/images/busy.jpg'); background-repeat: no-repeat; background-size: cover;">
+            <div class="carousel-item view hm-black-light mask rgba-black-strong" style="background-image: url('../../Recursos/FrontEnd/img/images/worry.jpg'); background-repeat: no-repeat; background-size: cover;">
 
                 <!-- Caption -->
                 <div class="full-bg-img flex-center white-text">
@@ -229,9 +233,7 @@
                             <h3 class="my-4">Pero estás ocupado o simplemente no quieres hacerlo</h3>
                         </li>
                         <li>
-                            <a data-toggle="modal" data-target="#modalRegistroForm" class="btn btn-default waves-effect btn-lg flex-item waves-light" rel="nofollow">Registrarme</a>
-
-                            <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-outline-white btn-lg flex-item waves-effect waves-light" rel="nofollow">Ver más</a>
+                            <a data-toggle="modal" data-target="#modalRegistroForm" class="btn btn-default waves-effect btn-lg flex-item waves-light">Ver más</a>
                         </li>
                     </ul>
                 </div>
@@ -250,6 +252,11 @@
                         </li>
                         <li>
                             <h3 class="my-4">Si respondiste sí a cualquier pregunta anterior la solución es CollegeJob</h3>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-default waves-effect btn-lg flex-item waves-light" rel="nofollow">Registrarme</a>
+
+                            <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-outline-white btn-lg flex-item waves-effect waves-light" rel="nofollow">Ver más</a>
                         </li>
                     </ul>
                 </div>
@@ -283,46 +290,62 @@
             <strong>Mejores empleadores</strong>
         </h1>
     </div>
-    <!-- ------------------------------Carrusel estudiantes------------------------------------->
-    <div class="container">
-        <!--Carousel Wrapper-->
-        <div id="multi-item-example2" class="carousel slide carousel-multi-item" data-ride="carousel">
+    <!-- ------------------------------Carrusel empleadores------------------------------------->
+    <div class="container" id="CarruselTareas">
+        <div id="multi-item-example1" class="carousel slide carousel-multi-item" data-ride="carousel">
             <!--Controls-->
             <div class="controls-top">
-                <a class="btn-floating btn-default" href="#multi-item-example2" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-                <a class="btn-floating btn-default" href="#multi-item-example2" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+                <a class="btn-floating btn-default waves-effect waves-light" href="#multi-item-example1" data-slide="prev">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+                <a class="btn-floating btn-default waves-effect waves-light" href="#multi-item-example1" data-slide="next">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
-            <!--/.Controls-->
+            <!--Controls-->
+            <p></p>
             <!--Indicators-->
             <ol class="carousel-indicators">
-                <li data-target="#multi-item-example2" data-slide-to="0" class="active btn-default"></li>
-                <li data-target="#multi-item-example2" data-slide-to="1" class="btn-default"></li>
+                <li class="active btn-default" data-target="#multi-item-example1" data-slide-to="0"></li>
+                <li class="btn-default" data-target="#multi-item-example1" data-slide-to="1"></li>
             </ol>
-            <!--/.Indicators-->
+            <!--Indicators-->
+            <!--Slides-->
             <div class="carousel-inner" role="listbox">
                 <!--First slide-->
                 <div class="carousel-item active">
                     @{
-                        DataTable filaTop1 = ViewData["TopParte1"] as DataTable;
-                        int Cont = 0;
-                        foreach (DataRow row in filaTop1.Rows)
+                        DataTable TopEmpleador1 = ViewData["TopParte1"] as DataTable;
+                        int ContEmp1 = 0;
+                        foreach (DataRow row in TopEmpleador1.Rows)
                         {
-                            if (Cont == 0)
+                            if (ContEmp1 == 0)
                             {
                                 <div class="col-md-4">
-                                    <div class="card md-2">
-                                        @if(row["Imagen"].ToString() == "")
-                                        {
-                                            <img class="img-fluid" src="~/Recursos/FrontEnd/img/images/employer_alt.jpg" />
-                                        }
-                                        else
-                                        {
-                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                            <img class="img-fluid" src="@Foto" />
-                                        }
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Nombre"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                texto prueba
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -330,51 +353,72 @@
                             else
                             {
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card md-2">
-                                        @if(row["Imagen"].ToString() == "")
-                                        {
-                                            <img class="img-fluid" src="~/Recursos/FrontEnd/img/images/employer_alt.jpg" />
-                                        }
-                                        else
-                                        {
-                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                            <img class="img-fluid" src="@Foto" />
-                                        }
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Nombre"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                Texto prueba
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             }
-                            Cont++;
                         }
                     }
                 </div>
-                <!--/.First slide-->
+                <!--First slide-->
                 <!--Second slide-->
                 <div class="carousel-item">
                     @{
-                        DataTable filaTop2 = ViewData["TopParte2"] as DataTable;
-                        int ContP2 = 0;
-                        foreach (DataRow row in filaTop2.Rows)
+                        DataTable TopEmpleador2 = ViewData["TopParte2"] as DataTable;
+                        int ContEmp2 = 0;
+                        foreach (DataRow row in TopEmpleador2.Rows)
                         {
-                            if (ContP2 == 0)
+                            if (ContEmp2 == 0)
                             {
                                 <div class="col-md-4">
-                                    <div class="card md-2">
-                                        @if(row["Imagen"].ToString() == "")
-                                        {
-                                            <img class="img-fluid" src="~/Recursos/FrontEnd/img/images/employer_alt.jpg" />
-                                        }
-                                        else
-                                        {
-                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                            <img class="img-fluid" src="@Foto" />
-                                        }
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Nombre"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                Texto prueba
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -382,29 +426,40 @@
                             else
                             {
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card md-2">
-                                        @if(row["Imagen"].ToString() == "")
-                                        {
-                                            <img class="img-fluid" src="~/Recursos/FrontEnd/img/images/employer_alt.jpg" />
-                                        }
-                                        else
-                                        {
-                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                            <img class="img-fluid" src="@Foto" />
-                                        }
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Nombre"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                Texto prueba
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             }
-                            ContP2++;
                         }
                     }
                 </div>
-                <!--/.Second slide-->
+                <!--Second slide-->
             </div>
+            <!--Slides-->
         </div>
     </div>
     <!-- ------------------------------------ Fin carrusel -------------------------------------------->
@@ -421,46 +476,62 @@
         </h1>
     </div>
 
-    <!-- -------------------------------Carrusel empleadores-------------------------------------- -->
-    <div class="container">
-        <!--Carousel Wrapper-->
-        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+    <!-- -------------------------------Carrusel estudiantes-------------------------------------- -->
+    <div class="container" id="CarruselTareas">
+        <div id="multi-item-example2" class="carousel slide carousel-multi-item" data-ride="carousel">
             <!--Controls-->
             <div class="controls-top">
-                <a class="btn-floating btn-default" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-                <a class="btn-floating btn-default" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+                <a class="btn-floating btn-default waves-effect waves-light" href="#multi-item-example2" data-slide="prev">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+                <a class="btn-floating btn-default waves-effect waves-light" href="#multi-item-example2" data-slide="next">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
-            <!--/.Controls-->
+            <!--Controls-->
+            <p></p>
             <!--Indicators-->
             <ol class="carousel-indicators">
-                <li data-target="#multi-item-example" data-slide-to="0" class="active btn-default"></li>
-                <li data-target="#multi-item-example" data-slide-to="1" class="btn-default"></li>
+                <li class="active btn-default" data-target="#multi-item-example2" data-slide-to="0"></li>
+                <li class="btn-default" data-target="#multi-item-example2" data-slide-to="1"></li>
             </ol>
-            <!--/.Indicators-->
+            <!--Indicators-->
+            <!--Slides-->
             <div class="carousel-inner" role="listbox">
                 <!--First slide-->
                 <div class="carousel-item active">
                     @{
-                        DataTable filaTop4 = ViewData["TopParte1"] as DataTable;
-                        int ContParte4 = 0;
-                        foreach (DataRow row in filaTop4.Rows)
+                        DataTable TopEstudiante1 = ViewData["TopParte1"] as DataTable;
+                        int ContEst1 = 0;
+                        foreach (DataRow row in TopEstudiante1.Rows)
                         {
-                            if (Cont == 0)
+                            if (ContEst1 == 0)
                             {
                                 <div class="col-md-4">
-                                    <div class="card md-2">
-                                        @if(row["Imagen"].ToString() == "")
-                                        {
-                                            <img class="img-fluid" src="~/Recursos/FrontEnd/img/images/employer_alt.jpg" />
-                                        }
-                                        else
-                                        {
-                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                            <img class="img-fluid" src="@Foto" />
-                                        }
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Nombre"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                texto prueba
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -468,51 +539,72 @@
                             else
                             {
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card md-2">
-                                        @if(row["Imagen"].ToString() == "")
-                                        {
-                                            <img class="img-fluid" src="~/Recursos/FrontEnd/img/images/employer_alt.jpg" />
-                                        }
-                                        else
-                                        {
-                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                            <img class="img-fluid" src="@Foto" />
-                                        }
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Nombre"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                Texto prueba
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             }
-                            ContParte4++;
                         }
                     }
                 </div>
-                <!--/.First slide-->
+                <!--First slide-->
                 <!--Second slide-->
                 <div class="carousel-item">
                     @{
-                        DataTable filaTop3 = ViewData["TopParte2"] as DataTable;
-                        int ContP3 = 0;
-                        foreach (DataRow row in filaTop3.Rows)
+                        DataTable TopEstudiante2 = ViewData["TopParte2"] as DataTable;
+                        int ContEst2 = 0;
+                        foreach (DataRow row in TopEstudiante2.Rows)
                         {
-                            if (ContP2 == 0)
+                            if (ContEst2 == 0)
                             {
                                 <div class="col-md-4">
-                                    <div class="card md-2">
-                                        @if(row["Imagen"].ToString() == "")
-                                        {
-                                            <img class="img-fluid" src="~/Recursos/FrontEnd/img/images/employer_alt.jpg" />
-                                        }
-                                        else
-                                        {
-                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                            <img class="img-fluid" src="@Foto" />
-                                        }
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Nombre"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                Texto prueba
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -520,34 +612,230 @@
                             else
                             {
                                 <div class="col-md-4 clearfix d-none d-md-block">
-                                    <div class="card md-2">
-                                        @if(row["Imagen"].ToString() == "")
-                                        {
-                                            <img class="img-fluid" src="~/Recursos/FrontEnd/img/images/employer_alt.jpg" />
-                                        }
-                                        else
-                                        {
-                                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                            <img class="img-fluid" src="@Foto" />
-                                        }
-                                        <div class="card-body">
-                                            <h4 class="card-title">@row["Nombre"]</h4>
-                                            <p class="card-text">Texto prueba</p>
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Nombre"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                Texto prueba
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             }
-                            ContP3++;
                         }
                     }
                 </div>
-                <!--/.Second slide-->
+                <!--Second slide-->
             </div>
+            <!--Slides-->
         </div>
     </div>
     <!-- -----------------------------------Fin carrusel ----------------------------------------- -->
 
-    <div class="view" data-jarallax='{"speed": 0.2}' style="background-image: url('../../Recursos/FrontEnd/img/images/cell phone.jpg'); background-size: 100% 100%; height: 400px; background-attachment: fixed;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="dashed" />
+            </div>
+        </div>
+
+        <h1 class="title mb-4" style="text-align:center">
+            <strong>Últimas tareas</strong>
+        </h1>
+    </div>
+
+    <!-- --------------------------------------Carrusel tareas------------------------------------------ -->
+    <div class="container" id="CarruselTareas">
+        <div id="multi-item-example3" class="carousel slide carousel-multi-item" data-ride="carousel">
+            <!--Controls-->
+            <div class="controls-top">
+                <a class="btn-floating btn-default waves-effect waves-light" href="#multi-item-example3" data-slide="prev">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+                <a class="btn-floating btn-default waves-effect waves-light" href="#multi-item-example3" data-slide="next">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+            <!--Controls-->
+            <!--Indicators-->
+            <ol class="carousel-indicators">
+                <li class="active btn-default" data-target="#multi-item-example3" data-slide-to="0"></li>
+                <li class="btn-default" data-target="#multi-item-example3" data-slide-to="1"></li>
+            </ol>
+            <!--Indicators-->
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+                <!--First slide-->
+                <div class="carousel-item active">
+                    @{
+                        DataTable TopTareas1 = ViewData["TopTareas1"] as DataTable;
+                        int ContT1 = 0;
+                        foreach (DataRow row in TopTareas1.Rows)
+                        {
+                            if (ContT1 == 0)
+                            {
+                                <div class="col-md-4">
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Titulo"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                @row["Descripcion"]
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-4 clearfix d-none d-md-block">
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Titulo"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                @row["Descripcion"]
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+                <!--First slide-->
+                <!--Second slide-->
+                <div class="carousel-item">
+                    @{
+                        DataTable TopTareas2 = ViewData["TopTareas2"] as DataTable;
+                        int ContT2 = 0;
+                        foreach (DataRow row in TopTareas2.Rows)
+                        {
+                            if (ContT2 == 0)
+                            {
+                                <div class="col-md-4">
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Titulo"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                @row["Descripcion"]
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-4 clearfix d-none d-md-block">
+                                    <div class="card card-cascade wider card-ecommerce">
+                                        <div class="view overlay hm-white-slight">
+                                            @if (row["Imagen"].ToString() == "")
+                                            {
+                                                <img src="~/Recursos/FrontEnd/img/images/task_alt.jpg" class="img-fluid" />
+                                            }
+                                            else
+                                            {
+                                                string Imagen = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                <img src="@Imagen" class="img-fluid" />
+                                            }
+                                            <a>
+                                                <div class="mask waves-effect waves-light"></div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body text-center no-padding">
+                                            <h4 class="card-title my-4">
+                                                <strong>
+                                                    <a href="">@row["Titulo"]</a>
+                                                </strong>
+                                            </h4>
+                                            <p class="card-text">
+                                                @row["Descripcion"]
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+                <!--Second slide-->
+            </div>
+            <!--Slides-->
+        </div>
+    </div>
+    <!-- -----------------------------------Fin carrusel tareas----------------------------------------- -->
+
+    <div class="view" id="App" data-jarallax='{"speed": 0.2}' style="background-image: url('../../Recursos/FrontEnd/img/images/cell phone.jpg'); background-size: 100% 100%; height: 400px; background-attachment: fixed;">
         <div class="full-bg-img">
             <div class="mask rgba-green-slight">
                 <div class="container">
@@ -570,7 +858,7 @@
             </div>
         </div>
     </div>
-    
+
     <footer class="page-footer darken-2 center-on-small-only pt-0 mt-0" style="background-color:#2A5C56">
         <div class="container">
             <div class="row">
@@ -581,7 +869,7 @@
         </div>
         <div class="footer-copyright">
             <div class="container-fluid">
-                <p>&copy; <a href="/">CollegeJob</a> - Design: <a href="https://templateflip.com/" target="_blank">mdbootstrap</a></p>
+                <p>&copy; <a href="/">CollegeJob</a> - Design: <a href="https://mdbootstrap.com/" target="_blank">mdbootstrap</a></p>
             </div>
         </div>
     </footer>
