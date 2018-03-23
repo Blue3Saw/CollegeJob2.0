@@ -29,7 +29,7 @@ namespace CollegeJob.Controllers.BackEnd
             int CodAgreCat = dao.AgregarClasificación(bo);
             Session["CodAgreCat"] = CodAgreCat;
             ViewBag.CodAgreCat = Session["CodAgreCat"];
-            return View("AgregarCategoria");
+            return View("Index");
         }
         public ActionResult Agregartipo(string Tipo)
         {

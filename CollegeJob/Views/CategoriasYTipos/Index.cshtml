@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/MasterPages/_layoutAdmin.cshtml";
+}
+
+
+
+<div class="container-fluid">
+    <div class="container card">
+
+        <div onclick="mostar2()" style="cursor:pointer"><h2>Tipos de Usuario</h2></div>
+        <div class="row" id="ti" >
+            @using (Ajax.BeginForm("Agregartipo", "CategoriasYTipos", new AjaxOptions() { HttpMethod = "POST" }))
+        {
+            <div class="col-md-4">
+                <div>
+                    <input type="text" class="form-control  border-input" name="Tipo" placeholder="Tipo" value="" required="required" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <button type="submit" class="btn btn-success" name="agregar" value="1" onclick="Agregarti()">AGREGAR</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="cat2">
+                    <button type="submit" id="btn1" value="Mostar tabla" class="btn btn-success" onclick="tabla2()" >Mostrar tabla</button>
+                </div>
+            </div>
+    }
+        </div>
+        <div class="row">
+            <div id="tablatipo" class="col-md-4">
+
+            </div>
+            <div id="Actualizartabla" class="col-md-4">
+
+            </div>
+        </div>        
+
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+            //function tabla() {
+            // style='display:none   $('#tablacategoria').load('/CategoriasYTipos/tablacategorias');
+            //}
+            function tabla2() {
+                $('#tablatipo').load('/CategoriasYTipos/tablausuarios');
+            }
+            function actualizarcategoria() {
+                $('#Actualizartabla').load('/CategoriasYTipos/TablaActualizarCategoria');
+            }
+            //function categor() {
+            //    $('#categoria').load('/CategoriasYTipos/actualizarcategoria');
+            //}
+</script>
+<script type="text/javascript">
+    //function mostar1(){
+    //                    if (!(document.getElementById('cat').style.display == 'block'))
+    //                        {
+    //                        document.getElementById('cat').style.display = 'block';
+    //                    }
+    //                    else
+    //                        {
+    //                        document.getElementById('cat').style.display = 'none'
+    //                        }
+    //                    }
+
+    //function mostar2() {
+    //    if (!(document.getElementById('ti').style.display == 'block')) {
+    //        document.getElementById('ti').style.display = 'block';
+
+    //    }
+    //    else {
+    //        document.getElementById('ti').style.display = 'none'
+    //    }
+    //}
+</script>
+<script>
+    //function agregarca() {
+    //    alert("Se agrego una categoria");
+    //}
+    function Agregarti() {
+        alert("Se agrego una Tipo de Usuario");
+    }
+
+</script>
+

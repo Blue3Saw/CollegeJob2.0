@@ -78,7 +78,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" data-toggle="collapse" href="#pagesExamples" aria-expanded="true">
+                        <a class="nav-link " data-toggle="collapse" href="#pagesExamples" aria-expanded="true">
                             <i class="fa fa-plus-square"></i>
                             <p>
                                 Agregar
@@ -86,17 +86,17 @@
                             </p>
                         </a>
 
-                        <div class="collapse" id="pagesExamples" style="">
-                            <ul class="nav">
+                        <div class="collapse " id="pagesExamples" style="padding-left:3em" >
+                            <ul class="nav" style="margin-top:-20px">
                                 <li>
-                                    <a href="./pages/pricing.html">
-                                        <span class="sidebar-normal"> Pricing </span>
+                                    <a href="@Url.Action("AgregarCategoria", "CategoriasYTipos")">
+                                        <span class="sidebar-normal">Categoría </span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="./pages/rtl.html">
-                                        <span class="sidebar-normal"> RTL Support </span>
-                                    </a>
+                                <li>                                                                                                    
+                                    <a href="@Url.Action( "Index", "CategoriasYTipos")">                                    
+                                        <span class="sidebar-normal">Tipo de Usuarios</span>                                        
+                                    </a>                                    
                                 </li>
                             </ul>
                         </div>

@@ -326,6 +326,7 @@
     <Content Include="Recursos\FrontEnd\css\compiled.min.css" />
     <Content Include="Views\Empleador\Calificar.cshtml" />
     <Content Include="Views\Principal\PrincipalEmpleador.cshtml" />
+    <Content Include="Views\CategoriasYTipos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
