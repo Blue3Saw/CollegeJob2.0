@@ -20,6 +20,11 @@ namespace Business_Object
         public string Estatus { get; set; }
         public byte[] Imagen { get; set; }
         public string QR { get; set; }
+        public string CURP { get; set; }
+        public string INE { get; set; }
+        public string Matricula { get; set; }
+        public string Universidad { get; set; }
+
         public string Encriptar(string str)
         {
             string Resultado = string.Empty;

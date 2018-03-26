@@ -6,6 +6,8 @@ using System.Data;
 using System.Web.Mvc;
 using Business_Object;
 using Data_Access_Object;
+using System.Net.Mail;
+using System.Net;
 
 namespace CollegeJob.Controllers
 {
@@ -111,7 +113,7 @@ namespace CollegeJob.Controllers
             DataTable lol;
             int permiso = int.Parse(Session["Permiso"].ToString());
             ViewData["sesion"] = int.Parse(Session["Codigo"].ToString());
-            if (permiso==3)
+            if (permiso == 3)
             {
                 lol = mensajes.NotificacionesEstudiante(int.Parse(Session["Codigo"].ToString()));
                 ViewData["num"] = lol.Rows.Count;
@@ -127,23 +129,53 @@ namespace CollegeJob.Controllers
             }
         }
 
+        public ActionResult RecuperarContraseña(string Email)
+        {
+            UsuariosDAO ObjUsuario = new UsuariosDAO();
+            string Contraseña = ObjUsuario.BuscarContraseña(Email);
+            if (Contraseña != "")
+            {
+                string CorreoRemitente = "collegeJobSGM@gmail.com";
+                MailMessage Correo = new MailMessage();
+                Correo.To.Add(new MailAddress(Email));
+                Correo.From = new MailAddress(CorreoRemitente);
+                Correo.Subject = "Recuperar contraseña CollegeJob";
+                Correo.Body = "Tu contraseña para acceder a la plataforma es: " + Contraseña;
+                Correo.IsBodyHtml = true;
+                Correo.Priority = MailPriority.Normal;
+                SmtpClient Cliente = new SmtpClient();
+                Cliente.Host = "smtp.gmail.com";
+                Cliente.Port = 587;
+                Cliente.EnableSsl = true;
+                Cliente.Credentials = new NetworkCredential("collegeJobSGM@gmail.com", "SGM123456");
+                Cliente.Send(Correo);
+                Session["Recuperar"] = Contraseña;
+                ViewBag.Recuperar = Session["Recuperar"];
+            }
+            else
+            {
+                ViewBag.Recuperar = "Error";
+            }
+            Principal();
+            return View("Principal");
+        }
 
         public ActionResult Notact(string tarea)
         {
             int codigo = int.Parse(Session["Codigo"].ToString());
             int tar = int.Parse(tarea);
             int permiso = int.Parse(Session["Permiso"].ToString());
-            if (permiso==2)
+            if (permiso == 2)
             {
                 mensajes.ActualizarNotificaciones(codigo, tar);
-                return Redirect("/Tareas/DetalleTareaDispo?Codigo="+tarea);
+                return Redirect("/Tareas/DetalleTareaDispo?Codigo=" + tarea);
             }
             else
             {
                 mensajes.ActualizarNotificaciones(codigo, tar);
                 return RedirectToAction("MisTareas", "Estudiante");
             }
-            
+
         }
 
         public PartialViewResult MensajesEstudiantes()

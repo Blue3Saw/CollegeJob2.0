@@ -1,0 +1,133 @@
+﻿@using System.Data;
+
+@{
+    ViewBag.Title = "BuscarView";
+    Layout = "~/Views/MasterPages/_layoutAdmin.cshtml";
+}
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="container-fluid card">
+    @using (Ajax.BeginForm("BuscarView", "AgregarEstudiante", new AjaxOptions() { HttpMethod = "POST" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <h2>Buscar usuario</h2>
+        <div class="row">
+            <div class="col s5">
+                <div class="input-field">
+                    <input id="first_name" type="text" class="validate" name="Nombre">
+                    <label for="first_name">Nombre</label>
+                </div>
+            </div>
+            <div class="col s3">
+                <p></p>
+                <button type="submit" class="btn btn-success waves-effect waves-light">Buscar</button>
+            </div>
+            <div class="col s2">
+            </div>
+            <div class="col s2">
+                <p></p>
+                <button type="button" id="btn1" class="btn btn-success waves-effect waves-light">Reporte</button>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+@if (ViewBag.Busqueda == "Correcto")
+{
+    DataTable TablaBusqueda = ViewData["TablaBusqueda"] as DataTable;
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                        <th>Nombre</th>
+                        <th>Tipo usuario</th>
+                        <th>Estatus</th>
+                        <th>Acciones</th>
+
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow row in TablaBusqueda.Rows)
+                            {
+                                <tr>
+                                    <td>@row["Nombre"]</td>
+                                    <td>@row["Tipo"]</td>
+                                    <td>@row["Estatus"]</td>
+                                    <td>
+                                        @Html.Raw(@Html.ActionLink("XXX", "EditarView", "AgregarEstudiante", new { Codigo = @row["Codigo"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons'>edit</i>"))
+                                        <a class="btn-floating waves-effect waves-light teal" onclick="BorrarUsuario(@row["Codigo"])"><i class="material-icons">delete</i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if(ViewBag.Busqueda == "No encontrado")
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content table-responsive table-full-width">
+                    <h2>No se encontró el usuario</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@{
+    ViewBag.Busqueda = null;
+}
+
+    <script>
+        function BorrarUsuario(Codigo) {
+            swal({
+                title: '¿Esta seguro?',
+                text: "Estas a punto de borrar este usuario",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, continuar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "http://localhost:50288/AgregarEstudiante/Eliminar?Codigo=" + Codigo,
+                    }),
+                    swal({
+                        title: 'Eliminado',
+                        text: 'El usuario ha sido eliminado',
+                        type: 'success',
+                        showConfirmButton: false
+                    }),
+                    location.reload();
+                }
+                else {
+                    swal(
+                        'Cancelado',
+                        'Se ha cancelado la operación',
+                        'error'
+                    )
+                }
+            })
+        }
+    </script>
+
+@if (ViewBag.Agregar != null)
+{
+    <script>
+        window.onload = function () {
+            swal('Error', 'No se econtro el usuario', 'error')
+        }
+    </script>
+}

@@ -54,10 +54,28 @@
                 </div>
                 <ul class="nav">
                     <li>
-                        <a href="@Url.Action("Index", "AgregarEstudiante")">
+                        <a class="nav-link " data-toggle="collapse" href="#pagesExamples1" aria-expanded="true">
                             <i class="fa fa-users"></i>
-                            <p>Usuarios</p>
+                            <p>
+                                Usuarios
+                                <b class="caret"></b>
+                            </p>
                         </a>
+
+                        <div class="collapse " id="pagesExamples1" style="padding-left:3em">
+                            <ul class="nav" style="margin-top:-20px">
+                                <li>
+                                    <a href="@Url.Action("Index", "AgregarEstudiante")">
+                                        <span class="sidebar-normal">Nuevo </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("BuscarView", "AgregarEstudiante")">
+                                        <span class="sidebar-normal">Buscar </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="@Url.Action( "DatosPerfil", "PerfilAdmin")">
@@ -78,10 +96,28 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("AgregarCategoria", "CategoriasYTipos")">
+                        <a class="nav-link " data-toggle="collapse" href="#pagesExamples" aria-expanded="true">
                             <i class="fa fa-plus-square"></i>
-                            <p>Agregar</p>
+                            <p>
+                                Agregar
+                                <b class="caret"></b>
+                            </p>
                         </a>
+
+                        <div class="collapse " id="pagesExamples" style="padding-left:3em" >
+                            <ul class="nav" style="margin-top:-20px">
+                                <li>
+                                    <a href="@Url.Action("AgregarCategoria", "CategoriasYTipos")">
+                                        <span class="sidebar-normal">Categoría </span>
+                                    </a>
+                                </li>
+                                <li>                                                                                                    
+                                    <a href="@Url.Action( "Index", "CategoriasYTipos")">                                    
+                                        <span class="sidebar-normal">Tipo de Usuarios</span>                                        
+                                    </a>                                    
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="@Url.Action("Index","Informacion")">
@@ -108,7 +144,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <a href="@Url.Action("eliminarsesion", "PerfilAdmin")">
-                                    <i class="fa fa-arrow-right"></i>
+                                    <i class="fa fa-sign-out"></i>
                                     <p>Cerrar Sesion</p>
                                 </a>
                             </li>

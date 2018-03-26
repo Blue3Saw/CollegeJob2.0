@@ -24,7 +24,6 @@ namespace CollegeJob.Controllers
         CalificacionesDAO califDao = new CalificacionesDAO();
         public ActionResult Index()
         {
-
             return View();
         }
 

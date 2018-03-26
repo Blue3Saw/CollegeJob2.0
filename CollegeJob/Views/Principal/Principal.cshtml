@@ -28,6 +28,9 @@
     <!--Estilo a parte-->
     <link href="~/Recursos/FrontEnd/css/stylemdb.css" rel="stylesheet" />
 
+    <!--sweet alert-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.all.js"></script>
+
     <link href="~/Recursos/FrontEnd/css/main.css" rel="stylesheet" />
 
     <link href="~/Recursos/FrontEnd/css/compiled.min.css" rel="stylesheet" />
@@ -61,8 +64,6 @@
             </ul>
         </div>
     </nav>
-
-
 
     <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <!--Modal: Contact form-->
@@ -99,6 +100,8 @@
                             <label for="materialFormEmailModalEx1">Contraseña</label>
                         </div>
 
+                        <p class="font-small blue-text d-flex justify-content-end"><a data-toggle="modal" data-target="#modalContraseña" data-dismiss="modal" class="blue-text ml-1"> Olvide mi contraseña</a></p>
+
                         <div class="text-center mt-4 mb-2">
                             <button class="btn default-color-dark">
                                 Iniciar
@@ -106,7 +109,48 @@
                             </button>
                         </div>
                     }
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
 
+    <div class="modal fade" id="modalContraseña" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!--Modal: Contact form-->
+        <div class="modal-dialog cascading-modal" role="document">
+
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header default-color-dark white-text">
+                    <h4 class="title">
+                        <i class="fa fa-unlock-alt"></i> Recuperar contraseña
+                    </h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("RecuperarContraseña", "Principal", new AjaxOptions() { HttpMethod = "POST" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <!-- Material input name -->
+                        <div class="md-form form-sm">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input type="text" id="materialFormNameModalEx1" name="Email" class="form-control form-control-sm" required="required">
+                            <label for="materialFormNameModalEx1">Correo electrónico</label>
+                        </div>
+
+                        <div class="text-center mt-4 mb-2">
+                            <button class="btn default-color-dark">
+                                Aceptar
+                                <i class="fa fa-send ml-2"></i>
+                            </button>
+                        </div>
+                    }
                 </div>
             </div>
             <!--/.Content-->
@@ -214,7 +258,7 @@
                         </li>
 
                         <li>
-                            <a data-toggle="modal" data-target="#modalRegistroForm" class="btn btn-default waves-effect btn-lg flex-item waves-light">Ver más</a>
+                            <a href="@Url.Action("PrincipalEstudiante", "Principal")" class="btn btn-default waves-effect btn-lg flex-item waves-light">Ver más</a>
                         </li>
                     </ul>
                 </div>
@@ -223,7 +267,7 @@
             </div>
             <!-- /.First slide -->
             <!-- Second slide -->
-            <div class="carousel-item view hm-black-light mask rgba-black-strong" style="background-image: url('../../Recursos/FrontEnd/img/images/worry.jpg'); background-repeat: no-repeat; background-size: cover;">
+            <div class="carousel-item view hm-black-light mask rgba-black-strong" style="background-image: url('../../Recursos/FrontEnd/img/images/papers.jpg'); background-repeat: no-repeat; background-size: cover; ">
 
                 <!-- Caption -->
                 <div class="full-bg-img flex-center white-text">
@@ -235,7 +279,7 @@
                             <h3 class="my-4">Pero estás ocupado o simplemente no quieres hacerlo</h3>
                         </li>
                         <li>
-                            <a data-toggle="modal" data-target="#modalRegistroForm" class="btn btn-default waves-effect btn-lg flex-item waves-light">Ver más</a>
+                            <a href="@Url.Action("PrincipalEmpleador", "Principal")" class="btn btn-default waves-effect btn-lg flex-item waves-light">Ver más</a>
                         </li>
                     </ul>
                 </div>
@@ -256,9 +300,7 @@
                             <h3 class="my-4">Si respondiste sí a cualquier pregunta anterior la solución es CollegeJob</h3>
                         </li>
                         <li>
-                            <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-default waves-effect btn-lg flex-item waves-light" rel="nofollow">Registrarme</a>
-
-                            <a target="_blank" href="https://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-outline-white btn-lg flex-item waves-effect waves-light" rel="nofollow">Ver más</a>
+                            <a data-toggle="modal" data-target="#modalRegistroForm" class="btn btn-default waves-effect btn-lg flex-item waves-light" rel="nofollow">Registrarme</a>
                         </li>
                     </ul>
                 </div>
@@ -342,7 +384,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Nombre"]</a>
+                                                    <a href="" class="teal-text">@row["Nombre"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -373,7 +415,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Nombre"]</a>
+                                                    <a href="" class="teal-text">@row["Nombre"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -415,7 +457,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Nombre"]</a>
+                                                    <a href="" class="teal-text">@row["Nombre"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -446,7 +488,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Nombre"]</a>
+                                                    <a href="" class="teal-text">@row["Nombre"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -528,7 +570,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Nombre"]</a>
+                                                    <a href="" class="teal-text">@row["Nombre"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -559,7 +601,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Nombre"]</a>
+                                                    <a href="" class="teal-text">@row["Nombre"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -601,7 +643,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Nombre"]</a>
+                                                    <a href="" class="teal-text">@row["Nombre"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -632,7 +674,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Nombre"]</a>
+                                                    <a href="" class="teal-text">@row["Nombre"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -713,7 +755,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Titulo"]</a>
+                                                    <a href="" class="teal-text">@row["Titulo"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -744,7 +786,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Titulo"]</a>
+                                                    <a href="" class="teal-text">@row["Titulo"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -786,7 +828,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Titulo"]</a>
+                                                    <a href="" class="teal-text">@row["Titulo"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -817,7 +859,7 @@
                                         <div class="card-body text-center no-padding">
                                             <h4 class="card-title my-4">
                                                 <strong>
-                                                    <a href="">@row["Titulo"]</a>
+                                                    <a href="" class="teal-text">@row["Titulo"]</a>
                                                 </strong>
                                             </h4>
                                             <p class="card-text">
@@ -895,6 +937,24 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
+
+    @if (ViewBag.Recuperar != null)
+    {
+        <script>
+            window.onload = function () {
+                swal('Correcto', 'Se envió la contraseña a tu correo electrónico.', 'success')
+            }
+        </script>
+    }
+    
+    @if(ViewBag.Recuperar == "Error")
+    {
+        <script>
+            window.onload = function () {
+                swal('Error', 'Usuario no encontrado, verifica que el correo electrónico sea correcto.', 'error')
+            }
+        </script>
+    }
 
     <script type='text/javascript' src='https://mdbootstrap.com/wp-admin/load-scripts.php?c=gzip&amp;load%5B%5D=wp-embed,jquery-ui-core,jquery-ui-widget,jquery-ui-mouse,jquery-ui-slider&amp;ver=4.9.4'></script>
 

@@ -17,10 +17,10 @@ namespace Data_Access_Object
         public DataTable TopParte1 = new DataTable();
         public DataTable TopParte2 = new DataTable();
 
-        public int AgregarUsuario(object ObjU)
+        public int AgregarAdmin(object ObjU)
         {
             UsuarioBO Dato = (UsuarioBO)ObjU;
-            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Usuarios (Nombre, Apellidos, Direccion, FechaNac, Telefono, Email, Contraseña, TipoUs, Estatus, Imagen,QR) VALUES (@Nombre, @Apellidos, @Direccion, @FechaNac, @Telefono, @Email, @Contraseña, @TipoUs, 'Activo', @Imagen, @QR)");
+            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Usuarios (Nombre, Apellidos, Direccion, FechaNac, Telefono, Email, Contraseña, TipoUs, Estatus, Imagen) VALUES (@Nombre, @Apellidos, @Direccion, @FechaNac, @Telefono, @Email, @Contraseña, @TipoUs, 'Activo', @Imagen)");
             SentenciaSQL.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = Dato.Nombre;
             SentenciaSQL.Parameters.Add("@Apellidos", SqlDbType.VarChar).Value = Dato.Apellidos;
             SentenciaSQL.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Dato.Direccion;
@@ -30,7 +30,27 @@ namespace Data_Access_Object
             SentenciaSQL.Parameters.Add("@Contraseña", SqlDbType.VarChar).Value = Dato.Encriptar(Dato.Contraseña);
             SentenciaSQL.Parameters.Add("@TipoUs", SqlDbType.Int).Value = Dato.TipoUsuario;
             SentenciaSQL.Parameters.Add("@Imagen", SqlDbType.Image).Value = Dato.Imagen;
-            SentenciaSQL.Parameters.Add("@QR", SqlDbType.VarChar).Value = Dato.QR;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
+
+        public int AgregarEstudiante(object ObjU)
+        {
+            UsuarioBO Dato = (UsuarioBO)ObjU;
+            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Usuarios (Nombre, Apellidos, Direccion, FechaNac, Telefono, Email, Contraseña, TipoUs, Estatus, Imagen, CURP, INE, Matricula, Universidad) VALUES (@Nombre, @Apellidos, @Direccion, @FechaNac, @Telefono, @Email, @Contraseña, @TipoUs, 'Activo', @Imagen, @INE, @CURP, @Matricula, @Universidad)");
+            SentenciaSQL.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = Dato.Nombre;
+            SentenciaSQL.Parameters.Add("@Apellidos", SqlDbType.VarChar).Value = Dato.Apellidos;
+            SentenciaSQL.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Dato.Direccion;
+            SentenciaSQL.Parameters.Add("@FechaNac", SqlDbType.Date).Value = Dato.FechaNac;
+            SentenciaSQL.Parameters.Add("@Telefono", SqlDbType.BigInt).Value = Dato.Telefono;
+            SentenciaSQL.Parameters.Add("@Email", SqlDbType.VarChar).Value = Dato.Email;
+            SentenciaSQL.Parameters.Add("@Contraseña", SqlDbType.VarChar).Value = Dato.Encriptar(Dato.Contraseña);
+            SentenciaSQL.Parameters.Add("@TipoUs", SqlDbType.Int).Value = Dato.TipoUsuario;
+            SentenciaSQL.Parameters.Add("@Imagen", SqlDbType.Image).Value = Dato.Imagen;
+            SentenciaSQL.Parameters.Add("@CURP", SqlDbType.VarChar).Value = Dato.CURP;
+            SentenciaSQL.Parameters.Add("@INE", SqlDbType.VarChar).Value = Dato.INE;
+            SentenciaSQL.Parameters.Add("@Matricula", SqlDbType.VarChar).Value = Dato.Matricula;
+            SentenciaSQL.Parameters.Add("@Universidad", SqlDbType.VarChar).Value = Dato.Universidad;
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
         }
@@ -38,7 +58,7 @@ namespace Data_Access_Object
         public int AgregarEmpleador(object ObjU)
         {
             UsuarioBO Dato = (UsuarioBO)ObjU;
-            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Usuarios (Nombre, Apellidos, Direccion, FechaNac, Telefono, Email, Contraseña, TipoUs, Estatus, Imagen) VALUES (@Nombre, @Apellidos, @Direccion, @FechaNac, @Telefono, @Email, @Contraseña, @TipoUs, 'En revisión', @Imagen)");
+            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Usuarios (Nombre, Apellidos, Direccion, FechaNac, Telefono, Email, Contraseña, TipoUs, Estatus, Imagen, CURP, INE) VALUES (@Nombre, @Apellidos, @Direccion, @FechaNac, @Telefono, @Email, @Contraseña, @TipoUs, 'En revisión', @Imagen, @CURP, @INE)");
             SentenciaSQL.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = Dato.Nombre;
             SentenciaSQL.Parameters.Add("@Apellidos", SqlDbType.VarChar).Value = Dato.Apellidos;
             SentenciaSQL.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Dato.Direccion;
@@ -48,6 +68,8 @@ namespace Data_Access_Object
             SentenciaSQL.Parameters.Add("@Contraseña", SqlDbType.VarChar).Value = Dato.Encriptar(Dato.Contraseña);
             SentenciaSQL.Parameters.Add("@TipoUs", SqlDbType.Int).Value = Dato.TipoUsuario;
             SentenciaSQL.Parameters.Add("@Imagen", SqlDbType.VarChar).Value = Dato.Imagen;
+            SentenciaSQL.Parameters.Add("@CURP", SqlDbType.VarChar).Value = Dato.CURP;
+            SentenciaSQL.Parameters.Add("@INE", SqlDbType.VarChar).Value = Dato.INE;
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
         }
@@ -90,7 +112,7 @@ namespace Data_Access_Object
         public int EliminarUsuario(object ObjU)
         {
             UsuarioBO Dato = (UsuarioBO)ObjU;
-            SqlCommand SentenciaSQL = new SqlCommand("Delete from Usuarios WHERE Codigo = @Codigo");
+            SqlCommand SentenciaSQL = new SqlCommand("UPDATE Usuarios SET Estatus = 'Eliminado' WHERE Codigo = @Codigo");
             SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Dato.Codigo;
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
@@ -391,6 +413,44 @@ namespace Data_Access_Object
                 }
                 cont++;
             }
+        }
+
+        public string BuscarContraseña(string Correo)
+        {
+            UsuarioBO Datos = new UsuarioBO();
+            SqlCommand Com = new SqlCommand("SELECT U.Contraseña FROM Usuarios U WHERE U.Email = @Correo");
+            Com.Parameters.Add("@Correo", SqlDbType.VarChar).Value = Correo;
+            Com.CommandType = CommandType.Text;
+            string Contraseña = Datos.Desencriptar(Conex.EjecutarSentencia(Com).Tables[0].Rows[0]["Contraseña"].ToString());
+            return Contraseña;
+        }
+
+        //Metodo para consulta de los usuarios para el perfil admin
+        public DataTable BuscquedaUsuario(string Nombre)
+        {
+            if(Nombre == null)
+            {
+                DataTable Nueva = new DataTable();
+                return Nueva;
+            }
+            else
+            {
+                UsuarioBO Datos = new UsuarioBO();
+                SqlCommand Com = new SqlCommand("SELECT U.Codigo, (U.Nombre + ' ' + U.Apellidos) AS 'Nombre', TU.Tipo, U.Estatus FROM Usuarios U INNER JOIN TipoUsuario TU ON U.TipoUs = TU.Codigo WHERE U.Nombre LIKE '%' + @Nombre + '%'");
+                Com.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = Nombre;
+                Com.CommandType = CommandType.Text;
+                return Conex.EjecutarSentencia(Com).Tables[0];
+            }
+        }
+
+        //Metodo para busqueda de datos del usuario seleccionado y editar datos del mismo, perfil admin
+        public DataTable BuscarUsuario(int Codigo)
+        {
+            UsuarioBO Datos = new UsuarioBO();
+            SqlCommand Com = new SqlCommand("SELECT * FROM Usuarios U WHERE U.Codigo = @Codigo");
+            Com.Parameters.Add("@Codigo", SqlDbType.VarChar).Value = Codigo;
+            Com.CommandType = CommandType.Text;
+            return Conex.EjecutarSentencia(Com).Tables[0];
         }
     }
 }
