@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Data;
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -57,15 +58,25 @@
                 <li class="nav-item">
                     <a href=@Url.Action("PerfilEstudiante", "Estudiante") class="nav-link waves-effect waves-light" href="#">Perfil</a>
                 </li>
-                <li class="nav-item">
-                    <a href=@Url.Action("Notificaciones", "Tareas") class="nav-link waves-effect waves-light" href="#">Notificaciones</a>
+                <li class="nav-item dropdown">
+                    @*<a href=@Url.Action("Notificaciones", "Empleador") class="nav-link waves-effect waves-light" href="#">Notificaciones</a>*@
+                    @*<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notificaciones<i class="fa fa-bell"></i></a>
+                    <div class="dropdown-menu dropdown-primary" aria-label="navbarDropdownMenuLink">*@
+                        @{Html.RenderAction("Notificaciones", "Principal");}
+                    @*</div>*@
                 </li>
+                @*<li class="nav-item">
+                    <a href=@Url.Action("Notificaciones", "Tareas") class="nav-link waves-effect waves-light" href="#">Notificaciones</a>
+                </li>*@
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" id="navbarDropdownMenuLink" href="@Url.Action("CerrarSesion", "Principal")">
-                        <i class="fa fa-user"></i> Cerrar sesión
-                    </a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>@Session["Nombre"]</a>
+                    <div class="dropdown-menu dropdown-primary" aria-label="navbarDropdownMenuLink">
+                        <a class="nav-link waves-effect waves-light fa fa-facebook" id="navbarDropdown" href="@Url.Action("CerrarSesion", "Principal")">
+                            @*<i class="fa fa-power-of"></i*@Cerrar sesion
+                        </a>
+                    </div>
                 </li>
             </ul>
         </div>

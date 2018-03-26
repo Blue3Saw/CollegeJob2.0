@@ -40,7 +40,7 @@ namespace Data_Access_Object
         {
             MensajesBO Datos = new MensajesBO();
             Datos.UsRecibe = usuario;
-            sentencia = "select u.Nombre,u.Codigo,m.UsRecibe,m.FechaHora,m.Mensaje,m.Estatus,m.Titulo,m.id  from Usuarios u,Mensajes m where u.Codigo = m.UsEnvia and m.UsRecibe = '" + Datos.UsRecibe + "'";
+            sentencia = "select u.Nombre,u.Imagen,u.Codigo,m.UsRecibe,m.FechaHora,m.Mensaje,m.Estatus,m.Titulo,m.id  from Usuarios u,Mensajes m where u.Codigo = m.UsEnvia and m.UsRecibe = '" + Datos.UsRecibe + "'";
             SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -50,11 +50,38 @@ namespace Data_Access_Object
         {
             MensajesBO Datos = new MensajesBO();
             Datos.UsRecibe = usuario;
-            sentencia = "select u.Nombre,u.Codigo,m.UsRecibe,m.FechaHora,m.Mensaje,m.Estatus,m.Titulo,m.id  from Usuarios u,Mensajes m where u.Codigo = m.UsEnvia and m.UsRecibe = '" + Datos.UsRecibe + "' and m.Estatus='"+filtro+"'";
+            sentencia = "select u.Nombre,u.Imagen,u.Codigo,m.UsRecibe,m.FechaHora,m.Mensaje,m.Estatus,m.Titulo,m.id  from Usuarios u,Mensajes m where u.Codigo = m.UsEnvia and m.UsRecibe = '" + Datos.UsRecibe + "' and m.Estatus='"+filtro+"'";
             SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
             return tablavirtual;
+        }
+
+
+        public DataTable NotificacionesEstudiante(int usuario)
+        {
+            sentencia = "select t.Titulo,t.Codigo,ut.CodigoTarea,ut.CE from Tareas t, Usuarios u, UsuariosTareas ut where t.Codigo=ut.CodigoTarea and u.Codigo=t.UsuarioEmpleador and ut.CodigoEstudiante='"+usuario+"' and ut.CE in (1,2) and ut.Noti=0";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+
+        public DataTable NotificacionesEmpleador(int usuario)
+        {
+            sentencia = "select t.Titulo,t.Codigo,ut.CodigoTarea,ut.CE from Tareas t, Usuarios u, UsuariosTareas ut where t.Codigo=ut.CodigoTarea and u.Codigo=t.UsuarioEmpleador and ut.CodigoEstudiante='" + usuario+"' and ut.CE in (0,2,3) and ut.Noti=0";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+        public int ActualizarNotificaciones(int codigo,int tarea)
+        {
+            SqlCommand SentenciaSQL = new SqlCommand("update UsuariosTareas set Noti=1 where CodigoEstudiante=@id and CodigoTarea=@tarea");
+            SentenciaSQL.Parameters.Add("id", SqlDbType.Int).Value = codigo;
+            SentenciaSQL.Parameters.Add("tarea", SqlDbType.Int).Value = tarea;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
         }
     }
 }

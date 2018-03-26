@@ -32,6 +32,8 @@
 
     <link href="~/Recursos/FrontEnd/css/compiled.min.css" rel="stylesheet" />
     <!-- Template styles -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.all.js"></script>
 </head>
 <body>
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" id="navbar">
@@ -916,6 +918,17 @@
             closeOnClear: false
         });
     </script>
+
+    <link rel="stylesheet" type="text/css" href="~/Recursos/FrontEnd/css/easy-responsive-tabs.css" />
+    <script src="~/Recursos/FrontEnd/js/easyResponsiveTabs.js"></script>
+    @if (ViewBag.Codigo != null)
+    {
+        <script>
+            window.onload = function() {
+                swal('Oops!', 'Datos incorrectos, por favor verifica que el correo y la contraseña sean correctos', 'error')
+            }
+        </script>
+    }
 </body>
 </html>
 

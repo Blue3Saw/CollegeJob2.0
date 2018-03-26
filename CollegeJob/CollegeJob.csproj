@@ -120,11 +120,13 @@
     <Content Include="Recursos\FrontEnd\css\animate.css" />
     <Content Include="Recursos\FrontEnd\css\bootstrap.css" />
     <Content Include="Recursos\FrontEnd\css\bootstrap.min.css" />
+    <Content Include="Recursos\FrontEnd\css\easy-responsive-tabs.css" />
     <Content Include="Recursos\FrontEnd\css\github.css" />
     <Content Include="Recursos\FrontEnd\css\jPages.css" />
     <Content Include="Recursos\FrontEnd\css\main.css" />
     <Content Include="Recursos\FrontEnd\css\mdb.css" />
     <Content Include="Recursos\FrontEnd\css\mdb.min.css" />
+    <Content Include="Recursos\FrontEnd\css\mensajes\style.css" />
     <Content Include="Recursos\FrontEnd\css\starrr.css" />
     <Content Include="Recursos\FrontEnd\css\style.css" />
     <Content Include="Recursos\FrontEnd\css\stylemdb.css" />
@@ -159,6 +161,7 @@
     <Content Include="Recursos\FrontEnd\img\svg\arrow_right.svg" />
     <Content Include="Recursos\FrontEnd\js\bootstrap.js" />
     <Content Include="Recursos\FrontEnd\js\bootstrap.min.js" />
+    <Content Include="Recursos\FrontEnd\js\easyResponsiveTabs.js" />
     <Content Include="Recursos\FrontEnd\js\highlight.pack.js" />
     <Content Include="Recursos\FrontEnd\js\jPages.js" />
     <Content Include="Recursos\FrontEnd\js\jPages.min.js" />
@@ -175,7 +178,9 @@
     <Content Include="Recursos\FrontEnd\js\popper.min.js" />
     <Content Include="Recursos\FrontEnd\js\starrr.js" />
     <Content Include="Recursos\FrontEnd\js\tabifier.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -325,6 +330,10 @@
     <Content Include="Recursos\FrontEnd\css\compiled.min.css" />
     <Content Include="Views\Empleador\Calificar.cshtml" />
     <Content Include="Views\Principal\PrincipalEmpleador.cshtml" />
+    <Content Include="Views\Empleador\_VistaMsg.cshtml" />
+    <Content Include="Views\Principal\_Notificaciones.cshtml" />
+    <Content Include="Views\Principal\_MensajesEstudiantes.cshtml" />
+    <None Include="Properties\PublishProfiles\lol.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -265,9 +265,9 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
-        public DataTable cordenadastareas2()
+        public DataTable cordenadastareas2(string nombre)
         {
-            Sentencia = "select T.Titulo,T.Descripcion,c.Clasificacion,t.Longitud,t.Latitud,t.Codigo,u.Nombre,u.Apellidos,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' from Tareas T,ClasificacionTarea C ,Usuarios u where t.Tipo=c.Codigo and t.Estatus=1 and t.UsuarioEmpleador=u.Codigo";
+            Sentencia = "select T.Titulo,T.Descripcion,c.Clasificacion,t.Longitud,t.Latitud,t.Codigo,u.Nombre,u.Apellidos,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' from Tareas T,ClasificacionTarea C ,Usuarios u where t.Tipo=c.Codigo and t.Estatus=1 and t.UsuarioEmpleador=u.Codigo and t.Titulo like'%"+nombre+"%'";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -536,6 +536,18 @@ namespace Data_Access_Object
                 }
                 cont++;
             }
+
+        }
+
+
+
+        public DataTable ResultadoMsg(int codigo)
+        {
+            Sentencia = "select u.Codigo,(u.Nombre+' '+u.Apellidos)as Nombre,m.FechaHora,m.Titulo,m.Mensaje from Usuarios u,Mensajes m where u.Codigo=m.UsEnvia and m.id='"+codigo+"'";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
         }
     }
 }

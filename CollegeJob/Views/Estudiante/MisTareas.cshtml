@@ -52,16 +52,16 @@
 
         </p>
     }
-
+    <div class="holder" id="holder"></div>
     @{
         int filas = int.Parse(ViewData["Medidor"].ToString());
     }
     @if (filas>0)
     {
-        <div class="row">
+        <ul id="itemContainer" class="row" style="list-style:none">
             @foreach (DataRow item in Model.Rows)
             {
-                <div class="col-md-12">
+                <li style="display:inline-block" class="col-md-12">
                         <div class="card">
                             <div class="row">
                                 <div class="col-lg-4">
@@ -104,6 +104,7 @@
                                                             <i class="fa fa-close"></i>
                                                             <span>Terminar</span>
                                                         </button>
+                                                        <input type="hidden" name="Tarea" value="@item["Codigo"]" />
                                                     </p>
                                                     }
                                                 </div>
@@ -199,10 +200,10 @@
                             <!--/Modal: Contact form-->
                         </div>
                     }
-                </div>
+                </li>
             }
 
-        </div>
+        </ul>
     }
     else
     {
@@ -211,3 +212,15 @@
         </div>
     }
 </section>
+<script>
+        $(function () {
+            $("div.holder").jPages({
+                containerID: "itemContainer",
+                perPage: 3,
+                startPage: 1,
+                startRange: 1,
+                midRange: 1,
+                endRange: 1
+            });
+        });
+</script>

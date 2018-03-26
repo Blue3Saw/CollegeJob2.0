@@ -62,26 +62,30 @@
     <p class="section-description text-center">
         <div class="row">
             <div class="col s3">
-                <div class="btn-group">
-                    <label class="col-form-label">Selecciona una categoria:</label>
-                </div>
-            </div>
-
-            <div class="col s3">
+                <label class="col-form-label">Selecciona una categoria:</label>
                 <div class="dropdown">
                     @Html.DropDownList("categoria", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "btn btn-outline-default dropdown-toggle" })
                 </div>
             </div>
 
-            <div class="col s2">
-                <label class="col-form-label">Rango (KM)</label>
+            <div class="col s3">
+                <div class="btn-group">
+                    <label class="col-form-label">Nombre</label>
+                </div>
+                <input type="text" name="Nombre" class="form-control"/>
             </div>
 
-            <div class="col s2">
-                <input class="range-field" type="number" name="Km" min="0" max="100" />
+            <div class="col s3">
+                <div class="btn-group">
+                    <label class="col-form-label">Rango (KM)</label>
+                </div>
+                <input class="range-field form-control" type="number" name="Km" min="0" max="100" />
             </div>
 
-            <div class="col s2">
+            <div class="col s3">
+                <div class="btn-group">
+                   
+                </div>
                 <button type="submit" class="btn btn-outline-default waves-effect">Aceptar</button>
             </div>
             <div>
@@ -133,7 +137,7 @@
                             <!--Title-->
                             <h4 class="card-title">@fila["Titulo"]</h4>
                             <!--Text-->
-                            <p class="card-text">@fila["Descripcion"]</p>
+                            <p class="card-text">@fila["Clasificacion"]</p>
                             @if (indicador == 1)
                             {
                                 <p class="card-text"> Aproximadamente a : @fila["distanciaskm"] KM</p>

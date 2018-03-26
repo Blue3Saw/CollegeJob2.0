@@ -23,6 +23,7 @@ namespace CollegeJob.Controllers
         {
             //trae el contenido del dropdown
             double km = 0;
+            string nom;
             DataTable categorias = tareasdao.categorias();
             List<string> cate = new List<string>();
             cate.Add("Todas");
@@ -46,14 +47,35 @@ namespace CollegeJob.Controllers
                 {
                      km = 0;
                 }
+
+                if (Session["NomTitulo"].ToString() != "")
+                {
+                    nom = Session["NomTitulo"].ToString();
+                }
+                else
+                {
+                    nom = "";
+                }
+
                 string categoria = Session["Cate"].ToString();
                 ViewData["Indicador"] = 1;
-                ViewData["Tabla"] = calculardistanciatareas(Longitud,Latitud,km,categoria);
+                ViewData["Tabla"] = calculardistanciatareas(Longitud,Latitud,km,categoria,nom);
+                Session.Remove("longitud");
+                Session.Remove("Latitud");
+                Session.Remove("km");
+                Session.Remove("Cate");
+                Session.Remove("NomTitulo");
+
             }
             else
             {
                 ViewData["Indicador"] = 0;
                 ViewData["Tabla"] = tareasdao.TodasTareas();
+                Session.Remove("longitud");
+                Session.Remove("Latitud");
+                Session.Remove("km");
+                Session.Remove("Cate");
+                Session.Remove("NomTitulo");
             }
             return View();
 
@@ -122,19 +144,20 @@ namespace CollegeJob.Controllers
         }
 
         [HttpPost]
-        public ActionResult ParametrosTareas(string txtLatitud,string txtLongitud, string Km, string categoria)
+        public ActionResult ParametrosTareas(string txtLatitud,string txtLongitud, string Km, string categoria,string Nombre)
         {
             Session["longitud"] = txtLongitud;
             Session["Latitud"] = txtLatitud;
             Session["km"] = Km;
             Session["Cate"] = categoria;
+            Session["NomTitulo"] = Nombre;
 
             Index();
             return View("Index");
         }
 
         //metodo para obtner las distancias
-        public DataTable calculardistanciatareas(double logitud, double latitud, double Km, string categoria)
+        public DataTable calculardistanciatareas(double logitud, double latitud, double Km, string categoria,string nom)
         {
             //variables de la consulta
             var constante = 6378;//radio ecuatorial de la tierra
@@ -142,13 +165,22 @@ namespace CollegeJob.Controllers
             double longitudtarea, diferencialatitud;
             double q;
             double final;
+            DataTable coordenadas;
 
             //este es datatable para que quede ordenado de mayor a menor en distancias
             DataTable ordenacion = new DataTable();
 
 
             //este es el datatable que tiene las coordenadas de las tareas con estatus 1
-            DataTable coordenadas = tareasdao.cordenadastareas();
+            if (nom=="")
+            {
+                coordenadas = tareasdao.cordenadastareas();
+            }
+            else
+            {
+                coordenadas = tareasdao.cordenadastareas2(nom);
+            }
+            //DataTable coordenadas = tareasdao.cordenadastareas();
 
             //el que se creara cuando se calculen las distancias
             DataTable distancias = new DataTable();
@@ -267,7 +299,8 @@ namespace CollegeJob.Controllers
             Correo.To.Add(new MailAddress(CorreoDestinatario));
             Correo.From = new MailAddress(CorreoRemitente);
             Correo.Subject = "Tarea: " + tarea.Titulo;
-            Correo.Body = "La tarea" + tarea.Titulo + " ha finalizado</br> <a href='http://localhost:50288/Tareas/Calificar?Codigo=" + IDtarea + "'><img src='http://noeliareginelli.com/wp-content/uploads/2017/10/boton-clic-aqui.png' width='120px'/></a>";
+            //Correo.Body = "La tarea" + tarea.Titulo + " ha finalizado</br> <a href='http://localhost:50288/Tareas/Calificar?Codigo=" + IDtarea + "'><img src='http://noeliareginelli.com/wp-content/uploads/2017/10/boton-clic-aqui.png' width='120px'/></a>";
+            Correo.Body = "< !doctype html >< html >< head >< title ></ title >< link href = 'http://www.desarrolloweb.com/estilo.css' rel = 'STYLESHEET' type = 'text/css' />< base target = '_blank' /></ head >< body bgcolor = 'ffffff' leftmargin = '0' marginheight = '0' marginwidth = '0' topmargin = '0' >< table background = 'http://www.desarrolloweb.com/images/fondoarriba.gif' bgcolor = '000033' border = '0' cellpadding = '0' cellspacing = '0' width = '100%' >< tbody >< tr >< td align = 'center' style = 'background-color:#2A5C56' >< font color = '#ffffff' face = 'verdana, arial, helvetica' size = '4' width = '400' >< b > COLLEGEJOB </ b ></ font ></ td ></ tr >< tr >< td align = 'center' bgcolor = '#45B39D' >< font face = 'verdana, arial, helvetica' size = '1' > CALIFICAR TAREA & nbsp;</ font ></ td ></ tr ></ tbody ></ table >< table bgcolor = 'cccc66' border = '0' cellpadding = '0' cellspacing = '0' width = '100%' >< tbody >< tr >< td align = 'center' bgcolor = '#FDFEFE' >< a href = ''http://localhost:50288/Tareas/Calificar?Codigo=" + IDtarea + "'' target = '_blank' >< img alt = 'haz clic aqui para ir a la tarea' src = 'http://noeliareginelli.com/wp-content/uploads/2017/10/boton-clic-aqui.png' style = 'border-width: 0px; border-style: solid; margin-top: 3px; margin-bottom: 3px; width: 400px; height: 121px;' /></ a ></ td ></ tr ></ tbody ></ table >< p > &nbsp;</ p >< table border = '0' cellpadding = '2' cellspacing = '0' width = '100%' >< tbody >< tr >< td valign = 'top' >< font face = 'verdana,arial,helvetica' size = '2' > Tenemos un mont&oacute; n de art & iacute; culos nuevos que seguro que os interesar & aacute; n.< br />< br />< b > CONTENIDOS </ b >< br /> 1.- Nuevos art & iacute; culos < br /> 2.- Nuevos programas < br />< br />.....< br />< br />< b >< a href = 'http://www.desarrolloweb.com/manuales/24/' > Calendario PHP </ a ></ b >< br /> Aplicaci & oacute; n pr&aacute; ctica de PHP en la que construimos un calendario que muestra el mes y a & ntilde; o actual y permite moverse a otro mes y a&ntilde; o. </ font ></ td ></ tr ></ tbody ></ table >< p > &nbsp;</ p ></ body ></ html > ";
             Correo.IsBodyHtml = true;
             Correo.Priority = MailPriority.Normal;
             SmtpClient Cliente = new SmtpClient();

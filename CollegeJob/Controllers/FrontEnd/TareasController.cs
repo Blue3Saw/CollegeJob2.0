@@ -24,7 +24,7 @@ namespace CollegeJob.Controllers
         CalificacionesDAO califDao = new CalificacionesDAO();
         public ActionResult Index()
         {
-           
+
             return View();
         }
 
@@ -34,7 +34,7 @@ namespace CollegeJob.Controllers
             ViewData["permiso"] = Session["Permiso"].ToString();
             int Clave = int.Parse(Codigo);
             ViewData["Codigo"] = Session["Codigo"].ToString();
-            ViewData["Postulacion"] = ObjTareas.Postulacion(Clave,int.Parse(Session["Codigo"].ToString()));
+            ViewData["Postulacion"] = ObjTareas.Postulacion(Clave, int.Parse(Session["Codigo"].ToString()));
             ViewData["Tarea"] = Clave;
             ViewData["Postulados"] = ObjDAO.postulados(Clave);
             ViewData["Imagenes"] = ObjDAO.ImgenesTarea(Clave);
@@ -51,7 +51,7 @@ namespace CollegeJob.Controllers
             //ObjDAO.AceptarTarea(Clave);
             ObjDAO.AceptarTarea2(Estudiante, Clave, precio);
             //Session["Tarea"] = Codigo;
-            return Redirect("~/Tareas/DetalleTareaDispo?Codigo="+Clave);
+            return Redirect("~/Tareas/DetalleTareaDispo?Codigo=" + Clave);
         }
 
         public ActionResult AgregarTarea()
@@ -68,13 +68,13 @@ namespace CollegeJob.Controllers
         }
 
 
-        public ActionResult AceptarPostulado(string Tarea, string Codigo,string Accion)
+        public ActionResult AceptarPostulado(string Tarea, string Codigo, string Accion)
         {
             int ta = int.Parse(Tarea);
             int cod = int.Parse(Codigo);
-            if (Accion=="1")
+            if (Accion == "1")
             {
-                ObjDAO.Aceptarpostulados(cod,ta);
+                ObjDAO.Aceptarpostulados(cod, ta);
             }
             else
             {
@@ -116,7 +116,7 @@ namespace CollegeJob.Controllers
 
                 }
                 catch { }
-               
+
             }
             ViewData["Medidor"] = tareas2.Rows.Count;
 
@@ -124,19 +124,19 @@ namespace CollegeJob.Controllers
         }
 
 
-        public ActionResult AceptarNotificaciones(string Accion,string Tarea)
+        public ActionResult AceptarNotificaciones(string Accion, string Tarea)
         {
             int ta = int.Parse(Tarea);
             int cod = int.Parse(Session["Codigo"].ToString());
             if (Accion == "1")
             {
                 string estado = "Aceptado";
-                ObjDAO.AceptoTareaEmpleador(ta,estado, cod);
+                ObjDAO.AceptoTareaEmpleador(ta, estado, cod);
             }
             else
             {
                 string estado = "Rechazado";
-                ObjDAO.RechazoTareaEmpleador(ta,estado, cod);
+                ObjDAO.RechazoTareaEmpleador(ta, estado, cod);
             }
             Notificaciones();
             return View("Notificaciones");
@@ -150,7 +150,7 @@ namespace CollegeJob.Controllers
             return View(ObjDAO.calificaciones(codigoUSuario, tarea));
         }
 
-        public ActionResult GuardarCalificacion(string comentario,string Tarea,string calif,string Empleador)
+        public ActionResult GuardarCalificacion(string comentario, string Tarea, string calif, string Empleador)
         {
             califbo.Calificacion = int.Parse(calif);
             califbo.CodigoTarea = int.Parse(Tarea);
@@ -160,7 +160,6 @@ namespace CollegeJob.Controllers
             califDao.AgregarCalificacion(califbo);
             return Redirect("~/Estudiante/MisTareas");
         }
-
         
     }
 }
