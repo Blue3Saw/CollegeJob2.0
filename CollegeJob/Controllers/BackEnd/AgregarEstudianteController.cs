@@ -27,62 +27,54 @@ namespace CollegeJob.Controllers.BackEnd
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AgregarUsuario(string agregar, string actualizar, string eliminar, string reporte, string Nombre, string Apellidos, string cumpleanios, string Email, string Contraseña, string Tipo, string dirreccion, string Telefono, HttpPostedFileBase Imagen)
+        public ActionResult AgregarUsuario(string Nombre, string Apellidos, string Cumpleanios, string Email, string Contraseña, string Tipo, string Direccion, string Telefono, HttpPostedFileBase Imagen, string CURP, string INE, string Matricula, string Universidad)
         {
             UsuarioBO BO = new UsuarioBO();
-            int w = Convert.ToInt32(agregar);
-            int r = Convert.ToInt32(actualizar);
-            int e = Convert.ToInt32(eliminar);
-            int rep = Convert.ToInt32(reporte);
             //datos BO de Alumno
             BO.Nombre = Nombre;
             BO.Apellidos = Apellidos;
-            BO.Direccion = dirreccion;
-            BO.FechaNac = Convert.ToDateTime(cumpleanios);
+            BO.Direccion = Direccion;
+            BO.FechaNac = Convert.ToDateTime(Cumpleanios);
             BO.Email = Email;
             BO.Contraseña = Contraseña;
             BO.TipoUsuario = int.Parse(Tipo);
             BO.Telefono = long.Parse(Telefono);
             BO.Estatus = "Activo";
+            BO.INE = INE;
+            BO.CURP = CURP;
+            BO.Matricula = Matricula;
+            BO.Universidad = Universidad;
             if (Imagen != null)
             {
-                //var filename = Path.GetFileName(Imagen.FileName);
-                //var path2 = Path.Combine(Server.MapPath("~/Recursos/BackEnd/img/"), filename);
-                //Imagen.SaveAs(path2);
-                //BO.Imagen = filename;
+                BO.Imagen = new byte[Imagen.ContentLength];
+                Imagen.InputStream.Read(BO.Imagen, 0, Imagen.ContentLength);
             }
             else
             {
-                //BO.Imagen = "Ninguna";
+
             }
+            int CodAgregar = 0;
 
-            QrEncoder qrencoder = new QrEncoder(ErrorCorrectionLevel.H);
-            QrCode qrcode = new QrCode();
-            string codigo = Nombre + cumpleanios + ".png";
-            qrencoder.TryEncode(codigo, out qrcode);
-            GraphicsRenderer renderer = new GraphicsRenderer(new FixedCodeSize(400, QuietZoneModules.Zero), Brushes.Black, Brushes.White);
-            MemoryStream ms = new MemoryStream();
-
-            renderer.WriteToStream(qrcode.Matrix, ImageFormat.Png, ms);
-            var imagentemp = new Bitmap(ms);
-            var imagenlol = new Bitmap(imagentemp, new Size(new Point(200, 200)));
-            var path = Path.Combine(Server.MapPath("~/Recursos/BackEnd/img/"), codigo);
-            imagenlol.Save(path);
-            BO.QR = codigo;
-
-            if (w > 0)
+            switch (Tipo)
             {
-                int CodAgregar = ObjUsuario.AgregarUsuario(BO);
-                Session["Agregar"] = CodAgregar;
-                ViewBag.Agregar = Session["Agregar"];
-                ViewBag.Script = "SE AGREGO CORRECTAMENTE EL USUARIO";
+                case "1":
+                    CodAgregar = ObjUsuario.AgregarAdmin(BO);
+                    break;
+
+                case "2":
+                    CodAgregar = ObjUsuario.AgregarEmpleador(BO);
+                    break;
+
+                case "3":
+                    CodAgregar = ObjUsuario.AgregarEstudiante(BO);
+                    break;
+
+                default: break;
             }
 
-            //else if (r > 0)
-            //{
-            //    ObjUsuario.ActualizarUsuario(BO);
-            //    ViewBag.Script ="SE HA ACTULIZADO LOS DATOS DEL USUARIO CORRECTAMENTE" ;
-            //}
+            
+            Session["Agregar"] = CodAgregar;
+            ViewBag.Agregar = Session["Agregar"];
 
             return View("Index");
         }
@@ -107,20 +99,20 @@ namespace CollegeJob.Controllers.BackEnd
         }
 
         [HttpPost]
-        public ActionResult Actualizar(string ID, string Tipo2, string Tipo, string Nombre, string Apellidos, string Correo, string Contraseña, string FechaNac, string Telefono, string dirreccion, string img, HttpPostedFileBase Imagen)
+        [ValidateAntiForgeryToken]
+        public ActionResult Actualizar(string ID, string Tipo2, string Tipo, string Nombre, string Apellidos, string Correo, string Contraseña, string FechaNac, string Telefono, string dirreccion, byte[] img, HttpPostedFileBase Imagen)
         {
             UsuarioBO bo = new UsuarioBO();
             if (Imagen != null)
             {
-                //var filename = Path.GetFileName(Imagen.FileName);
-                //var path = Path.Combine(Server.MapPath("~/Recursos/BackEnd/img/"), filename);
-                //Imagen.SaveAs(path);
-                //bo.Imagen = filename;
+                bo.Imagen = new byte[Imagen.ContentLength];
+                Imagen.InputStream.Read(bo.Imagen, 0, Imagen.ContentLength);
             }
             else
             {
-                //bo.Imagen = img;
+                bo.Imagen = img;
             }
+
             if (Tipo != null)
             {
                 bo.TipoUsuario = int.Parse(Tipo);
@@ -144,13 +136,45 @@ namespace CollegeJob.Controllers.BackEnd
             return View("Index");
         }
 
-        public ActionResult Eliminar(string id)
+        public ActionResult Eliminar(string Codigo)
         {
             UsuarioBO BO = new UsuarioBO();
-            BO.Codigo = int.Parse(id);
+            BO.Codigo = int.Parse(Codigo);
             ObjUsuario.EliminarUsuario(BO);
 
             return View("Index");
+        }
+
+        public ActionResult BuscarView(string Nombre)
+        {
+            if(Nombre == null)
+            {
+                ViewBag.Busqueda = Session["Busqueda"];
+            }
+            else
+            {
+                UsuariosDAO ObjBusqueda = new UsuariosDAO();
+                ViewData["TablaBusqueda"] = ObjBusqueda.BuscquedaUsuario(Nombre);
+                if(ObjBusqueda.BuscquedaUsuario(Nombre).Rows.Count > 0)
+                {
+                    Session["Busqueda"] = "Correcto";
+                    ViewBag.Busqueda = Session["Busqueda"];
+                }
+                else
+                {
+                    Session["Busqueda"] = "No encontrado";
+                    ViewBag.Busqueda = Session["Busqueda"];
+                }
+                Session["Busqueda"] = null;
+            }
+            return View("BuscarView");
+        }
+
+        public ActionResult EditarView(string Codigo)
+        {
+            UsuariosDAO usuariosDAO = new UsuariosDAO();
+            int CodUsuario = int.Parse(Codigo);
+            return View(usuariosDAO.BuscarUsuario(CodUsuario));
         }
     }
 }

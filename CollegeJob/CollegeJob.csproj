@@ -327,6 +327,8 @@
     <Content Include="Views\Empleador\Calificar.cshtml" />
     <Content Include="Views\Principal\PrincipalEmpleador.cshtml" />
     <Content Include="Views\CategoriasYTipos\Index.cshtml" />
+    <Content Include="Views\AgregarEstudiante\BuscarView.cshtml" />
+    <Content Include="Views\AgregarEstudiante\EditarView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

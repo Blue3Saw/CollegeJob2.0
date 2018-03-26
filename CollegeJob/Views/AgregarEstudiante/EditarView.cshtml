@@ -1,0 +1,223 @@
+﻿@using System.Data;
+@model DataTable
+
+@{
+    ViewBag.Title = "EditarView";
+    Layout = "~/Views/MasterPages/_layoutAdmin.cshtml";
+}
+
+@using (Ajax.BeginForm("Actualizar", "AgregarEstudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="container-fluid card">
+    @foreach (DataRow row in Model.Rows)
+    {
+        <h2>Editar usuario</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="hidden" class="form-control border-input" name="ID" placeholder="ID" value="@row["Codigo"]" readonly="readonly" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <input id="first_name" type="text" class="validate" name="Nombre" required="required" value="@row["Nombre"]">
+                            <label for="first_name">Nombre(s)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <input id="last_name" type="text" class="validate" name="Apellidos" required="required" value="@row["Apellidos"]">
+                            <label for="last_name">Apellidos</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <input id="birth_day" type="text" class="validate" name="FechaNac" value="@row["FechaNac"]" readonly="readonly">
+                            <label for="birth_day" class="active">Fecha nacimiento</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <input id="telephone" type="text" class="validate" pattern="[0-9]{10}" required="required" onkeypress="return valida(event)" maxlength="10" name="Telefono" value="@row["Telefono"]">
+                            <label for="telephone">Teléfono</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-field">
+                            <input id="address" type="text" class="validate" name="Direccion" required="required" value="@row["Direccion"]">
+                            <label for="address">Dirección</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <input id="email" type="email" class="validate" name="Email" required="required" value="@row["Email"]">
+                            <label for="email" class="active">Correo electrónico</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            @{
+                                string Resultado = string.Empty;
+                                Byte[] Desencriptado = Convert.FromBase64String(row["Contraseña"].ToString());
+                                Resultado = System.Text.Encoding.Unicode.GetString(Desencriptado);
+                            }
+                            <input id="password" type="text" class="validate" name="Contraseña" required="required" value="@Resultado">
+                            <label for="password">Contraseña</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <select name="Tipo" class="form-control border-input" onChange="tipoOnChange(this)">
+                            <option value="0">---Tipo de usuario---</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Empleador</option>
+                            <option value="3">Estudiante</option>
+                        </select>
+                        <input type="hidden" class="form-control border-input" name="Tipo2" placeholder="img" value="@row["TipoUs"]" readonly="readonly" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="" id="img1" class="img-responsive"  />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>File</span>
+                                <input type="hidden" class="form-control border-input" name="img" placeholder="img" value="@row["Imagen"]" readonly="readonly" required="required" />
+                                <input type="file" name="Imagen" accept=".png, .jpg, .jpeg" value="@row["Imagen"]" id="inputFile1">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Foto de perfil">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="Empleador" style="display:none;">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <input id="curp" type="text" class="validate" name="CURP" required="required">
+                            <label for="curp">CURP</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-field">
+                            <input id="ine" type="text" class="validate" name="INE" required="required">
+                            <label for="ine">INE</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="Estudiante" style="display:none;">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-field">
+                            <input id="matricula" type="text" class="validate" name="Matricula" required="required">
+                            <label for="matricula">Matrícula</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="input-field">
+                            <input id="universidad" type="text" class="validate" name="Universidad" required="required">
+                            <label for="universidad">Universidad</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <button class="waves-effect waves-light btn">ACTUALIZAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+}
+
+<script>
+    function tipoOnChange(sel) {
+        if (sel.value == "3") {
+            divC = document.getElementById("Estudiante");
+            divC.style.display = "";
+
+            divT = document.getElementById("Empleador");
+            divT.style.display = "";
+
+        } else if (sel.value == "2") {
+
+            divC = document.getElementById("Estudiante");
+            divC.style.display = "none";
+
+            divT = document.getElementById("Empleador");
+            divT.style.display = "";
+        }
+        else if (sel.value == "1") {
+
+            divC = document.getElementById("Estudiante");
+            divC.style.display = "none";
+
+            divT = document.getElementById("Empleador");
+            divT.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    function init() {
+        var inputFile = document.getElementById('inputFile1');
+        inputFile.addEventListener('change', mostrarImagen, false);
+    }
+
+    function mostrarImagen(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var img = document.getElementById('img1');
+            img.src = event.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    window.addEventListener('load', init, false);
+</script>
+
+@if (ViewBag.Actualizar != null)
+{
+    <script>
+        window.onload = function () {
+            swal('Correcto', 'Datos actualizados correctamente.', 'success')
+        }
+    </script>
+}
