@@ -47,14 +47,18 @@
         En este apartado podrás dar de alta una tarea nueva
     </p>
 
-    <div class="row">
+        @using (Ajax.BeginForm("AgregarTareaSaidy", "Tareas", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+        {
+
+           <div class="row">
+
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-4">
                     <label class="col-form-label">Título</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" id="inputEmail3MD">
+                    <input type="text" name="Titulo" id="inputEmail3MD">
                 </div>
             </div>
 
@@ -65,7 +69,7 @@
                     <label class="col-form-label">Descripción</label>
                 </div>
                 <div class="col-md-8">
-                    <textarea type="text" id="textareaBasic" class="form-control md-textarea" rows="3"></textarea>
+                    <textarea type="text" id="textareaBasic" name="Descripcion" class="form-control md-textarea" rows="3"></textarea>
                 </div>
             </div>
 
@@ -78,7 +82,7 @@
                 <div class="col-md-3">
                     <div class="btn-group">
                         <div class="dropdown">
-                            @Html.DropDownList("categoria", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "btn btn-outline-default dropdown-toggle" })
+                            @Html.DropDownList("cmbClas", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new {@name= "cmbClas", @class = "btn btn-outline-default dropdown-toggle" })
                         </div>
                     </div>
                 </div>
@@ -86,7 +90,7 @@
                     <label class="col-form-label">Personas</label>
                 </div>
                 <div class="col-md-3">
-                    <input type="number" min="1" max="10" />
+                    <input name="CantPersonas" type="number" min="1" max="10" />
                 </div>
             </div>
 
@@ -98,14 +102,14 @@
                 </div>
 
                 <div class="col-md-3">
-                    <input type="date" />
+                    <input type="date" name="FechaTarea" />
                 </div>
 
                 <div class="col-md-3">
                     <label class="col-form-label">Hora</label>
                 </div>
                 <div class="col-md-3">
-                    <input type="time" />
+                    <input type="time" name="HoraInicioTarea"/>
                 </div>
             </div>
 
@@ -126,10 +130,11 @@
                 <div class="file-field">
                     <div class="btn default-color-dark btn-sm float-left">
                         <span>Agregar imágenes</span>
-                        <input type="file" multiple>
+                        <input type="file" multiple name="Imagen" accept=".png, .jpg, .jpeg">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text" placeholder="Seleccione sus imágenes">
+                        
                     </div>
                 </div>
             </div>
@@ -146,10 +151,12 @@
     <div class="row">
         <div class="col-md-5"></div>
         <div class="col-md-4">
-            <button type="submit" class="btn btn-success" name="agregar1" value="1" onclick="AgregarTarea()">AGREGAR</button>
+            <button type="submit" class="btn btn-default"
+                    name="agregar1" value="1" onclick="AgregarTarea()">AGREGAR</button>
         </div>
         <div class="col-md-3"></div>
     </div>
+        }
 </div>
 @*googlemaps*@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

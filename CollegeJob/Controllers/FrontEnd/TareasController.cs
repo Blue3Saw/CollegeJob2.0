@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Business_Object;
 using Data_Access_Object;
 using System.Data;
+using System.IO;
 
 namespace CollegeJob.Controllers
 {
@@ -53,7 +54,7 @@ namespace CollegeJob.Controllers
             return Redirect("~/Tareas/DetalleTareaDispo?Codigo=" + Clave);
         }
 
-        public ActionResult AgregarTarea()
+        public ActionResult AgregarTarea(TareasBO obj)
         {
             DataTable Categorias = ObjTareas.categorias();
             List<string> ListCategorias = new List<string>();
@@ -62,10 +63,63 @@ namespace CollegeJob.Controllers
                 ListCategorias.Add(item["Clasificacion"].ToString());
             }
 
-            ViewData["categoria"] = new SelectList(ListCategorias);
+            ViewData["cmbClas"] = new SelectList(ListCategorias);
+            //ObjDAO.AgregarTarea(obj);
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AgregarTareaSaidy(string agregar, string modificar, string eliminar, string IdTarea, string NombreUsu, string Titulo, string Direccion,
+    string Latitud, string Longitud, string FechaTarea, string HoraInicioTarea, string HoraFinTarea, string cmbClas, string Descripcion, string inputLabel,
+    string CantPersonas, IEnumerable<HttpPostedFileBase> Imagen)
+        {
+            TareasBO obj = new TareasBO();
+            int A = Convert.ToInt32(agregar);
+            int M = Convert.ToInt32(modificar);
+            int E = Convert.ToInt32(eliminar);
+
+            if (IdTarea != "")
+            {
+                obj.Codigo = Convert.ToInt32(IdTarea);
+            }                  
+            obj.CodigoEmpleador = int.Parse(Session["Codigo"].ToString()); //Convert.ToInt32(NombreUsu);
+
+            obj.Titulo = Titulo;
+            obj.Direccion = Direccion;
+            obj.Latitud = float.Parse(Latitud);
+            obj.Longitud = float.Parse(Longitud);
+            obj.Fecha = DateTime.Parse(FechaTarea);
+            obj.HoraInicio = DateTime.Parse(HoraInicioTarea);
+            obj.HoraFin = DateTime.Parse(HoraInicioTarea);//Checar
+            obj.TipoTarea = 1;
+            obj.Descripcion = Descripcion;
+            obj.CodigoEstatus = Convert.ToInt32(inputLabel);
+            obj.CantPersonas = Convert.ToInt32(CantPersonas);
+            obj.Codigo = ObjDAO.AgregarTarea(obj);
+            AgregarImagenTarea(Imagen, obj.Codigo);
+            ViewBag.Script = "Agregado";           
+            return Redirect("/Tareas/AgregarTarea");
+        }
+        public void AgregarImagenTarea(IEnumerable<HttpPostedFileBase> Imagen, int IdTarea)
+        {
+            FotosBO FotBO = new FotosBO();
+            FotosDAO DAOFotos = new FotosDAO();
+            FotBO.CodigoTarea = IdTarea;
+            if (Imagen != null)
+            {
+                foreach (var item in Imagen)
+                {
+                    byte[] img = new byte[item.ContentLength];
+                    using (var binaryReader = new BinaryReader(item.InputStream))
+                    {
+                        img = binaryReader.ReadBytes(item.ContentLength);
+                    }
+                    FotBO.Imagen = img;
+                    DAOFotos.AgregarFoto(FotBO);
+                }
+            }
+            
+        }
 
         public ActionResult AceptarPostulado(string Tarea, string Codigo, string Accion)
         {
