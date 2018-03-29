@@ -234,5 +234,11 @@ namespace CollegeJob.Controllers.FrontEnd
             return View("Index");
         }
 
+        public PartialViewResult resultadoMSg(int id)
+        {
+            var datos = ObjDao.ResultadoMsg(id);
+            return PartialView("_VistaMsg",datos);
+        }
+
     }
 }

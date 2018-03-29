@@ -1,0 +1,57 @@
+﻿@using System.Data;
+@model DataTable
+<style>
+    .color {
+        background-color: #F2F2F2;
+        border-radius: 10px;
+    }
+</style>
+<div id="algo">
+    @foreach (DataRow item in Model.Rows)
+    {
+        using (Ajax.BeginForm("enviar", "Empleador", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+        {
+        <div class="color">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>@item["Titulo"]</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                   Para: @item["Nombre"]
+                </div>
+                <div class="col-md-6">
+                    @item["FechaHora"]
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    Mensaje:<br/>
+                    @item["Mensaje"]
+                </div>
+            </div>
+            <div>
+                <input type="hidden" value="@item["Codigo"]" name="id"/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Titulo</label>
+                        <input type="text" rows="3" name="Titulo">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Mensaje</label>
+                        <textarea type="text" rows="3" name="Mensaje"></textarea>
+                    </div>
+                </div>
+                <button class="btn default-color-dark">
+                    Enviar
+                    <i class="fa fa-send ml-2"></i>
+                </button>
+            </div>
+        </div>
+        }
+
+    }
+</div>

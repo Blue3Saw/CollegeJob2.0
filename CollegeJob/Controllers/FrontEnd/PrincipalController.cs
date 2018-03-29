@@ -14,12 +14,14 @@ namespace CollegeJob.Controllers
     public class PrincipalController : Controller
     {
         TareasDAO TareasDAO = new TareasDAO();
+        MensajesDAO mensajes = new MensajesDAO();
         // GET: Principal
         public ActionResult Principal()
         {
             //CARRUSEL MEJORES EMPLEADORES
             //CAMBIAR POR PROMEDIOS VERDADEROS
             UsuariosDAO ObjUsuario = new UsuariosDAO();
+            ViewBag.Codigo = Session["Codigo"];
             ObjUsuario.PruebaCarrusel();
             ViewData["TopParte1"] = ObjUsuario.TopParte1;
             ViewData["TopParte2"] = ObjUsuario.TopParte2;
@@ -82,6 +84,7 @@ namespace CollegeJob.Controllers
                 Session["msgadm"] = 1;
                 Session["Filtro"] = 0;
                 Session["Nombre"] = ObjUsuario.Buscarnombre(Datos);
+                ViewData["lista"] = mensajes.NotificacionesEmpleador(int.Parse(Session["Codigo"].ToString()));
                 return RedirectToAction("Index", "Empleador");
             }
             else if (ObjUsuario.LoginEstudiante(Datos) > 0)
@@ -94,13 +97,35 @@ namespace CollegeJob.Controllers
                 Session["Codigo"] = ObjUsuario.LoginEstudiante(Datos);
                 Session["msgadm"] = 2;
                 Session["Nombre"] = ObjUsuario.Buscarnombre(Datos);
+                ViewData["lista"] = mensajes.NotificacionesEstudiante(int.Parse(Session["Codigo"].ToString()));
                 return RedirectToAction("Index", "Estudiante");
             }
             else
             {
                 Session["Codigo"] = "nulo";
                 ViewBag.Codigo = Session["Codigo"];
-                return RedirectToAction("Index", "Principal");
+                return RedirectToAction("Principal", "Principal");
+            }
+        }
+
+        public PartialViewResult Notificaciones()
+        {
+            DataTable lol;
+            int permiso = int.Parse(Session["Permiso"].ToString());
+            ViewData["sesion"] = int.Parse(Session["Codigo"].ToString());
+            if (permiso == 3)
+            {
+                lol = mensajes.NotificacionesEstudiante(int.Parse(Session["Codigo"].ToString()));
+                ViewData["num"] = lol.Rows.Count;
+                var data = mensajes.NotificacionesEstudiante(int.Parse(Session["Codigo"].ToString()));
+                return PartialView("_Notificaciones", data);
+            }
+            else
+            {
+                lol = mensajes.NotificacionesEmpleador(int.Parse(Session["Codigo"].ToString()));
+                ViewData["num"] = lol.Rows.Count;
+                var data = mensajes.NotificacionesEmpleador(int.Parse(Session["Codigo"].ToString()));
+                return PartialView("_Notificaciones", data);
             }
         }
 
@@ -108,8 +133,7 @@ namespace CollegeJob.Controllers
         {
             UsuariosDAO ObjUsuario = new UsuariosDAO();
             string Contraseña = ObjUsuario.BuscarContraseña(Email);
-
-            if(Contraseña != "")
+            if (Contraseña != "")
             {
                 string CorreoRemitente = "collegeJobSGM@gmail.com";
                 MailMessage Correo = new MailMessage();
@@ -134,6 +158,30 @@ namespace CollegeJob.Controllers
             }
             Principal();
             return View("Principal");
+        }
+
+        public ActionResult Notact(string tarea)
+        {
+            int codigo = int.Parse(Session["Codigo"].ToString());
+            int tar = int.Parse(tarea);
+            int permiso = int.Parse(Session["Permiso"].ToString());
+            if (permiso == 2)
+            {
+                mensajes.ActualizarNotificaciones(codigo, tar);
+                return Redirect("/Tareas/DetalleTareaDispo?Codigo=" + tarea);
+            }
+            else
+            {
+                mensajes.ActualizarNotificaciones(codigo, tar);
+                return RedirectToAction("MisTareas", "Estudiante");
+            }
+
+        }
+
+        public PartialViewResult MensajesEstudiantes()
+        {
+            var data = mensajes.MostarMensajes(int.Parse(Session["Codigo"].ToString()));
+            return PartialView("_MensajesEstudiantes", data);
         }
     }
 }

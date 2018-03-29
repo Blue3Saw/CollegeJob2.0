@@ -13,7 +13,7 @@ namespace Business_Object
         public int CodigoEmpleador { get; set; }
         public DateTime Fecha { get; set; }
         public DateTime HoraInicio { get; set; }
-        public DateTime HoraFin { get; set; } //Sujeto a cambio
+        public DateTime HoraFin { get; set; } //Sujeto a cambio.  
         public int TipoTarea { get; set; }
         public string Descripcion { get; set; }
         public int CodigoEstatus { get; set; }
@@ -21,5 +21,6 @@ namespace Business_Object
         public float Latitud { get; set; }
         public string Direccion { get; set; }
         public int CantPersonas { get; set; }
+        public string Imagen { get; set; }
     }
 }

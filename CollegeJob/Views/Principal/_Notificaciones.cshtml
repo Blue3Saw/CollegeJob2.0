@@ -1,0 +1,62 @@
+﻿@using System.Data;
+@model DataTable
+<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notificaciones @ViewData["num"]<i class="fa fa-bell"></i></a>
+<div class="dropdown-menu dropdown-primary" aria-label="navbarDropdownMenuLink">
+    @foreach (DataRow item in Model.Rows)
+    {
+        if (ViewData["num"].ToString() == "0")
+        {
+            <a class="dropdown-item" href="#">
+                No hay notificaciones
+            </a>
+        }
+        else
+        {
+            if (item["CE"].ToString() == "1")
+            {
+                <a class="dropdown-item fa fa-check-square-o" href="~/Principal/Notact?tarea=@item["Codigo"]">
+                    @item["Titulo"]
+                    Tu propuesta fue aceptada, ve a tus tareas
+                </a>
+            }
+            else if (item["CE"].ToString() == "2")
+            {
+                <a class="dropdown-item fa fa-close" href="~/Principal/Notact?tarea=@item["Codigo"]">
+                    @item["Titulo"]
+                    Tu propuesta fue rechazada, revisa tus tareas
+                </a>
+            }
+            else if (item["CE"].ToString() == "3")
+            {
+                <a class="dropdown-item fa fa-check-square-o" href="~/Principal/Notact?tarea=@item["Codigo"]">
+                    @item["Titulo"]
+                    Tu propuesta fue aceptada, ve a tus tareas
+                </a>
+            }
+            else
+            {
+                <a class="dropdown-item fa fa-check-square-o" href="~/Principal/Notact?tarea=@item["Codigo"]">
+                    @item["Titulo"]
+                    Tiene nuevos Postulados, revisa tus tareas
+                </a>
+            }
+        }
+    }
+</div>
+@*@foreach (DataRow item in Model.Rows)
+{
+    if (item["CE"].ToString() == "1")
+    {
+        <a class="dropdown-item fa fa-check-square-o" href="">
+            @item["Titulo"]
+            Tu propuesta fue aceptada, ve a tus tareas
+        </a>
+    }
+    else
+    {
+        <a class="dropdown-item fa fa-close" href="#">
+            @item["Titulo"]
+            Tu propuesta fue rechazada, revisa tus tareas
+        </a>
+    }
+}*@
