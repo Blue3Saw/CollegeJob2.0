@@ -81,13 +81,23 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="file-field input-field">
-                                <div class="btn">
-                                    <span>File</span>
-                                    <input type="file" name="Imagen" accept=".png, .jpg, .jpeg">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img src="~/Recursos/FrontEnd/img/images/student_alt.jpg" id="img1" class="img-responsive" />
                                 </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="file-field input-field">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            <input type="file" name="Imagen" accept=".png, .jpg, .jpeg" id="inputFile1">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -187,6 +197,25 @@
                     divT.style.display = "none";
                 }
             }
+        </script>
+
+        <script>
+            function init() {
+                var inputFile = document.getElementById('inputFile1');
+                inputFile.addEventListener('change', mostrarImagen, false);
+            }
+
+            function mostrarImagen(event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var img = document.getElementById('img1');
+                    img.src = event.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+
+            window.addEventListener('load', init, false);
         </script>
 
         <script type="text/javascript">

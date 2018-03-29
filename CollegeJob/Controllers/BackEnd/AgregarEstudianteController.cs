@@ -88,11 +88,6 @@ namespace CollegeJob.Controllers.BackEnd
             return View("Index");
         }
 
-        public ActionResult MostarTabla()
-        {
-            return View(ObjUsuario.TablaUsuarios2(Session["Email"].ToString()));
-        }
-
         public ActionResult EditarDatos()
         {
             return View(ObjUsuario.TablaUsuarios3(int.Parse(Session["IdEditar"].ToString())));
