@@ -26,6 +26,8 @@
                 <button type="submit" class="btn btn-success waves-effect waves-light">Buscar</button>
             </div>
             <div class="col s2">
+                <p></p>
+                <button type="button" id="btn1" class="btn btn-success waves-effect waves-light" onclick="MostrarDiv()">Nuevo</button>
             </div>
             <div class="col s2">
                 <p></p>
@@ -34,6 +36,10 @@
         </div>
 
     }
+
+</div>
+
+<div id="Nuevo">
 
 </div>
 
@@ -84,9 +90,12 @@ else if(ViewBag.Busqueda == "No encontrado")
         </div>
     </div>
 }
-@{
-    ViewBag.Busqueda = null;
-}
+
+    <script type="text/javascript">
+        function MostrarDiv() {
+            $('#Nuevo').load('/AgregarEstudiante/Index');
+        }
+    </script>
 
     <script>
         function BorrarUsuario(Codigo) {

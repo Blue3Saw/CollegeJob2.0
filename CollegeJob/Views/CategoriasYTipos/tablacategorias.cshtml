@@ -1,22 +1,24 @@
 ﻿@using System.Data;
 @model DataTable
 
-<div class="content table-responsive table-full-width col-lg-6">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="content table-responsive table-full-width">
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (DataRow row in Model.Rows)
             {
                 <tr id="fila_@row["Codigo"]">
-                    <td>@row["Codigo"]</td>
                     <td>@row["Clasificacion"]</td>
                     <td>
-                        @Html.ActionLink("Eliminar", "Eliminar", "CategoriasYTipos", new { id = @row["Codigo"] }, null)
+                        @Html.Raw(@Html.ActionLink("XXX", "Eliminar", "CategoriasYTipos", new { id = @row["Codigo"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons'>delete</i>"))
+                        <a class="btn-floating waves-effect waves-light teal" href="#"><i class='material-icons'>edit</i></a>
                         <div onclick="categor()" style="cursor:pointer">Actualizar</div>
                     </td>
                 </tr>
