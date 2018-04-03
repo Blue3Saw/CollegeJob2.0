@@ -67,14 +67,15 @@
                             {
                                 string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
                                 <p></p>
-                                <img class="img-fluid rounded-circle" src="@Foto" alt="team member">
-                                <input type="hidden" value="@Foto" name="img">
+                                <img class="img-fluid rounded-circle" src="@Foto" alt="team member" style="width:250px; height:250px;">
+                                <input type="hidden" value="@Convert.ToBase64String((byte[])row["Imagen"])" name="img">
                                 <p></p>
                             }
                             else
                             {
                                 <p></p>
                                 <img class="img-fluid rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" alt="team member">
+                                <input type="hidden" value="" name="img">
                                 <p></p>
                             }
                             <p>
@@ -121,7 +122,7 @@
                                 <div class="col-md-6">
                                     <div class="md-form">
                                         <i class="fa fa-calendar prefix grey-text"></i>
-                                        <input type="text" id="datepicker" class="form-control" value="@row["FechaNac"]" readonly name="Fecha" required>
+                                        <input type="text" id="datepicker" class="form-control" value="@Convert.ToDateTime(row["FechaNac"]).Date.ToShortDateString()" readonly name="Fecha" required>
                                         <label for="materialFormCardNameEx" class="font-weight-light">Fecha de nacimiento</label>
                                     </div>
                                 </div>

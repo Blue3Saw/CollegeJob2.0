@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>CollegeJob-Estudiante</title>
+    <title>CollegeJob-Empleador</title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,6 +19,16 @@
 
     <!--Estilo a parte-->
     <link href="~/Recursos/FrontEnd/css/stylemdb.css" rel="stylesheet" />
+
+    @*<link href="~/Recursos/FrontEnd/css/style.css" rel="stylesheet" />*@
+    <link href="~/Recursos/FrontEnd/css/jPages.css" rel="stylesheet" />
+    @*<link href="~/Recursos/FrontEnd/css/animate.css" rel="stylesheet" />*@
+    @*<link href="~/Recursos/FrontEnd/css/github.css" rel="stylesheet" />*@
+    <script src="~/Recursos/FrontEnd/js/jquery-1.8.2.min.js"></script>
+    <script src="~/Recursos/FrontEnd/js/highlight.pack.js"></script>
+    <script src="~/Recursos/FrontEnd/js/tabifier.js"></script>
+    <script src="~/Recursos/FrontEnd/js/jPages.js"></script>
+    <script src="~/Recursos/FrontEnd/js/jPages.min.js"></script>
     <!-- Template styles -->
 
 </head>
@@ -107,20 +117,17 @@
             </div>
         </div>
     </footer>
-
 </body>
 </html>
-@*<script src="~/Recursos/FrontEnd/js/starrr.js"></script>
+<script src="~/Recursos/FrontEnd/js/starrr.js"></script>
 <link href="~/Recursos/FrontEnd/css/starrr.css" rel="stylesheet" />
 <script>
     jQuery.noConflict();
-                jQuery('#1011').starrr({
-                rating: 0,
-                change: function (e, valor) {
+    jQuery('#Estrellas').starrr({
+        change: function (e, valor) {
+            jQuery('#ValEst').val(valor)
+        }
+                });
 
-                }
-                });
-                $(document).ready(function () {
-                    $('#ModalCalif').modal('show');
-                });
-</script>*@
+
+</script>

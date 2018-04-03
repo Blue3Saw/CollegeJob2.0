@@ -229,7 +229,7 @@
                         <li class="list-group-item justify-content-between">
                            <div class="row">
                                <div class="col-md-6">
-                                   @fila["Nombre"]
+                                   <a href="~/Principal/PerfilUsuario?Clave=@fila["codigo"]">@fila["Nombre"]</a>
                                    <p><h4>Ofertó: $ @fila["Precio"]</h4></p>
                                    <input type="hidden" name="Codigo" value="@fila["codigo"]" />
                                    <input type="hidden" name="Tarea" value="@ViewData["Tarea"]" />

@@ -15,6 +15,7 @@ namespace CollegeJob.Controllers
     {
         TareasDAO TareasDAO = new TareasDAO();
         MensajesDAO mensajes = new MensajesDAO();
+        UsuariosDAO ObjUsuario = new UsuariosDAO();
         // GET: Principal
         public ActionResult Principal()
         {
@@ -160,18 +161,20 @@ namespace CollegeJob.Controllers
             return View("Principal");
         }
 
-        public ActionResult Notact(string tarea)
+        public ActionResult Notact(string tarea,string cod)
         {
-            int codigo = int.Parse(Session["Codigo"].ToString());
+            int codigo = 0;
             int tar = int.Parse(tarea);
             int permiso = int.Parse(Session["Permiso"].ToString());
-            if (permiso == 2)
+            if (permiso == 3)
             {
-                mensajes.ActualizarNotificaciones(codigo, tar);
+                codigo =int.Parse(cod);
+                mensajes.ActualizarNotificaciones2(codigo, tar);
                 return Redirect("/Tareas/DetalleTareaDispo?Codigo=" + tarea);
             }
             else
             {
+                codigo = int.Parse(Session["Codigo"].ToString());
                 mensajes.ActualizarNotificaciones(codigo, tar);
                 return RedirectToAction("MisTareas", "Estudiante");
             }
@@ -182,6 +185,33 @@ namespace CollegeJob.Controllers
         {
             var data = mensajes.MostarMensajes(int.Parse(Session["Codigo"].ToString()));
             return PartialView("_MensajesEstudiantes", data);
+        }
+
+        public ActionResult PerfilUsuario(string Clave)
+        {
+            int codigo = int.Parse(Clave);
+            DataTable lol = TareasDAO.Estrellas(codigo);
+            //este es el contiene el promedio de la calificacion
+
+            //DataTable prom= tareas.PromedioEstrellas(codigo);
+            //double promediocalif = double.Parse(prom.Rows[0][0].ToString());
+            double promediocalif = TareasDAO.PromedioEstrellas(codigo);
+
+            ViewData["Promedio"] = Math.Round(promediocalif, 1);
+            //lista con los datos a mostar
+            List<string> ejemplo = new List<string>();
+            ejemplo.Add("perro");
+
+            ViewData["Datos"] = ObjUsuario.TablaUsuarios3(codigo);
+
+            ViewData["lol"] = "5";
+            ViewData["lista"] = ejemplo;
+
+
+            //datatable de comentarios
+            ViewData["comentarios"] = TareasDAO.comentariodetareas(codigo);
+
+            return View(lol);
         }
     }
 }

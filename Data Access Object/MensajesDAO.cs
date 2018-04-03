@@ -60,7 +60,7 @@ namespace Data_Access_Object
 
         public DataTable NotificacionesEstudiante(int usuario)
         {
-            sentencia = "select t.Titulo,t.Codigo,ut.CodigoTarea,ut.CE from Tareas t, Usuarios u, UsuariosTareas ut where t.Codigo=ut.CodigoTarea and u.Codigo=t.UsuarioEmpleador and ut.CodigoEstudiante='"+usuario+"' and ut.CE in (1,2) and ut.Noti=0";
+            sentencia = "select t.Titulo,t.Codigo,ut.CodigoTarea,ut.CE,ut.CodigoEstudiante from Tareas t, Usuarios u, UsuariosTareas ut where t.Codigo=ut.CodigoTarea and u.Codigo=t.UsuarioEmpleador and ut.CodigoEstudiante='" + usuario+"' and ut.CE in (1,2) and ut.NotiUs=0";
             SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -69,7 +69,7 @@ namespace Data_Access_Object
 
         public DataTable NotificacionesEmpleador(int usuario)
         {
-            sentencia = "select t.Titulo,t.Codigo,ut.CodigoTarea,ut.CE from Tareas t, Usuarios u, UsuariosTareas ut where t.Codigo=ut.CodigoTarea and u.Codigo=t.UsuarioEmpleador and ut.CodigoEstudiante='" + usuario+"' and ut.CE in (0,2,3) and ut.Noti=0";
+            sentencia = "select t.Codigo,t.Titulo,ut.CE,ut.NotiEm,ut.CodigoEstudiante from Usuarios u,UsuariosTareas ut,Tareas t where u.Codigo=t.UsuarioEmpleador and t.Codigo=ut.CodigoTarea and u.Codigo='" + usuario+"' and ut.CE in (0,2,3) and NotiEm=0;";
             SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -77,7 +77,15 @@ namespace Data_Access_Object
         }
         public int ActualizarNotificaciones(int codigo,int tarea)
         {
-            SqlCommand SentenciaSQL = new SqlCommand("update UsuariosTareas set Noti=1 where CodigoEstudiante=@id and CodigoTarea=@tarea");
+            SqlCommand SentenciaSQL = new SqlCommand("update UsuariosTareas set NotiUs=1 where CodigoEstudiante=@id and CodigoTarea=@tarea");
+            SentenciaSQL.Parameters.Add("id", SqlDbType.Int).Value = codigo;
+            SentenciaSQL.Parameters.Add("tarea", SqlDbType.Int).Value = tarea;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
+        public int ActualizarNotificaciones2(int codigo, int tarea)
+        {
+            SqlCommand SentenciaSQL = new SqlCommand("update UsuariosTareas set NotiEm=1 where CodigoEstudiante=@id and CodigoTarea=@tarea");
             SentenciaSQL.Parameters.Add("id", SqlDbType.Int).Value = codigo;
             SentenciaSQL.Parameters.Add("tarea", SqlDbType.Int).Value = tarea;
             SentenciaSQL.CommandType = CommandType.Text;

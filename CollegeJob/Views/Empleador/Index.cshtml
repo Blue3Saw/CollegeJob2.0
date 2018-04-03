@@ -45,10 +45,12 @@
 
     </p>
 }
-    <div class="row">
+
+<div class="holder" id="holder"></div>
+    <ul id="itemContainer" class="row" style="list-style:none">
 @foreach (DataRow fila in Model.Rows)
 {
-    <div class="col-lg-4 col-md-6 mb-4">
+    <li style="display:inline-block" class="col-lg-4 col-md-6 mb-4">
         @using (Ajax.BeginForm("TerminarTareaEmpleador", "Empleador", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
         {
         <!--Card-->
@@ -134,9 +136,20 @@
         </div>
         <!--/.Card-->
         }
-    </div>
+    </li>
 }
-    </div>
+    </ul>
 
 </section>
-
+<script>
+        $(function () {
+            $("div.holder").jPages({
+                containerID: "itemContainer",
+                perPage: 3,
+                startPage: 1,
+                startRange: 1,
+                midRange: 1,
+                endRange: 1
+            });
+        });
+</script>
