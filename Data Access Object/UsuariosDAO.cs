@@ -58,16 +58,32 @@ namespace Data_Access_Object
         public int AgregarEmpleador(object ObjU)
         {
             UsuarioBO Dato = (UsuarioBO)ObjU;
-            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Usuarios (Nombre, Apellidos, Direccion, FechaNac, Telefono, Email, Contraseña, TipoUs, Estatus, Imagen, CURP, INE) VALUES (@Nombre, @Apellidos, @Direccion, @FechaNac, @Telefono, @Email, @Contraseña, @TipoUs, 'En revisión', @Imagen, @CURP, @INE)");
+            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Usuarios (Nombre, Apellidos, FechaNac, Telefono, Email, Contraseña, TipoUs, Estatus, Imagen, CURP, INE) VALUES (@Nombre, @Apellidos, @FechaNac, @Telefono, @Email, @Contraseña, @TipoUs, 'En revisión', @Imagen, @CURP, @INE)");
             SentenciaSQL.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = Dato.Nombre;
             SentenciaSQL.Parameters.Add("@Apellidos", SqlDbType.VarChar).Value = Dato.Apellidos;
-            SentenciaSQL.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Dato.Direccion;
             SentenciaSQL.Parameters.Add("@FechaNac", SqlDbType.Date).Value = Dato.FechaNac;
             SentenciaSQL.Parameters.Add("@Telefono", SqlDbType.BigInt).Value = Dato.Telefono;
             SentenciaSQL.Parameters.Add("@Email", SqlDbType.VarChar).Value = Dato.Email;
             SentenciaSQL.Parameters.Add("@Contraseña", SqlDbType.VarChar).Value = Dato.Encriptar(Dato.Contraseña);
             SentenciaSQL.Parameters.Add("@TipoUs", SqlDbType.Int).Value = Dato.TipoUsuario;
             SentenciaSQL.Parameters.Add("@Imagen", SqlDbType.VarChar).Value = Dato.Imagen;
+            SentenciaSQL.Parameters.Add("@CURP", SqlDbType.VarChar).Value = Dato.CURP;
+            SentenciaSQL.Parameters.Add("@INE", SqlDbType.VarChar).Value = Dato.INE;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
+
+        public int RegistroEmpleador(object ObjU)
+        {
+            UsuarioBO Dato = (UsuarioBO)ObjU;
+            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Usuarios (Nombre, Apellidos, FechaNac, Telefono, Email, Contraseña, TipoUs, Estatus, CURP, INE) VALUES (@Nombre, @Apellidos, @FechaNac, @Telefono, @Email, @Contraseña, @TipoUs, 'En revisión', @CURP, @INE)");
+            SentenciaSQL.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = Dato.Nombre;
+            SentenciaSQL.Parameters.Add("@Apellidos", SqlDbType.VarChar).Value = Dato.Apellidos;
+            SentenciaSQL.Parameters.Add("@FechaNac", SqlDbType.Date).Value = Dato.FechaNac;
+            SentenciaSQL.Parameters.Add("@Telefono", SqlDbType.BigInt).Value = Dato.Telefono;
+            SentenciaSQL.Parameters.Add("@Email", SqlDbType.VarChar).Value = Dato.Email;
+            SentenciaSQL.Parameters.Add("@Contraseña", SqlDbType.VarChar).Value = Dato.Encriptar(Dato.Contraseña);
+            SentenciaSQL.Parameters.Add("@TipoUs", SqlDbType.Int).Value = Dato.TipoUsuario;
             SentenciaSQL.Parameters.Add("@CURP", SqlDbType.VarChar).Value = Dato.CURP;
             SentenciaSQL.Parameters.Add("@INE", SqlDbType.VarChar).Value = Dato.INE;
             SentenciaSQL.CommandType = CommandType.Text;

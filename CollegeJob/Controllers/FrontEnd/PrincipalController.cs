@@ -62,6 +62,35 @@ namespace CollegeJob.Controllers
             return RedirectToAction("Principal", "Principal");
         }
 
+        public ActionResult Registro(string Nombre, string Apellidos, string FechaNac, string Telefono, string INE, string CURP, string Email, string Contraseña)
+        {
+            UsuarioBO Datos = new UsuarioBO();
+            UsuariosDAO ObjUsuario = new UsuariosDAO();
+            Datos.Nombre = Nombre;
+            Datos.Apellidos = Apellidos;
+            Datos.FechaNac = DateTime.Parse(FechaNac);
+            Datos.Telefono = long.Parse(Telefono);
+            Datos.INE = INE;
+            Datos.CURP = CURP;
+            Datos.Email = Email;
+            Datos.Contraseña = Datos.Encriptar(Contraseña);
+            Datos.TipoUsuario = 2;
+            Datos.Estatus = "Por verificar";
+            if(ObjUsuario.RegistroEmpleador(Datos) > 1)
+            {
+                Session["Codigo"] = ObjUsuario.LoginEmpleador(Datos);
+                Session["Nombre"] = ObjUsuario.Buscarnombre(Datos);
+                Session["Permiso"] = ObjUsuario.BuscarPermiso(Datos);
+            }
+            else
+            {
+                Session["Registro"] = "Error";
+                ViewBag.Registro = Session["Registro"];
+            }
+
+            return RedirectToAction("Empleador", "Index");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(string Email, string Contraseña)
