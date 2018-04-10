@@ -45,9 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
@@ -139,11 +139,13 @@
     <Content Include="Recursos\FrontEnd\img\images\3.png" />
     <Content Include="Recursos\FrontEnd\img\images\4.png" />
     <Content Include="Recursos\FrontEnd\img\images\5.png" />
+    <Content Include="Recursos\FrontEnd\img\images\body-bg.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\cell phone.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\clean.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\employer_alt.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\library.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\documents.jpg" />
+    <Content Include="Recursos\FrontEnd\img\images\logoCollegeJob.png" />
     <Content Include="Recursos\FrontEnd\img\images\Mision.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\papers.jpg" />
     <Content Include="Recursos\FrontEnd\img\images\Quienes.jpg" />
@@ -181,12 +183,14 @@
     <Content Include="Recursos\FrontEnd\js\jquery-3.2.1.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-3.2.1.min.js" />
     <Content Include="Recursos\FrontEnd\js\jquery-ui.js" />
+    <Content Include="Recursos\FrontEnd\js\jquery.liveFilter.js" />
     <Content Include="Recursos\FrontEnd\js\locationpicker.jquery.js" />
     <Content Include="Recursos\FrontEnd\js\mdb.js" />
     <Content Include="Recursos\FrontEnd\js\mdb.min.js" />
     <Content Include="Recursos\FrontEnd\js\popper.min.js" />
     <Content Include="Recursos\FrontEnd\js\starrr.js" />
     <Content Include="Recursos\FrontEnd\js\tabifier.js" />
+    <Content Include="Views\AprobarTarea\bootstrap.min.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -203,6 +207,7 @@
     <Compile Include="Controllers\BackEnd\ReportesController.cs" />
     <Compile Include="Controllers\FrontEnd\EmpleadorController.cs" />
     <Compile Include="Controllers\FrontEnd\EstudianteController.cs" />
+    <Compile Include="Controllers\FrontEnd\PaypalController.cs" />
     <Compile Include="Controllers\FrontEnd\PrincipalController.cs" />
     <Compile Include="Controllers\FrontEnd\TareasController.cs" />
     <Compile Include="Global.asax.cs">
@@ -342,11 +347,13 @@
     <Content Include="Views\Empleador\_VistaMsg.cshtml" />
     <Content Include="Views\Principal\_Notificaciones.cshtml" />
     <Content Include="Views\Principal\_MensajesEstudiantes.cshtml" />
-    <None Include="Properties\PublishProfiles\lol.pubxml" />
     <Content Include="Views\CategoriasYTipos\Index.cshtml" />
     <Content Include="Views\AgregarEstudiante\BuscarView.cshtml" />
     <Content Include="Views\AgregarEstudiante\EditarView.cshtml" />
     <Content Include="Views\Principal\PerfilUsuario.cshtml" />
+    <Content Include="Views\Paypal\Confirmacion.cshtml" />
+    <None Include="Properties\PublishProfiles\pagina.pubxml" />
+    <Content Include="Views\Principal\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

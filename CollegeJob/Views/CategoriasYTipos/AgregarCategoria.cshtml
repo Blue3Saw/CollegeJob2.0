@@ -6,91 +6,89 @@
 }
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<div class="container-fluid card">
-    <h2>Categorias</h2>
-    <div class="row" id="cat">
-        @using (Ajax.BeginForm("AgregarCate", "CategoriasYTipos", new AjaxOptions() { HttpMethod = "POST" }))
-        {
-            <div class="col-md-8">
-                <div>
-                    <input type="text" class="form-control  border-input" name="categoria" placeholder="Categoria" value="" required="required" />
-                </div>
+<div id="divcarga">
+    <div class="container-fluid card">
+        <h2>Categorias</h2>
+        <div class="row" id="cat">
+        <div class="col-md-8">
+            <div>
+                <input type="text" class="form-control  border-input" name="categoria" placeholder="Categoria" id="categoria" required="required" />
             </div>
-            <div class="col-md-4">
-                <div>
-                    <button type="submit" class="btn btn-success" name="agregar1" value="1" onclick="agregarca()">AGREGAR</button>
-                </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <button type="submit" class="btn btn-success" name="agregar1" value="1" onclick="Agregar()">AGREGAR</button>
             </div>
-        }
+        </div>
+        </div>
     </div>
-</div>
 
-@{
-    if (ViewBag.CodigoClasif != null)
-    {
-        using (Ajax.BeginForm("ActualizarClasif", "CategoriasYTipos", new AjaxOptions() { HttpMethod = "POST" }))
+    @{
+        if (ViewBag.CodigoClasif != null)
         {
-            <div class="container-fluid card">
-                <h3>Editar tipo de usuario</h3>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="input-field">
-                            <input id="first_name" type="text" class="validate" name="Nombre" value="@ViewBag.Clasificacion" required="required" readonly="readonly">
-                            <label for="first_name">Tipo seleccionado</label>
+            using (Ajax.BeginForm("ActualizarClasif", "CategoriasYTipos", new AjaxOptions() { HttpMethod = "POST" }))
+            {
+                <div class="container-fluid card">
+                    <h3>Editar tipo de usuario</h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-field">
+                                <input id="first_name" type="text" class="validate" name="Nombre" value="@ViewBag.Clasificacion" required="required" readonly="readonly">
+                                <label for="first_name">Tipo seleccionado</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-field">
-                            <input id="first_name" type="text" class="validate" name="Nuevo" required="required">
-                            <label for="first_name">Claisifcación nueva</label>
+                        <div class="col-md-4">
+                            <div class="input-field">
+                                <input id="first_name" type="text" class="validate" name="Nuevo" required="required">
+                                <label for="first_name">Claisifcación nueva</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <p></p>
-                        <button type="submit" class="waves-effect waves-light btn">Aceptar</button>
-                        <input name="Codigo" type="hidden" value="@ViewBag.CodigoClasif" />
+                        <div class="col-md-4">
+                            <p></p>
+                            <button type="submit" class="waves-effect waves-light btn">Aceptar</button>
+                            <input name="Codigo" type="hidden" value="@ViewBag.CodigoClasif" />
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     }
-}
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="content table-responsive table-full-width">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Tipo</th>
-                            <th>Acciones</th>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                DataTable TablaTipo = ViewData["TablaClasif"] as DataTable;
+                                foreach (DataRow row in TablaTipo.Rows)
+                                {
+                        <tr id="fila_@row["Codigo"]">
+                            <td>@row["Clasificacion"]</td>
+                            <td>
+                                @Html.Raw(@Html.ActionLink("XXX", "AgregarCategoria", "CategoriasYTipos", new { codigo = @row["Codigo"], clasif = row["Clasificacion"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons'>edit</i>"))
+                                <a onclick="BorrarClasif(@row["Codigo"])" class="btn-floating waves-effect waves-light teal"><i class='material-icons'>delete</i></a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            DataTable TablaTipo = ViewData["TablaClasif"] as DataTable;
-                            foreach (DataRow row in TablaTipo.Rows)
-                            {
-                                <tr id="fila_@row["Codigo"]">
-                                    <td>@row["Clasificacion"]</td>
-                                    <td>
-                                        @Html.Raw(@Html.ActionLink("XXX", "AgregarCategoria", "CategoriasYTipos", new { codigo = @row["Codigo"], clasif = row["Clasificacion"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons'>edit</i>"))
-                                        <a onclick="BorrarClasif(@row["Codigo"])" class = "btn-floating waves-effect waves-light teal"><i class='material-icons'>delete</i></a>
-                                    </td>
-                                </tr>
                             }
-                        }
-                    </tbody>
-                </table>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <script>
     function BorrarClasif(Codigo) {
+        var data = { Codigo: Codigo };
         swal({
             title: '¿Esta seguro?',
             text: "Estas a punto de borrar esta clasificación",
@@ -102,16 +100,28 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                $.ajax({
-                    url: "http://localhost:50288/CategoriasYTipos/EliminarClasif?Codigo=" + Codigo,
-                }),
-                    swal({
-                        title: 'Eliminado',
-                        text: 'El usuario ha sido eliminado',
-                        type: 'success',
-                        showConfirmButton: false
-                    }),
-                    location.reload();
+                console.log(Codigo);
+                
+                console.log(data);
+                        $.ajax({
+                            cache: false,
+                            async: true,
+                            type: "POST",
+                            url: "@Url.Action("EliminarClasif", "CategoriasYTipos")",
+                            data: data,
+                            dataType: "html",
+                        success: function (data) {
+                            swal({
+                                title: 'Eliminado',
+                                text: 'El usuario ha sido eliminado',
+                                type: 'success',
+                                showConfirmButton: false
+                            })
+                            location.reload();
+                        }
+                    });
+
+
             }
             else {
                 swal(
@@ -123,19 +133,35 @@
         })
     }
 </script>
+ <script>
+     function Agregar() {
+         var data = new FormData();
+         var contenedor = $("#cat");
+         var categoria = contenedor.find('input[id="categoria"]').val();
+         data.append("categoria", categoria);
+         $.ajax({
+             cache: false,
+             async: true,
+             type: "POST",
+             url: "@Url.Action("AgregarCate", "CategoriasYTipos")",
+             contentType: false,
+         processData: false,
+         data: data,
+         success: function (data) {
+             swal('Correcto', 'Se agregó la nueva categoría', 'success')
+             setTimeout(function () {
+                 location.reload();
+             }, 2000);
+             //location.reload();
+         }
+     });
+     }
+     //location.reload();
+        //window.onload = function () {
+        //    swal('Correcto', 'Se agregó la nueva categoría', 'success')
+        //}
+</script>
 
-@if (ViewBag.CodAgreCat != null)
-{
-    <script>
-        window.onload = function () {
-            swal('Correcto', 'Se agregó la nueva categoría', 'success')
-        }
-    </script>
-}
-
-@{
-    ViewBag.CodAgreCat = null;
-}
 
 @if (ViewBag.CodActClas != null)
 {

@@ -46,6 +46,11 @@
         .holder span {
             margin: 0 5px;
         }
+        .centar{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
 </style>
 
 <section class="section pb-3 text-center text-lg-left">
@@ -70,13 +75,6 @@
 
             <div class="col s3">
                 <div class="btn-group">
-                    <label class="col-form-label">Nombre</label>
-                </div>
-                <input type="text" name="Nombre" class="form-control"/>
-            </div>
-
-            <div class="col s3">
-                <div class="btn-group">
                     <label class="col-form-label">Rango (KM)</label>
                 </div>
                 <input class="range-field form-control" type="number" name="Km" min="0" max="100" />
@@ -84,7 +82,13 @@
 
             <div class="col s3">
                 <div class="btn-group">
-                   
+                    <label class="col-form-label">Nombre</label>
+                </div>
+                <input type="text" name="Nombre" class="form-control" id="search-box" />
+            </div>
+
+            <div class="col s3 centar">
+                <div class="btn-group">
                 </div>
                 <button type="submit" class="btn btn-outline-default waves-effect">Aceptar</button>
             </div>
@@ -135,7 +139,7 @@
                         <!--Card content-->
                         <div class="card-body">
                             <!--Title-->
-                            <h4 class="card-title">@fila["Titulo"]</h4>
+                            <h4 class="card-title name">@fila["Titulo"]</h4>
                             <!--Text-->
                             <p class="card-text">@fila["Clasificacion"]</p>
                             @if (indicador == 1)
@@ -193,3 +197,9 @@
             });
         });
 </script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="~/Recursos/FrontEnd/js/jquery.liveFilter.js"></script>
+    <script type="text/javascript">
+        jQuery.noConflict();
+        jQuery('#itemContainer').liveFilter('#search-box', 'li', { filterChildSelector: '.name' });
+    </script>*@

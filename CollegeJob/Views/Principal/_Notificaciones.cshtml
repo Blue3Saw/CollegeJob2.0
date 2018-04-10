@@ -43,15 +43,3 @@
         }
     }
 </div>
-@*<script>
-    setTimeout('document.location.reload()', 5000);
-</script>*@
-<script type="text/javascript">
-    $(document).ready(function() {
-        var refrescarid = setInterval(function() {
-            $("#div1").load()
-            .error(function() { alert("Error"); });
-        }, 5000); // Tiempo
-        $.ajaxSetup({ cache: false });
-    });
-</script>

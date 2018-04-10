@@ -57,13 +57,13 @@
                 <li class="nav-item">
                     <a href=@Url.Action("Perfil", "Empleador") class="nav-link waves-effect waves-light" href="#">Perfil</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" id="nav-left">
                     @*<a href=@Url.Action("Notificaciones", "Empleador") class="nav-link waves-effect waves-light" href="#">Notificaciones</a>
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notificaciones</a>
                     <div class="dropdown-menu dropdown-primary" aria-label="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">algo por aqui cnjdnd dnjdjnd ddnjnjdd</a>
                     </div>*@
-                    @{Html.RenderAction("Notificaciones", "Principal");}
+                    @*@{Html.RenderAction("Notificaciones", "Principal");}*@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
@@ -130,4 +130,26 @@
                 });
 
 
+</script>
+<script>
+    jQuery.noConflict();
+    jQuery(document).ready(function () {
+        setInterval('actualizar_slider()', 3000);
+    });
+</script>
+
+<script>
+    function actualizar_slider() {
+            $.ajax({
+                cache: false,
+                async: true,
+                type: "POST",
+                url: "@Url.Action("Notificaciones", "Principal")",
+            data: {},
+            success: function (response) {
+                $('#nav-left').html('');
+                $('#nav-left').html(response);
+            }
+        });
+    }
 </script>

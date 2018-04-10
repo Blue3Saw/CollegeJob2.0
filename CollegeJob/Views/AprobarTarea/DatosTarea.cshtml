@@ -5,12 +5,26 @@
     ViewBag.Title = "DatosTarea";
     Layout = "~/Views/MasterPages/_layoutAdmin.cshtml";
 }
+<style>
+    #map {
+        width: 100%;
+        height: 400px;
+        background-color: grey;
+    }
+    .boton{
+        
+    background-color: #26a69a;
+    }
 
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    .carousel, .carousel-inner > .item > img {
+  height: 200px;
+  width:100%;
+}
+</style>
 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyBN5HQEgifKCN5mq9cqkHQ7biWnKGusKok"></script>
-<script src="~/Recursos/FontEnd/js/locationpicker.jquery.js"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 @foreach (DataRow row in Model.Rows)
 {
     <div class="content">
@@ -20,22 +34,104 @@
                 @Html.AntiForgeryToken()
                 <div class="row">
                     <div class="col-lg-12" style="vertical-align:middle">
-                        <h1 class="mayusculas">@row["Titulo"]</h1>
+                        <h2 class="mayusculas">@row["Titulo"]</h2>
                         <input type="text" class="form-control border-input" name="codigo" placeholder="Nombre" value="@row["Codigo"]" style="visibility:hidden" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12" style="vertical-align:middle">
-                        <h4>Imagenes</h4>
+                    <div class="col-lg-4">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                @{
+                                    DataTable contenido = ViewData["Imagenes"] as DataTable;
+                                    int numerofilas = contenido.Rows.Count;
+                                    int n = 0;
+                                    if (numerofilas == 0)
+                                    {
+                                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < numerofilas; i++)
+                                        {
+                                            if (i == 0)
+                                            {
+                                                <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
+                                            }
+                                            else
+                                            {
+                                                <li data-target="#myCarousel" data-slide-to="@i"></li>
+                                            }
+                                        }
+                                    }
+                                }
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                               @{
+                                   DataTable imagenesreal = ViewData["Imagenes"] as DataTable;
+                                   if (numerofilas == 0)
+                                   {
+                                    <div class="item active">
+                                        <img src="~/Recursos/FrontEnd/img/images/body-bg.jpg" alt="Los Angeles" style="width:100%;">
+                                    </div>
+                                   }
+                                   else
+                                   {
+                                       int indice = 0;
+                                       foreach (DataRow filas in imagenesreal.Rows)
+                                       {
+
+                                           string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])filas["Imagen"]);
+                                           if (indice == 0)
+                                           {
+                                            <div class="carousel-item active">
+                                                <img src="@Foto" alt="Los Angeles" style="height:100%; width:320px;">
+                                            </div>
+
+                                           }
+                                           else
+                                           {
+                                            <div class="carousel-item">
+                                                <img src="@Foto" alt="Chicago" style="height:100%; width:320px;">
+                                            </div>
+                                           }
+                                           indice = indice + 1;
+                                       }
+                                   }
+
+                            }
+                            </div>
+
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-6">
                         <h4>Descripcion:</h4>
                         <div>
                         </div>
                         <div>
                             @row["Descripcion"]
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <h4>Dirreccion :</h4>
+                        </div>
+                        <div>
+                            @row["Direccion"]
                         </div>
                     </div>
                 </div>
@@ -63,31 +159,20 @@
                         <div>
                             <div>@row["Clasificacion"]</div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>Ubicación</h4>
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <div id="ModalMapPreview" style="width:100%; height: 400px;"></div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <input type="text" id="txtLat" value=@row["Latitud"] class="control-label" style="visibility:hidden">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="txtLgt" value=@row["Longitud"] class="control-label" style="visibility:hidden">
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="txtLat" value=@row["Latitud"] class="control-label" style="visibility:hidden">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="txtLgt" value=@row["Longitud"] class="control-label" style="visibility:hidden">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div>
-                            <h4>Dirreccion :</h4>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Ubicación</h4>
+                        <div id="map"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -105,31 +190,42 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div>
-                            <button type="submit" class="btn btn-success btn-lg" name="boton1" value="1">Aceptar</button>
+                            <button type="submit" class="boton btn btn-success btn-lg" name="boton1" value="1">Aceptar</button>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div>
-                            <button type="submit" class="btn btn-danger btn-lg" name="boton2" value="2">Denegar</button>
+                            <button type="submit" class="boton btn btn-danger btn-lg" name="boton2" value="2">Denegar</button>
                         </div>
                     </div>
                 </div>
             }
         </div>
     </div>
-}
+    @*<script>
 
-<script>
-    $("#ModalMapPreview").locationpicker({
+    $('#MapPreview').locationpicker({
         radius: 0,
         location: {
-            longitude: $("#txtLgt").val(),
-            latitude: $("#txtLat").val()
-        },
-        inputBinding: {
-            latitudeInput: $("#txtLat"),
-            longitudeInput: $("#txtLgt")
-        },
-        enableAutocomplete: true
-    });
-</script>
+            latitude: @row["Latitud"],
+            longitude: @row["Longitud"]
+        }
+    })
+    </script>*@
+    <script>
+      function initMap() {
+          var uluru = {lat: @row["Latitud"], lng: @row["Longitud"]};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDVy6j_p0RYniB45rgtUuI34GEUYUqYjw&callback=initMap">
+    </script>
+}

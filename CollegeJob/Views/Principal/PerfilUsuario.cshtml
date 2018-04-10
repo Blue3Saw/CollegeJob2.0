@@ -2,7 +2,14 @@
 @model DataTable
 @{
     ViewBag.Title = "PerfilUsuario";
-    Layout = "~/Views/MasterPages/_layoutEmpleador.cshtml";
+    if (Session["Permiso"].ToString() == "2")
+    {
+        Layout = "~/Views/MasterPages/_layoutEmpleador.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/MasterPages/_layoutEstudiante.cshtml";
+    }
 }
 <style>
     .centar{
@@ -43,7 +50,17 @@
                     <div class="row">
                         <div class="col-lg-4 centar">
                             <div>
-                                <img class="imagenredonda" src="~/Recursos/FrontEnd/img/images/cell phone.jpg" />
+                                @{
+                                    if (item["Imagen"].ToString() != "")
+                                    {
+                                        string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])item["Imagen"]);
+                                        <img class="imagenredonda" src="@Foto" />
+                                    }
+                                    else
+                                    {
+                                        <img class="imagenredonda" src="~/Recursos/FrontEnd/img/images/cell phone.jpg" />
+                                    }
+                                }
                             </div>
                         </div>
                         <div class="col-lg-4 centar tama">
@@ -140,39 +157,61 @@
              </div>
             <div class="row">
                     @{ DataTable comentarios = ViewData["comentarios"] as DataTable;
-                        foreach (DataRow row in comentarios.Rows)
+                        int cuenta = comentarios.Rows.Count;
+                        if (cuenta != 0)
                         {
-                            <div class="col-lg-4">
-                                <div class="m-movie-title">
-                                    <div class="centar">
-                                        <h3 class="m-movie-link" style="color:black;">@row["nombre"]</h3>
-                                    </div>
-                                    <div class="centar">
-                                        <img class="imagenredonda" src="~/Recursos/BackEnd/img/@row["Comentario"]" height="10" width="10" />
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div>
+                            foreach (DataRow row in comentarios.Rows)
+                            {
+                                <div class="col-lg-4">
+                                    <div class="m-movie-title">
                                         <div class="centar">
-                                            <h4>
-                                                Calificación:
-                                                @row["Calificacion"]<img width="75" src="~/Recursos/FrontEnd/img/images/1.png" />
-                                            </h4>
+                                            <h3 class="m-movie-link" style="color:black;">@row["nombre"]</h3>
                                         </div>
                                         <div class="centar">
-                                            <h4>
-                                                Comentario:
-                                                <br />
-                                                @row["Comentario"]
-                                            </h4>
+                                            @{
+                                                if (row["Imagen"].ToString() != "")
+                                                {
+                                                    string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                                                    <img class="imagenredonda" src="@Foto" height="10" width="10" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="imagenredonda" src="~/Recursos/FrontEnd/img/images/cell phone.jpg" />
+                                                }
+                                            }
                                         </div>
-                                    </div>
-                                    <div class="m-r-like">
+                                        <div class="clearfix"></div>
+                                        <div>
+                                            <div class="centar">
+                                                <h4>
+                                                    Calificación:
+                                                    @row["Calificacion"]<img width="75" src="~/Recursos/FrontEnd/img/images/1.png" />
+                                                </h4>
+                                            </div>
+                                            <div class="centar">
+                                                <h4>
+                                                    Comentario:
+                                                    <br />
+                                                    @row["Comentario"]
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="m-r-like">
 
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                                    <div class="clearfix"></div>
                                 </div>
-                            </div>
-                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-lg-12">
+                                                        <div class="centar">
+                                                            <h3>Todavia no tiene comentarios este estudiante</h3>
+                                                        </div>
+                                                    </div>
+                                                }
                     }
 
             </div>
