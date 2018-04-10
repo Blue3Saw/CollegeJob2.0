@@ -134,18 +134,20 @@ namespace Data_Access_Object
             return Conex.EjecutarComando(SentenciaSQL);
         }
 
-        public int AceptarUsuario(object ObjU)
+        public int AceptarUsuario(int Codigo)
         {
-            UsuarioBO Dato = (UsuarioBO)ObjU;
+            UsuarioBO Dato = new UsuarioBO();
+            Dato.Codigo = Codigo; 
             SqlCommand SentenciaSQL = new SqlCommand("UPDATE Usuarios SET Estatus = 'Activo' WHERE Codigo = @Codigo");
             SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Dato.Codigo;
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
         }
 
-        public int RechazarUsuario(object ObjU)
+        public int RechazarUsuario(int Codigo)
         {
-            UsuarioBO Dato = (UsuarioBO)ObjU;
+            UsuarioBO Dato = new UsuarioBO();
+            Dato.Codigo = Codigo;
             SqlCommand SentenciaSQL = new SqlCommand("UPDATE Usuarios SET Estatus = 'Rechazado' WHERE Codigo = @Codigo");
             SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Dato.Codigo;
             SentenciaSQL.CommandType = CommandType.Text;
@@ -457,6 +459,15 @@ namespace Data_Access_Object
                 Com.CommandType = CommandType.Text;
                 return Conex.EjecutarSentencia(Com).Tables[0];
             }
+        }
+
+        public DataTable TodosUsuarios()
+        {
+            sentencia = "SELECT U.Codigo, (U.Nombre + ' ' + U.Apellidos) AS 'Nombre', TU.Tipo, U.Estatus FROM Usuarios U INNER JOIN TipoUsuario TU ON U.TipoUs = TU.Codigo";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
         }
 
         //Metodo para busqueda de datos del usuario seleccionado y editar datos del mismo, perfil admin

@@ -142,13 +142,14 @@ namespace CollegeJob.Controllers.BackEnd
 
         public ActionResult BuscarView(string Nombre)
         {
-            if(Nombre == null)
+            UsuariosDAO ObjBusqueda = new UsuariosDAO();
+            if (Nombre == null)
             {
+                ViewData["TablaBusqueda"] = ObjBusqueda.TodosUsuarios();
                 ViewBag.Busqueda = Session["Busqueda"];
             }
             else
             {
-                UsuariosDAO ObjBusqueda = new UsuariosDAO();
                 ViewData["TablaBusqueda"] = ObjBusqueda.BuscquedaUsuario(Nombre);
                 if(ObjBusqueda.BuscquedaUsuario(Nombre).Rows.Count > 0)
                 {
@@ -170,6 +171,22 @@ namespace CollegeJob.Controllers.BackEnd
             UsuariosDAO usuariosDAO = new UsuariosDAO();
             int CodUsuario = int.Parse(Codigo);
             return View(usuariosDAO.BuscarUsuario(CodUsuario));
+        }
+
+        public ActionResult AceptarUsuario(string Codigo)
+        {
+            UsuariosDAO usuariosDAO = new UsuariosDAO();
+            int CodUsuario = int.Parse(Codigo);
+            usuariosDAO.AceptarUsuario(CodUsuario);
+            return View("BuscarView");
+        }
+
+        public ActionResult RechazarUsuario(string Codigo)
+        {
+            UsuariosDAO usuariosDAO = new UsuariosDAO();
+            int CodUsuario = int.Parse(Codigo);
+            usuariosDAO.AceptarUsuario(CodUsuario);
+            return View("BuscarView");
         }
     }
 }
