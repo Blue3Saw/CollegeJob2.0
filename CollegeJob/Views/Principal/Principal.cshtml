@@ -180,50 +180,65 @@
                         Este registro corresponde únicamente al empleador si deseas registrarte como estudiante da clic <a href="">aquí</a>
                     </p>
 
-                    <div class="md-form form-sm">
-                        <i class="fa fa-user prefix"></i>
-                        <input type="text" id="materialFormNameModalNombre" class="form-control form-control-sm">
-                        <label for="materialFormNameModalNombre">Nombre(s)</label>
-                    </div>
+                    @using (Ajax.BeginForm("Registro", "Principal", new AjaxOptions() { HttpMethod = "POST" }))
+                    {
+                        <div class="md-form form-sm">
+                            <i class="fa fa-user prefix"></i>
+                            <input type="text" id="materialFormNombreModal" name="Nombre" class="form-control form-control-sm">
+                            <label for="materialFormNombreModal">Nombre(s)</label>
+                        </div>
 
-                    <div class="md-form form-sm">
-                        <i class="fa fa-user prefix"></i>
-                        <input type="text" id="materialFormNameModalNombre" class="form-control form-control-sm">
-                        <label for="materialFormNameModalNombre">Apellidos</label>
-                    </div>
+                        <div class="md-form form-sm">
+                            <i class="fa fa-user prefix"></i>
+                            <input type="text" id="materialFormApellidosModal" name="Apellidos" class="form-control form-control-sm">
+                            <label for="materialFormApellidosModal">Apellidos</label>
+                        </div>
 
-                    <div class="md-form form-sm">
-                        <i class="fa fa-calendar prefix"></i>
-                        <input type="text" id="datepicker" class="form-control datepicker picker__input" readonly="" aria-haspopup="true" aria-expanded="false" aria-readonly="false" aria-owns="date-picker-example_root"><div class="picker" id="date-picker-example_root" aria-hidden="true"><div class="picker__holder" tabindex="-1"><div class="picker__frame"><div class="picker__wrap"><div class="picker__box"><div class="picker__header"><div class="picker__date-display"><div class="picker__weekday-display">Wednesday</div><div class="picker__month-display"><div>Mar</div></div><div class="picker__day-display"><div>14</div></div><div class="picker__year-display"><div>2018</div></div></div><select class="picker__select--year" aria-controls="date-picker-example_table" title="Select a year" disabled="disabled"><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018" selected="">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option></select><select class="picker__select--month" aria-controls="date-picker-example_table" title="Select a month" disabled="disabled"><option value="0">January</option><option value="1">February</option><option value="2" selected="">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select><div class="picker__nav--prev" data-nav="-1" role="button" aria-controls="date-picker-example_table" title="Previous month"> </div><div class="picker__nav--next" data-nav="1" role="button" aria-controls="date-picker-example_table" title="Next month"> </div></div><table class="picker__table" id="date-picker-example_table" role="grid" aria-controls="date-picker-example" aria-readonly="true"><thead><tr><th class="picker__weekday" scope="col" title="Sunday">Sun</th><th class="picker__weekday" scope="col" title="Monday">Mon</th><th class="picker__weekday" scope="col" title="Tuesday">Tue</th><th class="picker__weekday" scope="col" title="Wednesday">Wed</th><th class="picker__weekday" scope="col" title="Thursday">Thu</th><th class="picker__weekday" scope="col" title="Friday">Fri</th><th class="picker__weekday" scope="col" title="Saturday">Sat</th></tr></thead><tbody><tr><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1519538400000" role="gridcell" aria-label="25 February, 2018">25</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1519624800000" role="gridcell" aria-label="26 February, 2018">26</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1519711200000" role="gridcell" aria-label="27 February, 2018">27</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1519797600000" role="gridcell" aria-label="28 February, 2018">28</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1519884000000" role="gridcell" aria-label="1 March, 2018">1</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1519970400000" role="gridcell" aria-label="2 March, 2018">2</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520056800000" role="gridcell" aria-label="3 March, 2018">3</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520143200000" role="gridcell" aria-label="4 March, 2018">4</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520229600000" role="gridcell" aria-label="5 March, 2018">5</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520316000000" role="gridcell" aria-label="6 March, 2018">6</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520402400000" role="gridcell" aria-label="7 March, 2018">7</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520488800000" role="gridcell" aria-label="8 March, 2018">8</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520575200000" role="gridcell" aria-label="9 March, 2018">9</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520661600000" role="gridcell" aria-label="10 March, 2018">10</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520748000000" role="gridcell" aria-label="11 March, 2018">11</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520834400000" role="gridcell" aria-label="12 March, 2018">12</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520920800000" role="gridcell" aria-label="13 March, 2018">13</div></td><td role="presentation"><div class="picker__day picker__day--infocus picker__day--today picker__day--highlighted" data-pick="1521007200000" role="gridcell" aria-label="14 March, 2018" aria-activedescendant="true">14</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521093600000" role="gridcell" aria-label="15 March, 2018">15</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521180000000" role="gridcell" aria-label="16 March, 2018">16</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521266400000" role="gridcell" aria-label="17 March, 2018">17</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521352800000" role="gridcell" aria-label="18 March, 2018">18</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521439200000" role="gridcell" aria-label="19 March, 2018">19</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521525600000" role="gridcell" aria-label="20 March, 2018">20</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521612000000" role="gridcell" aria-label="21 March, 2018">21</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521698400000" role="gridcell" aria-label="22 March, 2018">22</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521784800000" role="gridcell" aria-label="23 March, 2018">23</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521871200000" role="gridcell" aria-label="24 March, 2018">24</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521957600000" role="gridcell" aria-label="25 March, 2018">25</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522044000000" role="gridcell" aria-label="26 March, 2018">26</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522130400000" role="gridcell" aria-label="27 March, 2018">27</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522216800000" role="gridcell" aria-label="28 March, 2018">28</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522303200000" role="gridcell" aria-label="29 March, 2018">29</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522389600000" role="gridcell" aria-label="30 March, 2018">30</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522476000000" role="gridcell" aria-label="31 March, 2018">31</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522562400000" role="gridcell" aria-label="1 April, 2018">1</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522645200000" role="gridcell" aria-label="2 April, 2018">2</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522731600000" role="gridcell" aria-label="3 April, 2018">3</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522818000000" role="gridcell" aria-label="4 April, 2018">4</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522904400000" role="gridcell" aria-label="5 April, 2018">5</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522990800000" role="gridcell" aria-label="6 April, 2018">6</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1523077200000" role="gridcell" aria-label="7 April, 2018">7</div></td></tr></tbody></table><div class="picker__footer"><button class="picker__button--today" type="button" data-pick="1521007200000" aria-controls="date-picker-example" disabled="disabled">Today</button><button class="picker__button--clear" type="button" data-clear="1" aria-controls="date-picker-example" disabled="disabled">Clear</button><button class="picker__button--close" type="button" data-close="true" aria-controls="date-picker-example" disabled="disabled">Close</button></div></div></div></div></div></div>
-                        <label for="datepicker">Fecha de nacimiento</label>
-                    </div>
+                        <div class="md-form form-sm">
+                            <i class="fa fa-calendar prefix"></i>
+                            <input type="text" id="datepicker" name="FechaNac" class="form-control datepicker picker__input" readonly="" aria-haspopup="true" aria-expanded="false" aria-readonly="false" aria-owns="date-picker-example_root"><div class="picker" id="date-picker-example_root" aria-hidden="true"><div class="picker__holder" tabindex="-1"><div class="picker__frame"><div class="picker__wrap"><div class="picker__box"><div class="picker__header"><div class="picker__date-display"><div class="picker__weekday-display">Wednesday</div><div class="picker__month-display"><div>Mar</div></div><div class="picker__day-display"><div>14</div></div><div class="picker__year-display"><div>2018</div></div></div><select class="picker__select--year" aria-controls="date-picker-example_table" title="Select a year" disabled="disabled"><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018" selected="">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option></select><select class="picker__select--month" aria-controls="date-picker-example_table" title="Select a month" disabled="disabled"><option value="0">January</option><option value="1">February</option><option value="2" selected="">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select><div class="picker__nav--prev" data-nav="-1" role="button" aria-controls="date-picker-example_table" title="Previous month"> </div><div class="picker__nav--next" data-nav="1" role="button" aria-controls="date-picker-example_table" title="Next month"> </div></div><table class="picker__table" id="date-picker-example_table" role="grid" aria-controls="date-picker-example" aria-readonly="true"><thead><tr><th class="picker__weekday" scope="col" title="Sunday">Sun</th><th class="picker__weekday" scope="col" title="Monday">Mon</th><th class="picker__weekday" scope="col" title="Tuesday">Tue</th><th class="picker__weekday" scope="col" title="Wednesday">Wed</th><th class="picker__weekday" scope="col" title="Thursday">Thu</th><th class="picker__weekday" scope="col" title="Friday">Fri</th><th class="picker__weekday" scope="col" title="Saturday">Sat</th></tr></thead><tbody><tr><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1519538400000" role="gridcell" aria-label="25 February, 2018">25</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1519624800000" role="gridcell" aria-label="26 February, 2018">26</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1519711200000" role="gridcell" aria-label="27 February, 2018">27</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1519797600000" role="gridcell" aria-label="28 February, 2018">28</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1519884000000" role="gridcell" aria-label="1 March, 2018">1</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1519970400000" role="gridcell" aria-label="2 March, 2018">2</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520056800000" role="gridcell" aria-label="3 March, 2018">3</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520143200000" role="gridcell" aria-label="4 March, 2018">4</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520229600000" role="gridcell" aria-label="5 March, 2018">5</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520316000000" role="gridcell" aria-label="6 March, 2018">6</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520402400000" role="gridcell" aria-label="7 March, 2018">7</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520488800000" role="gridcell" aria-label="8 March, 2018">8</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520575200000" role="gridcell" aria-label="9 March, 2018">9</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520661600000" role="gridcell" aria-label="10 March, 2018">10</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520748000000" role="gridcell" aria-label="11 March, 2018">11</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520834400000" role="gridcell" aria-label="12 March, 2018">12</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1520920800000" role="gridcell" aria-label="13 March, 2018">13</div></td><td role="presentation"><div class="picker__day picker__day--infocus picker__day--today picker__day--highlighted" data-pick="1521007200000" role="gridcell" aria-label="14 March, 2018" aria-activedescendant="true">14</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521093600000" role="gridcell" aria-label="15 March, 2018">15</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521180000000" role="gridcell" aria-label="16 March, 2018">16</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521266400000" role="gridcell" aria-label="17 March, 2018">17</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521352800000" role="gridcell" aria-label="18 March, 2018">18</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521439200000" role="gridcell" aria-label="19 March, 2018">19</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521525600000" role="gridcell" aria-label="20 March, 2018">20</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521612000000" role="gridcell" aria-label="21 March, 2018">21</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521698400000" role="gridcell" aria-label="22 March, 2018">22</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521784800000" role="gridcell" aria-label="23 March, 2018">23</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521871200000" role="gridcell" aria-label="24 March, 2018">24</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1521957600000" role="gridcell" aria-label="25 March, 2018">25</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522044000000" role="gridcell" aria-label="26 March, 2018">26</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522130400000" role="gridcell" aria-label="27 March, 2018">27</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522216800000" role="gridcell" aria-label="28 March, 2018">28</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522303200000" role="gridcell" aria-label="29 March, 2018">29</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522389600000" role="gridcell" aria-label="30 March, 2018">30</div></td><td role="presentation"><div class="picker__day picker__day--infocus" data-pick="1522476000000" role="gridcell" aria-label="31 March, 2018">31</div></td></tr><tr><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522562400000" role="gridcell" aria-label="1 April, 2018">1</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522645200000" role="gridcell" aria-label="2 April, 2018">2</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522731600000" role="gridcell" aria-label="3 April, 2018">3</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522818000000" role="gridcell" aria-label="4 April, 2018">4</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522904400000" role="gridcell" aria-label="5 April, 2018">5</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1522990800000" role="gridcell" aria-label="6 April, 2018">6</div></td><td role="presentation"><div class="picker__day picker__day--outfocus" data-pick="1523077200000" role="gridcell" aria-label="7 April, 2018">7</div></td></tr></tbody></table><div class="picker__footer"><button class="picker__button--today" type="button" data-pick="1521007200000" aria-controls="date-picker-example" disabled="disabled">Today</button><button class="picker__button--clear" type="button" data-clear="1" aria-controls="date-picker-example" disabled="disabled">Clear</button><button class="picker__button--close" type="button" data-close="true" aria-controls="date-picker-example" disabled="disabled">Close</button></div></div></div></div></div></div>
+                            <label for="datepicker">Fecha de nacimiento</label>
+                        </div>
 
-                    <div class="md-form form-sm">
-                        <i class="fa fa-phone prefix"></i>
-                        <input type="tel" id="materialFormNameModalNombre" class="form-control form-control-sm">
-                        <label for="materialFormNameModalNombre">Teléfono</label>
-                    </div>
+                        <div class="md-form form-sm">
+                            <i class="fa fa-phone prefix"></i>
+                            <input type="tel" id="materialFormTelefonoModal" name="Telefono" class="form-control form-control-sm" maxlength="10" pattern="[0-9]{10}" onkeypress="return valida(event)">
+                            <label for="materialFormTelefonoModal">Teléfono</label>
+                        </div>
 
-                    <!-- Material input name -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-envelope-o prefix"></i>
-                        <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm">
-                        <label for="materialFormNameModalEx1">Correo electrónico</label>
-                    </div>
+                        <div class="md-form form-sm">
+                            <i class="fa fa-id-card-o prefix"></i>
+                            <input type="tel" id="materialFormINEModal" name="INE" class="form-control form-control-sm">
+                            <label for="materialFormINEModal">INE</label>
+                        </div>
 
-                    <!-- Material input email -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-lock prefix"></i>
-                        <input type="password" id="materialFormEmailModalEx1" class="form-control form-control-sm">
-                        <label for="materialFormEmailModalEx1">Contraseña</label>
-                    </div>
+                        <div class="md-form form-sm">
+                            <i class="fa fa-id-badge prefix"></i>
+                            <input type="tel" id="materialFormCURPModal" name="CURP" class="form-control form-control-sm">
+                            <label for="materialFormCURPModal">CURP</label>
+                        </div>
 
-                    <div class="text-center mt-4 mb-2">
-                        <button class="btn default-color-dark">
-                            Iniciar
-                            <i class="fa fa-send ml-2"></i>
-                        </button>
-                    </div>
+                        <!-- Material input name -->
+                        <div class="md-form form-sm">
+                            <i class="fa fa-envelope-o prefix"></i>
+                            <input type="text" id="materialFormEmailModal" name="Email" class="form-control form-control-sm">
+                            <label for="materialFormEmailModal">Correo electrónico</label>
+                        </div>
+
+                        <!-- Material input email -->
+                        <div class="md-form form-sm">
+                            <i class="fa fa-lock prefix"></i>
+                            <input type="password" id="materialFormPasswordModal" name="Contraseña" class="form-control form-control-sm">
+                            <label for="materialFormPasswordModal">Contraseña</label>
+                        </div>
+
+                        <div class="text-center mt-4 mb-2">
+                            <button class="btn default-color-dark">
+                                Registrarme
+                                <i class="fa fa-send ml-2"></i>
+                            </button>
+                        </div>
+                    }
 
                 </div>
             </div>
@@ -938,6 +953,22 @@
         })
     </script>
 
+    <script>
+        function valida(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron = /[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+    </script>
+
     @if (ViewBag.Recuperar != null)
     {
         <script>
@@ -946,12 +977,21 @@
             }
         </script>
     }
-    
-    @if(ViewBag.Recuperar == "Error")
+
+    @if (ViewBag.Recuperar == "Error")
     {
         <script>
             window.onload = function () {
                 swal('Error', 'Usuario no encontrado, verifica que el correo electrónico sea correcto.', 'error')
+            }
+        </script>
+    }
+
+    @if (ViewBag.Registro != null)
+    {
+        <script>
+            window.onload = function () {
+                swal('Error', 'No se ha podido registrar la información, verifique los campos.', 'error')
             }
         </script>
     }
@@ -984,7 +1024,7 @@
     @if (ViewBag.Codigo != null)
     {
         <script>
-            window.onload = function() {
+            window.onload = function () {
                 swal('Oops!', 'Datos incorrectos, por favor verifica que el correo y la contraseña sean correctos', 'error')
             }
         </script>
