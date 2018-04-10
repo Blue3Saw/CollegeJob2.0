@@ -33,8 +33,15 @@ namespace CollegeJob.Controllers
             }
 
             ViewData["categoria"] = new SelectList(cate);
-
-            string longitud = Session["longitud"].ToString();
+            string longitud;
+            try
+            {
+                 longitud = Session["longitud"].ToString();
+            }
+            catch
+            {
+                longitud = "";
+            }
             if (longitud!="")
             {
                 double Latitud = double.Parse(Session["Latitud"].ToString());
@@ -116,7 +123,7 @@ namespace CollegeJob.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarPerfil(string Nombre, string Apellidos, string Correo, string FechaNac, string Telefono, byte[] img, HttpPostedFileBase Imagen)
+        public ActionResult ActualizarPerfil(string Nombre, string Apellidos, string Correo, string Fecha, string Telefono, byte[] img, HttpPostedFileBase Imagen)
         {
             UsuarioBO bo = new UsuarioBO();
             if (Imagen != null)
@@ -132,7 +139,7 @@ namespace CollegeJob.Controllers
             bo.Nombre = Nombre;
             bo.Apellidos = Apellidos;
             bo.Email = Correo;
-            bo.FechaNac = Convert.ToDateTime(FechaNac);
+            bo.FechaNac = Convert.ToDateTime(Fecha);
             bo.Telefono = long.Parse(Telefono);
             int ActPerf = usuarioDAO.ActualizarUsuario2(bo);
             Session["ActPerf"] = ActPerf;
@@ -402,6 +409,27 @@ namespace CollegeJob.Controllers
             MisTareas();
             return View("MisTareas");
         }
+
+
+        public ActionResult AceptarNotificaciones(string Accion, string Tarea)
+        {
+            int ta = int.Parse(Tarea);
+            int cod = int.Parse(Session["Codigo"].ToString());
+            if (Accion == "1")
+            {
+                string estado = "Aceptado";
+                tareasdao.AceptoTareaEmpleador(ta, estado, cod);
+            }
+            else
+            {
+                string estado = "Rechazado";
+                tareasdao.RechazoTareaEmpleador(ta, estado, cod);
+            }
+
+            MisTareas();
+            return View("MisTareas");
+        }
+
 
     }
 }

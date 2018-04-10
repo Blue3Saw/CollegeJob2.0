@@ -113,7 +113,7 @@
                                         else if (item["estado"].ToString() == "Aceptar")
                                         {
                                             <div class="col-lg-2">
-                                                @using (Ajax.BeginForm("AceptarNotificaciones", "Tareas", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+                                                @using (Ajax.BeginForm("AceptarNotificaciones", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
                                                 {
                                                 <p>
                                                     <button type="submit" class="btn btn-outline-default waves-effect waves-light" name="Accion" value="1">
@@ -146,6 +146,7 @@
 
                             </div>
                         </div>
+                    <br />
                     @using (Ajax.BeginForm("EnviarMensaje", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }))
                     {
                         //inicio del modal de los mensajes

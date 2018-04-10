@@ -15,90 +15,134 @@
 <div class="container-fluid">
     <div class="container card">
         <div onclick="mostar1()" style="cursor:pointer"><h2>Información de la página</h2></div>
-        @using (Ajax.BeginForm("AgregarInformacion", "Informacion", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
-        {
-        <div class="row" id="Info" style='display:none'>
-            <div class="col-md-4">
-                <div>
-                    <label>Quiénes somos?</label>
-                    <textarea class="form-control  border-input" name="Quienes" placeholder="Quiénes">
-                            @Model.Quienes
-                        </textarea>
-                </div>
-                <div class="clearfix">&nbsp;</div>
-                <div>
-                    <label>Misión</label>
-                    <textarea class="form-control  border-input" name="Mision" placeholder="Misión">
-                            @Model.Mision
-                        </textarea>
-                </div>
-                <div class="clearfix">&nbsp;</div>
-                <div>
-                    <label>Visión</label>
-                    <textarea class="form-control  border-input" name="Vision" placeholder="Visión">
-                            @Model.Vision
-                        </textarea>
-                </div>
-            </div>
-            <div class="col-md-2"></div>
-           
-
-            <div class="col-md-4">
-                <label class="control-label">
-                    Imagen Quiénes somos?:
-                </label>
-                <div>
-                    <a href="javascript:Mostrar('#imgq','#verq', '#ocultarq')" id="verq">Ver imagen</a>
-                    <a href="javascript:Ocultar('#imgq','#ocultarq', '#verq')" class="oculto" id="ocultarq">Ocultar imagen</a>
-                    <img id="imgq" class="oculto" width="100px" />
-                    <input type="file" id="ImgQ" class="form-control  border-input" name="ImgQ">
-                    <input type="text" value="@Model.ImagenQ" name="IQ" class="oculto" />
-                </div>
-                <label class="control-label">
-                    Imagen Misión:
-                </label>
-                <div>
-                    <a href="javascript:Mostrar('#imgm','#verm', '#ocultarm')" id="verm">Ver imagen</a>
-                    <a href="javascript:Ocultar('#imgm','#ocultarm', '#verm')" class="oculto" id="ocultarm">Ocultar imagen</a>
-                    <img id="imgm" class="oculto" width="100px" />
-                    <input type="file" id="ImgM" class="form-control  border-input" name="ImgM">
-                    <input type="text" value="@Model.ImagenM" name="IM" class="oculto" />
-                </div>
-                <label class="control-label">
-                    Imagen Visión:
-                </label>
-                <div>
-                    <a href="javascript:Mostrar('#imgv','#verv', '#ocultarv')" id="verv">Ver imagen</a>
-                    <a href="javascript:Ocultar('#imgv','#ocultarv', '#verv')" class="oculto" id="ocultarv">Ocultar imagen</a>
-                    <img id="imgv" class="oculto" width="100px" />
-                    <input type="file" id="ImgV" class="form-control  border-input" name="ImgV">
-                    <input type="text" value="@Model.ImagenV" name="IV" class="oculto" />
-                </div>
-            </div>
-           
+        <div class="row" id="Info" '>
+            @using (Ajax.BeginForm("AgregarInformacion", "Informacion", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+    {
             <div class="row">
+                <div class="col-md-6">
+                    <p></p>
+                    <select name="Tipo" class="form-control border-input" onChange="tipoOnChange(this)">
+                        <option value="0">---Seleccione---</option>
+                        <option value="1">¿Quiénes somos?</option>
+                        <option value="2">Misión</option>
+                        <option value="3">Visión</option>
+                    </select>
+                </div>
                 <div class="col-md-2 col-md-offset-3">
                     <div>
                         <button type="submit" class="btn btn-success" name="agregar" value="1" onclick="Agregarti()">GUARDAR</button>
                     </div>
                 </div>
+            </div>        
+
+        <div class="row" id="Quienes" style="display:none;">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div>
+                            <label>Quiénes somos?</label>
+                            <textarea class="form-control  border-input" name="Quienes" placeholder="Quiénes">
+                            @Model.Quienes
+                        </textarea>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                    </div>
+                </div>
+                   
+                <div class="row">
+                    <div class="col-md-8">
+                        <div>
+                        <label class="control-label">
+                            Imagen Quiénes somos?:
+                        </label>
+                        <div>
+                            <a href="javascript:Mostrar('#imgq','#verq', '#ocultarq')" id="verq">Ver imagen</a>
+                            <a href="javascript:Ocultar('#imgq','#ocultarq', '#verq')" class="oculto" id="ocultarq">Ocultar imagen</a>
+                            <img id="imgq" class="oculto" width="100px" />
+                            <input type="file" id="ImgQ" class="form-control  border-input" name="ImgQ">
+                            <input type="text" value="@Model.ImagenQ" name="IQ" class="oculto" />
+                        </div>
+                        </div>
+                    </div>                    
+                </div>
             </div>
         </div>
-        }
-        <div class="row">
-            <div id="tablaImgenes" class="col-md-4">
 
-            </div>
-            <div id="Actualizartabla" class="col-md-4">
-
+        <div class="row" id="Mision" style="display:none;">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-8">
+                    <div>
+                        <label>Misión</label>
+                        <textarea class="form-control  border-input" name="Mision" placeholder="Misión">
+                            @Model.Mision
+                        </textarea>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                    <label class="control-label">
+                        Imagen Misión:
+                    </label>
+                    <div>
+                        <a href="javascript:Mostrar('#imgm','#verm', '#ocultarm')" id="verm">Ver imagen</a>
+                        <a href="javascript:Ocultar('#imgm','#ocultarm', '#verm')" class="oculto" id="ocultarm">Ocultar imagen</a>
+                        <img id="imgm" class="oculto" width="100px" />
+                        <input type="file" id="ImgM" class="form-control  border-input" name="ImgM">
+                        <input type="text" value="@Model.ImagenM" name="IM" class="oculto" />
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="row" id="Vision" style="display:none;">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div>
+                            <label>Visión</label>
+                            <textarea class="form-control  border-input" name="Vision" placeholder="Visión">
+                            @Model.Vision
+                        </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="control-label">
+                            Imagen Visión:
+                        </label>
+                        <div>
+                            <a href="javascript:Mostrar('#imgv','#verv', '#ocultarv')" id="verv">Ver imagen</a>
+                            <a href="javascript:Ocultar('#imgv','#ocultarv', '#verv')" class="oculto" id="ocultarv">Ocultar imagen</a>
+                            <img id="imgv" class="oculto" width="100px" />
+                            <input type="file" id="ImgV" class="form-control  border-input" name="ImgV">
+                            <input type="text" value="@Model.ImagenV" name="IV" class="oculto" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>       
+}
+        </div>
+
+
+                <div class="row">
+                    <div id="tablaImgenes" class="col-md-4">
+
+                    </div>
+                    <div id="Actualizartabla" class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
-<script type="text/javascript">
+        <script type="text/javascript">
             function tabla() {
                 $('#tablaInfo').load('/Informacion/TablaInformacionPag');
             }
@@ -108,32 +152,28 @@
             function actualizarcategoria() {
                 $('#Actualizartabla').load('/CategoriasYTipos/TablaActualizarCategoria');
             }
-</script>
-<script src="https://code.jquery.com/jquery-3.2.1.js"
-        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous"></script>
-<script type="text/javascript">
-    function mostar1() {
-        if (!(document.getElementById('Info').style.display == 'block'))
-        {
-                document.getElementById('Info').style.display = 'block';
+        </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.js"
+                integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            function mostar1() {
+                if (!(document.getElementById('Info').style.display == 'block')) {
+                    document.getElementById('Info').style.display = 'block';
 
-        }
-        else
-        {
-            document.getElementById('Info').style.display = 'none'
-        }
+                }
+                else {
+                    document.getElementById('Info').style.display = 'none'
+                }
             }
 
-    function mostar2() {
-        if (!(document.getElementById('Img').style.display == 'block'))
-        {
-            document.getElementById('Img').style.display = 'block';
-        }
-        else
-        {
-            document.getElementById('Img').style.display = 'none'
-        }
+            function mostar2() {
+                if (!(document.getElementById('Img').style.display == 'block')) {
+                    document.getElementById('Img').style.display = 'block';
+                }
+                else {
+                    document.getElementById('Img').style.display = 'none'
+                }
             }
 
             function readURL(input, IdImg) {
@@ -156,19 +196,57 @@
             $("#ImgV").change(function () {
                 readURL(this, '#imgv');
             });
-            function Mostrar(id,id1,id2)
-            {
+            function Mostrar(id, id1, id2) {
                 $(id).removeClass("oculto");
                 $(id1).addClass("oculto");
                 $(id2).removeClass("oculto");
             }
 
-            function Ocultar(id,id1, id2) {
+            function Ocultar(id, id1, id2) {
                 $(id).addClass("oculto");
                 $(id1).addClass("oculto");
                 $(id2).removeClass("oculto");
             }
 
 
-</script>
+        </script>
+
+        <script>
+            function tipoOnChange(sel) {
+                if (sel.value == "3") {
+                    divC = document.getElementById("Vision");
+                    divC.style.display = "";
+
+                    divT = document.getElementById("Quienes");
+                    divT.style.display = "none";
+
+                    divC = document.getElementById("Mision");
+                    divC.style.display = "none";
+
+                } else if (sel.value == "2") {
+
+                    divC = document.getElementById("Mision");
+                    divC.style.display = "";
+
+                    divT = document.getElementById("Quienes");
+                    divT.style.display = "none";
+
+                    divC = document.getElementById("Vision");
+                    divC.style.display = "none";
+                }
+                else if (sel.value == "1") {
+
+                    divC = document.getElementById("Quienes");
+                    divC.style.display = "";
+
+                    divC = document.getElementById("Mision");
+                    divC.style.display = "none";
+
+                    divT = document.getElementById("Vision");
+                    divT.style.display = "none";
+                }
+            }
+        </script>
+
+
 
