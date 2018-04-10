@@ -202,7 +202,7 @@
 
                         <div class="md-form form-sm">
                             <i class="fa fa-phone prefix"></i>
-                            <input type="tel" id="materialFormTelefonoModal" name="Telefono" class="form-control form-control-sm">
+                            <input type="tel" id="materialFormTelefonoModal" name="Telefono" class="form-control form-control-sm" maxlength="10" pattern="[0-9]{10}" onkeypress="return valida(event)">
                             <label for="materialFormTelefonoModal">Teléfono</label>
                         </div>
 
@@ -951,6 +951,22 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+    </script>
+
+    <script>
+        function valida(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron = /[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
     </script>
 
     @if (ViewBag.Recuperar != null)

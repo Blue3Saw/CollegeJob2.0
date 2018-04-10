@@ -115,10 +115,12 @@ else
                                     <td>
                                         @Html.Raw(@Html.ActionLink("XXX", "EditarView", "AgregarEstudiante", new { Codigo = @row["Codigo"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons'>edit</i>"))
                                         <a class="btn-floating waves-effect waves-light teal" onclick="BorrarUsuario(@row["Codigo"])"><i class="material-icons">delete</i></a>
+                                        
                                         @if (row["Estatus"].ToString() == "En revisión")
                                         {
-                                            Html.Raw(Html.ActionLink("XXX", "AceptarUsuario", "AgregarEstudiante", new { Codigo = row["Codigo"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons' data-toggle='tooltip' title='Aceptar usuario'>check</i>"));
-                                            Html.Raw(Html.ActionLink("XXX", "RechazarUsuario", "AgregarEstudiante", new { Codigo = @row["Codigo"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons' data-toggle='tooltip' title='Rechazar usuario'>clear</i>"));
+                                            @Html.Raw(Html.ActionLink("XXX", "AceptarUsuario", "AgregarEstudiante", new { Codigo = row["Codigo"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons' data-toggle='tooltip' title='Aceptar usuario'>check</i>"))
+                                            <a></a>
+                                            @Html.Raw(Html.ActionLink("XXX", "RechazarUsuario", "AgregarEstudiante", new { Codigo = row["Codigo"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons' data-toggle='tooltip' title='Rechazar usuario'>clear</i>"))
                                         }
                                     </td>
                                 </tr>

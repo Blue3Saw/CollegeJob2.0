@@ -117,3 +117,56 @@
         }
     </script>
 }
+
+<script>
+    function valida(e) {
+        tecla = (document.all) ? e.keyCode : e.which;
+
+        //Tecla de retroceso para borrar, siempre la permite
+        if (tecla == 8) {
+            return true;
+        }
+
+        // Patron de entrada, en este caso solo acepta numeros
+        patron = /[0-9]/;
+        tecla_final = String.fromCharCode(tecla);
+        return patron.test(tecla_final);
+    }
+</script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/collegejob/image/upload';
+    var CLODINARY_UPLOAD_PRESET = 'gnslxuqq';
+
+    var ImgPreview = document.getElementById('img-preview');
+    var FileUpload = document.getElementById('file-upload');
+
+    //var ImgPreview = $('img-preview');
+    //var FileUpload = $('file-upload');
+
+    FileUpload.addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLODINARY_UPLOAD_PRESET);
+        //HttpClient HTTPS
+        axios({
+            url: CLOUDINARY_URL,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: formData
+        }).then(function (res) {
+            console.log(res);
+            ImgPreview.src = res.data.secure_url;
+        }).catch(function (err) {
+            console.error(err);
+        });
+    });
+    //$(function () {
+
+    //});
+
+</script>

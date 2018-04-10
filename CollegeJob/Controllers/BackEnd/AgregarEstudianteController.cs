@@ -178,6 +178,7 @@ namespace CollegeJob.Controllers.BackEnd
             UsuariosDAO usuariosDAO = new UsuariosDAO();
             int CodUsuario = int.Parse(Codigo);
             usuariosDAO.AceptarUsuario(CodUsuario);
+            BuscarView(null);
             return View("BuscarView");
         }
 
@@ -186,6 +187,7 @@ namespace CollegeJob.Controllers.BackEnd
             UsuariosDAO usuariosDAO = new UsuariosDAO();
             int CodUsuario = int.Parse(Codigo);
             usuariosDAO.AceptarUsuario(CodUsuario);
+            BuscarView(null);
             return View("BuscarView");
         }
     }
