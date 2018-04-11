@@ -24,6 +24,7 @@ namespace Business_Object
         public string INE { get; set; }
         public string Matricula { get; set; }
         public string Universidad { get; set; }
+        public string ImagenUrl { get; set; }
 
         public string Encriptar(string str)
         {
