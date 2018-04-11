@@ -158,7 +158,6 @@ namespace CollegeJob.Controllers
             Session["km"] = Km;
             Session["Cate"] = categoria;
             Session["NomTitulo"] = Nombre;
-
             Index();
             return View("Index");
         }
@@ -166,6 +165,7 @@ namespace CollegeJob.Controllers
         //metodo para obtner las distancias
         public DataTable calculardistanciatareas(double logitud, double latitud, double Km, string categoria,string nom)
         {
+            string sentencia = "select T.Titulo,T.Descripcion,c.Clasificacion,t.Longitud,t.Latitud,t.Codigo,u.Nombre,u.Apellidos,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' from Tareas T,ClasificacionTarea C ,Usuarios u where t.Tipo=c.Codigo and t.Estatus=1 and t.UsuarioEmpleador=u.Codigo";
             //variables de la consulta
             var constante = 6378;//radio ecuatorial de la tierra
             double latitudtarea, diferencialongitud;
@@ -179,15 +179,21 @@ namespace CollegeJob.Controllers
 
 
             //este es el datatable que tiene las coordenadas de las tareas con estatus 1
-            if (nom=="")
+            //if (nom=="")
+            //{
+            //    coordenadas = tareasdao.cordenadastareas();
+            //}
+            if (nom!="")
             {
-                coordenadas = tareasdao.cordenadastareas();
+                sentencia = sentencia +" "+ "and t.Titulo like'%"+nom+"%'";
+                //coordenadas = tareasdao.cordenadastareas2(nom);
             }
-            else
+            if (categoria != ""&& categoria!= "Todas")
             {
-                coordenadas = tareasdao.cordenadastareas2(nom);
+                sentencia = sentencia +" "+ "and c.Clasificacion='"+categoria+"'";
             }
             //DataTable coordenadas = tareasdao.cordenadastareas();
+            coordenadas = tareasdao.cordenadastareas2(sentencia);
 
             //el que se creara cuando se calculen las distancias
             DataTable distancias = new DataTable();
@@ -222,7 +228,7 @@ namespace CollegeJob.Controllers
                 //distancia final
                 final = constante * 2 * Math.Asin(Math.Sqrt(a));
 
-                if (final <= Km && categoria == row[2].ToString())
+                if (Km==0)
                 {
                     //creamos la fila del nuevo datatable
                     fila["Titulo"] = row[0].ToString();
@@ -240,7 +246,7 @@ namespace CollegeJob.Controllers
                     distancias.Rows.Add(fila);
                     final = 0;
                 }
-                else
+                else if(Km!=0 && final <= Km)
                 {
                     //creamos la fila del nuevo datatable
                     fila["Titulo"] = row[0].ToString();
@@ -268,6 +274,11 @@ namespace CollegeJob.Controllers
             // se lo pasamos al datatable que creamos de ordenacion
 
             ordenacion = distancias.DefaultView.ToTable();
+
+            //cerramos todas la sesiones que no funcionan
+            //Session.Remove("km");
+            //Session.Remove("NomTitulo");
+            //Session["cate"] = "Todas";
 
             //retornamos el datatable
             return ordenacion;

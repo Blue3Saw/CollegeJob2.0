@@ -20,6 +20,7 @@ namespace CollegeJob.Controllers
         // GET: Tareas
 
         TareasDAO ObjDAO = new TareasDAO();
+        TareasBO objBOTareas = new TareasBO();
         UsuariosDAO UsuarioDao = new UsuariosDAO();
         CalificacionesBO califbo = new CalificacionesBO();
         CalificacionesDAO califDao = new CalificacionesDAO();
@@ -30,6 +31,7 @@ namespace CollegeJob.Controllers
 
         public ActionResult DetalleTareaDispo(string Codigo)
         {
+            Session["CodigoTarea"] = Codigo;
             ViewData["Fecha"] = ObjDAO.BuscarFecha(Codigo);
             ViewData["permiso"] = Session["Permiso"].ToString();
             int Clave = int.Parse(Codigo);
@@ -38,6 +40,19 @@ namespace CollegeJob.Controllers
             ViewData["Tarea"] = Clave;
             ViewData["Postulados"] = ObjDAO.postulados(Clave);
             ViewData["Imagenes"] = ObjDAO.ImgenesTarea(Clave);
+
+
+            //para obtener las categorias
+
+            DataTable Categorias = ObjTareas.categorias();
+            List<string> ListCategorias = new List<string>();
+            foreach (DataRow item in Categorias.Rows)
+            {
+                ListCategorias.Add(item["Clasificacion"].ToString());
+            }
+
+            ViewData["cmbClas"] = new SelectList(ListCategorias);
+
             return View(ObjDAO.TareaSeleccionada(Clave));
 
         }
@@ -212,6 +227,28 @@ namespace CollegeJob.Controllers
             califbo.Comentario = comentario;
             califDao.AgregarCalificacion(califbo);
             return Redirect("~/Estudiante/MisTareas");
+        }
+
+
+        [HttpPost]
+        public ActionResult ActualizarTarea(string Titulo, string Direccion,string Latitud, string Longitud, string fechainput, string HoraInicioTarea, string cmbClas, string Descripcion,string CantPersonas)
+        {
+            objBOTareas.Codigo = int.Parse(Session["CodigoTarea"].ToString());
+            objBOTareas.CodigoEmpleador = int.Parse(Session["Codigo"].ToString());
+            objBOTareas.Titulo = Titulo;
+            objBOTareas.Direccion = Direccion;
+            objBOTareas.Latitud = float.Parse(Latitud);
+            objBOTareas.Longitud = float.Parse(Longitud);
+            objBOTareas.Fecha = DateTime.Parse(fechainput);
+            objBOTareas.HoraInicio = DateTime.Parse(HoraInicioTarea);
+            objBOTareas.TipoTarea = ObjDAO.Buscarclasificacion(cmbClas);
+            objBOTareas.Descripcion = Descripcion;
+            objBOTareas.CantPersonas = int.Parse(CantPersonas);
+            objBOTareas.CodigoEstatus = 3;
+            ObjDAO.ActualizarTarea(objBOTareas);
+            DetalleTareaDispo(Session["CodigoTarea"].ToString());
+            //return Redirect("~/Tareas/DetalleTareaDispo?Codigo=" + Session["CodigoTarea"].ToString());
+            return RedirectToAction("DetalleTareaDispo", "Tareas", new { @Codigo = Session["CodigoTarea"].ToString() });
         }
         
     }

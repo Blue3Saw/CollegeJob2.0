@@ -22,6 +22,7 @@ namespace CollegeJob.Controllers.BackEnd
         public ActionResult DatosTarea(string boton)
         {
             int dato = int.Parse(boton);
+            ViewData["Imagenes"] = dao.ImgenesTarea(dato);
             return View(dao.TablaTareas2(dato));
         }
 

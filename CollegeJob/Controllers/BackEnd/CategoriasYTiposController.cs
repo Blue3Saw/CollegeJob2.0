@@ -143,7 +143,7 @@ namespace CollegeJob.Controllers.BackEnd
             Session["CodElClas"] = CodElClas;
             ViewBag.CodElClas = Session["CodElClas"];
             AgregarCategoria(null, null);
-            return View("AgregarCategoria");
+            return RedirectToAction("AgregarCategoria");
         }
     }
 }

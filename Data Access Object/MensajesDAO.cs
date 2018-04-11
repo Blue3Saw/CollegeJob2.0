@@ -91,5 +91,19 @@ namespace Data_Access_Object
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
         }
+
+        public int AgregarPago(int empleador,double monto,string cuenta,int tarea,int estudiante)
+        {
+            SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO PagosTareas (Empleador,Cuenta,Tarea,Monto,Estudiante) VALUES (@empleador, @cuenta, @tarea, @monto, @estudiante)");
+            SentenciaSQL.Parameters.Add("empleador", SqlDbType.Int).Value = empleador;
+            SentenciaSQL.Parameters.Add("estudiante", SqlDbType.Int).Value = estudiante;
+            SentenciaSQL.Parameters.Add("tarea", SqlDbType.Int).Value = tarea;
+            SentenciaSQL.Parameters.Add("monto", SqlDbType.Float).Value = monto;
+            SentenciaSQL.Parameters.Add("cuenta", SqlDbType.DateTime).Value = cuenta;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
+
+
     }
 }

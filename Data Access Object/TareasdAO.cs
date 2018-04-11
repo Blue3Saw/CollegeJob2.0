@@ -40,15 +40,18 @@ namespace Data_Access_Object
         public int ActualizarTarea(object ObjT)
         {
             TareasBO Dato = (TareasBO)ObjT;
-            SqlCommand SentenciaSQL = new SqlCommand("UPDATE Tareas SET Fecha = @Fecha, HoraInicio = @HoraInicio, HoraFin = @HoraFin, Tipo = @Tipo, Descripcion = @Descripcion, Estatus = @Estatus,CantPer = @CanPer WHERE Codigo = @Codigo");
+            SqlCommand SentenciaSQL = new SqlCommand("UPDATE Tareas SET Fecha = @Fecha,Titulo=@Titulo ,HoraInicio = @HoraInicio, Direccion=@Direccion,Tipo = @Tipo, Descripcion = @Descripcion,Npos = @CanPer,Latitud=@Latitud, Longitud=@Longitud, Estatus=@Estatus WHERE Codigo = @Codigo");
             SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Dato.Codigo;
             SentenciaSQL.Parameters.Add("@Fecha", SqlDbType.Date).Value = Dato.Fecha;
             SentenciaSQL.Parameters.Add("@HoraInicio", SqlDbType.Time).Value = Dato.HoraInicio.ToString("HH:mm");
-            SentenciaSQL.Parameters.Add("@HoraFin", SqlDbType.Time).Value = Dato.HoraFin.ToString("HH:mm");
             SentenciaSQL.Parameters.Add("@Tipo", SqlDbType.Int).Value = Dato.TipoTarea;
             SentenciaSQL.Parameters.Add("@Descripcion", SqlDbType.Text).Value = Dato.Descripcion;
+            SentenciaSQL.Parameters.Add("@Direccion", SqlDbType.Text).Value = Dato.Direccion;
             SentenciaSQL.Parameters.Add("@Estatus", SqlDbType.Int).Value = Dato.CodigoEstatus;
             SentenciaSQL.Parameters.Add("@CanPer", SqlDbType.Int).Value = Dato.CantPersonas;
+            SentenciaSQL.Parameters.Add("@Longitud", SqlDbType.Float).Value = Dato.Longitud;
+            SentenciaSQL.Parameters.Add("@Latitud", SqlDbType.Float).Value = Dato.Latitud;
+            SentenciaSQL.Parameters.Add("@Titulo", SqlDbType.Text).Value = Dato.Titulo;
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
         }
@@ -180,7 +183,7 @@ namespace Data_Access_Object
 
         public DataTable TodasTareas2()
         {
-            Sentencia = "SELECT T.Codigo, T.Titulo, T.Descripcion, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE T.Estatus = 3";
+            Sentencia = "SELECT T.Codigo, T.Titulo, T.Descripcion, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE T.Estatus = 3";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -190,7 +193,7 @@ namespace Data_Access_Object
         public DataTable TareaSeleccionada(int Codigo)
         {
             TareasBO Datos = new TareasBO();
-            SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion,U.Codigo as Cod FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE T.Codigo = @Codigo");
+            SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, T.Npos,(U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion,U.Codigo as Cod FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE T.Codigo = @Codigo");
             Com.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
             Com.CommandType = CommandType.Text;
             return Conex.EjecutarSentencia(Com).Tables[0];
@@ -265,9 +268,17 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
-        public DataTable cordenadastareas2(string nombre)
+        //public DataTable cordenadastareas2(string nombre)
+        //{
+        //    Sentencia = "select T.Titulo,T.Descripcion,c.Clasificacion,t.Longitud,t.Latitud,t.Codigo,u.Nombre,u.Apellidos,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' from Tareas T,ClasificacionTarea C ,Usuarios u where t.Tipo=c.Codigo and t.Estatus=1 and t.UsuarioEmpleador=u.Codigo and t.Titulo like'%"+nombre+"%'";
+        //    SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+        //    DataTable tablavirtual = new DataTable();
+        //    mostar.Fill(tablavirtual);
+        //    return tablavirtual;
+        //}
+        public DataTable cordenadastareas2(string sent)
         {
-            Sentencia = "select T.Titulo,T.Descripcion,c.Clasificacion,t.Longitud,t.Latitud,t.Codigo,u.Nombre,u.Apellidos,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' from Tareas T,ClasificacionTarea C ,Usuarios u where t.Tipo=c.Codigo and t.Estatus=1 and t.UsuarioEmpleador=u.Codigo and t.Titulo like'%"+nombre+"%'";
+            Sentencia = sent;
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -388,6 +399,17 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             DataRow lol = tablavirtual.Rows[0];
             string valor = lol["Fecha"].ToString();
+
+            return valor;
+        }
+        public int Buscarclasificacion(string clasificacion)
+        {
+            string sentencia = "select c.Codigo from ClasificacionTarea c where c.Clasificacion='" + clasificacion + "'";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            DataRow lol = tablavirtual.Rows[0];
+            int valor = int.Parse(lol["Codigo"].ToString());
 
             return valor;
         }
