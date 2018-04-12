@@ -1,0 +1,26 @@
+﻿@using System.Data
+@model DataTable
+
+@foreach (DataRow item in Model.Rows)
+{
+<div class="col-md-4 col-sm-6">
+    <div data-filter-group="audio" class="panel discoverer" style="width:100px;height:184px;">
+        <div class="panel-body text-center contenido1">
+            <div class="clearfix discover">
+                <div class="pull-right">
+                    <a href="#" id="@item["id_archivo_productos"]" onclick="eleminar_filep(this)" title="Eliminar" class="text-muted mr-sm">
+                        <em class="fa fa-times"></em>
+                    </a>
+                </div>
+            </div>
+            <a href="@($"/Expositor/ArchivoPdf_prodcutos/{item["id_archivo_productos"]}")" class="file-icon ph-lg">
+                <em class="fa fa-5x fa-file-pdf-o text-primary"></em>
+            </a>
+            <p>
+                <small class="text-dark conte">@item["nombre"]</small>
+            </p>
+
+        </div>
+    </div>
+</div>
+}

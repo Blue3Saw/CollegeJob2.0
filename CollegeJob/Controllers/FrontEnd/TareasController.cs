@@ -250,6 +250,13 @@ namespace CollegeJob.Controllers
             //return Redirect("~/Tareas/DetalleTareaDispo?Codigo=" + Session["CodigoTarea"].ToString());
             return RedirectToAction("DetalleTareaDispo", "Tareas", new { @Codigo = Session["CodigoTarea"].ToString() });
         }
+
+
+        public PartialViewResult imagenesTareas()
+        {
+            int tarea=int.Parse(Session["CodigoTarea"].ToString());
+            return PartialView(ObjDAO.ImgenesTarea(tarea));
+        }
         
     }
 }

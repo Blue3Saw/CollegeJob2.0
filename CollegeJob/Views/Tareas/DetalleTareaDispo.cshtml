@@ -201,7 +201,7 @@
                 @if (Session["Permiso"].ToString()=="2")
                 {
                     <p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#maple" onclick="myFunction()">Editar</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#maple" onclick="AbrirImagnes()">Editar</button>
                     </p>
                 }
 
@@ -272,6 +272,7 @@
     foreach (DataRow fila in postulados2.Rows)
     {
         string dirreccion = "http://localhost:50288/Paypal/Confirmacion?codigo=" + fila["codigo"];
+        //string dirreccion = Url.Action("Confirmacion", "Paypal",new {codigo=fila["codigo"] });
         //using (Ajax.BeginForm("AceptarPostulado", "Tareas", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
         //{
         string permiso = ViewData["permiso"].ToString();
@@ -472,6 +473,10 @@
                                     <input class="file-path validate" type="text" placeholder="Seleccione sus imágenes">
                                 </div>
                             </div>
+                            <div class="file-field">
+                                <div id="nav-left">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -530,6 +535,22 @@ function myFunction() {
             },
             enableAutocomplete: true
         });
+</script>
+
+<script>
+    function AbrirImagnes() {
+            $.ajax({
+                cache: false,
+                async: true,
+                type: "POST",
+                url: "@Url.Action("imagenesTareas", "Tareas")",
+            data: {},
+            success: function (response) {
+                $('#nav-left').html('');
+                $('#nav-left').html(response);
+            }
+        });
+    }
 </script>
 @*<script>
     function actualizar() {

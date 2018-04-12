@@ -99,7 +99,7 @@ namespace Data_Access_Object
             SentenciaSQL.Parameters.Add("estudiante", SqlDbType.Int).Value = estudiante;
             SentenciaSQL.Parameters.Add("tarea", SqlDbType.Int).Value = tarea;
             SentenciaSQL.Parameters.Add("monto", SqlDbType.Float).Value = monto;
-            SentenciaSQL.Parameters.Add("cuenta", SqlDbType.DateTime).Value = cuenta;
+            SentenciaSQL.Parameters.Add("cuenta", SqlDbType.Text).Value = cuenta;
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
         }

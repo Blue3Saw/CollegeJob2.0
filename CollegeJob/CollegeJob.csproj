@@ -354,6 +354,7 @@
     <Content Include="Views\Paypal\Confirmacion.cshtml" />
     <None Include="Properties\PublishProfiles\pagina.pubxml" />
     <Content Include="Views\Principal\Error.cshtml" />
+    <Content Include="Views\Tareas\imagenesTareas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

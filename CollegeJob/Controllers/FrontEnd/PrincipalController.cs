@@ -77,11 +77,14 @@ namespace CollegeJob.Controllers
             Datos.Contraseña = Datos.Encriptar(Contraseña);
             Datos.TipoUsuario = 2;
             Datos.Estatus = "Por verificar";
-            if(ObjUsuario.RegistroEmpleador(Datos) > 1)
+            if(ObjUsuario.RegistroEmpleador(Datos) < 1)
             {
                 Session["Codigo"] = ObjUsuario.LoginEmpleador(Datos);
                 Session["Nombre"] = ObjUsuario.Buscarnombre(Datos);
                 Session["Permiso"] = ObjUsuario.BuscarPermiso(Datos);
+                Session["msgadm"] = 1;
+                Session["Filtro"] = 0;
+                ViewData["lista"] = mensajes.NotificacionesEmpleador(int.Parse(Session["Codigo"].ToString()));
             }
             else
             {
@@ -89,7 +92,7 @@ namespace CollegeJob.Controllers
                 ViewBag.Registro = Session["Registro"];
             }
 
-            return RedirectToAction("Empleador", "Index");
+            return RedirectToAction("Index", "Empleador");
         }
 
         [HttpPost]
