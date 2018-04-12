@@ -12,6 +12,8 @@ using System.Drawing.Imaging;
 using Gma.QrCodeNet.Encoding.Windows.Render;
 using CrystalDecisions.CrystalReports.Engine;
 using Gma.QrCodeNet.Encoding;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace CollegeJob.Controllers.BackEnd
 {
@@ -95,7 +97,7 @@ namespace CollegeJob.Controllers.BackEnd
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Actualizar(string ID, string Tipo2, string Tipo, string Nombre, string Apellidos, string Correo, string Contraseña, string FechaNac, string Telefono, string dirreccion, byte[] img, HttpPostedFileBase Imagen)
+        public ActionResult Actualizar(string ID, string Tipo2, string Tipo, string Nombre, string Apellidos, string Correo, string Contraseña, string FechaNac, string Telefono, string Dirreccion, byte[] img, HttpPostedFileBase Imagen)
         {
             UsuarioBO bo = new UsuarioBO();
             if (Imagen != null)
@@ -118,7 +120,7 @@ namespace CollegeJob.Controllers.BackEnd
             }
             bo.Codigo = int.Parse(ID);
             bo.Nombre = Nombre;
-            bo.Direccion = dirreccion;
+            bo.Direccion = Dirreccion;
             bo.Apellidos = Apellidos;
             bo.Email = Correo;
             bo.Contraseña = Contraseña;
@@ -127,8 +129,8 @@ namespace CollegeJob.Controllers.BackEnd
             int CodAct = ObjUsuario.ActualizarUsuario2(bo);
             Session["Actualizar"] = CodAct;
             ViewBag.Actualizar = CodAct;
-            Index();
-            return View("Index");
+            BuscarView(null);
+            return View("BuscarView");
         }
 
         public ActionResult Eliminar(string Codigo)
@@ -187,6 +189,61 @@ namespace CollegeJob.Controllers.BackEnd
             UsuariosDAO usuariosDAO = new UsuariosDAO();
             int CodUsuario = int.Parse(Codigo);
             usuariosDAO.AceptarUsuario(CodUsuario);
+            BuscarView(null);
+            return View("BuscarView");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ActualizarUsuario(string ID, string Tipo2, string Tipo, string Nombre, string Apellidos, string Direccion, string Correo, string Contraseña, string FechaNac, string Telefono, byte[] img, HttpPostedFileBase Imagen)
+        {
+            UsuarioBO ObjDatos = new UsuarioBO();
+            if (Imagen != null)
+            {
+                //ObjDatos.Imagen = new byte[Imagen.ContentLength];
+                //Imagen.InputStream.Read(ObjDatos.Imagen, 0, Imagen.ContentLength);
+
+                Account account = new Account("collegejob", "668222543257229", "KmLmrbmSfDXVabsyzcFHQxKdiIE");
+
+                CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(Imagen.FileName, Imagen.InputStream),
+                };
+
+                var uploadResult = cloudinary.Upload(uploadParams);
+
+                string ruta = uploadResult.SecureUri.ToString();
+
+                ObjDatos.ImagenUrl = ruta;
+            }
+            else
+            {
+                ObjDatos.Imagen = img;
+            }
+
+            if (Tipo != null)
+            {
+                ObjDatos.TipoUsuario = int.Parse(Tipo);
+            }
+            else
+            {
+                ObjDatos.TipoUsuario = int.Parse(Tipo2);
+            }
+
+            ObjDatos.Codigo = int.Parse(ID);
+            ObjDatos.Nombre = Nombre;
+            ObjDatos.Apellidos = Apellidos;
+            ObjDatos.Direccion = Direccion;
+            ObjDatos.Email = Correo;
+            ObjDatos.Contraseña = Contraseña;
+            ObjDatos.FechaNac = Convert.ToDateTime(FechaNac);
+            ObjDatos.Telefono = long.Parse(Telefono);
+
+            int CodAct = ObjUsuario.ActualizarUsuario2(ObjDatos);
+            Session["Actualizar"] = CodAct;
+            ViewBag.Actualizar = CodAct;
             BuscarView(null);
             return View("BuscarView");
         }
