@@ -8,6 +8,8 @@ using Business_Object;
 using System.Net.Mail;
 using System.Net;
 using System.Data;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace CollegeJob.Controllers.FrontEnd
 {
@@ -23,6 +25,7 @@ namespace CollegeJob.Controllers.FrontEnd
         // GET: Empleador
         public ActionResult Index()
         {
+            Session["AgregarTarea"] = "0";
             string categoria;
             DataTable categorias = ObjDao.categorias();
             List<string> cate = new List<string>();
@@ -69,17 +72,29 @@ namespace CollegeJob.Controllers.FrontEnd
         }
 
         [HttpPost]
-        public ActionResult ActualizarPerfil(string Nombre, string Apellidos, string Correo, string FechaNac, string Telefono, byte[] img, HttpPostedFileBase Imagen)
+        public ActionResult ActualizarPerfil(string Nombre, string Apellidos, string Correo, string FechaNac, string Telefono, string img, HttpPostedFileBase Imagen)
         {
             UsuarioBO bo = new UsuarioBO();
             if (Imagen != null)
             {
-                bo.Imagen = new byte[Imagen.ContentLength];
-                Imagen.InputStream.Read(bo.Imagen, 0, Imagen.ContentLength);
+                Account account = new Account("collegejob", "668222543257229", "KmLmrbmSfDXVabsyzcFHQxKdiIE");
+
+                CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(Imagen.FileName, Imagen.InputStream),
+                };
+
+                var uploadResult = cloudinary.Upload(uploadParams);
+
+                string ruta = uploadResult.SecureUri.ToString();
+
+                bo.ImagenUrl = ruta;
             }
             else
             {
-                bo.Imagen = img;
+                bo.ImagenUrl = img;
             }
             bo.Codigo = int.Parse(Session["Codigo"].ToString());
             bo.Nombre = Nombre;
@@ -87,6 +102,7 @@ namespace CollegeJob.Controllers.FrontEnd
             bo.Email = Correo;
             bo.FechaNac = Convert.ToDateTime(FechaNac);
             bo.Telefono = long.Parse(Telefono);
+            bo.Direccion = usuDAO.Buscardirreccion(bo.Codigo);
             int ActPerf = usuDAO.ActualizarUsuario2(bo);
             Session["ActPerf"] = ActPerf;
             ViewBag.ActPerf = Session["ActPerf"];

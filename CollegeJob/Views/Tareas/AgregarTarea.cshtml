@@ -178,3 +178,12 @@
         }
     })
 </script>
+ @if (Session["AgregarTarea"].ToString()=="1")
+    {
+        <script>
+                window.onload = function () {
+                    swal('Correcto', 'Se agregó correctamente la tarea', 'success')
+                }
+        </script>
+     Session["AgregarTarea"] = "0";
+ }

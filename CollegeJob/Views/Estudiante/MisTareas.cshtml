@@ -67,7 +67,7 @@
                                 <div class="col-lg-4">
                                     @if (item["Imagen"].ToString() != "")
                         {
-                            string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])item["Imagen"]);
+                            string Foto = item["Imagen"].ToString();
                                         <img src="@Foto" alt="" class="img-fluid">
                                     }
                                     else

@@ -129,7 +129,7 @@
                         <div class="view overlay rgba-white-slight">
                             @if (fila["Imagen"].ToString() != "")
                             {
-                                string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])fila["Imagen"]);
+                                string Foto = fila["Imagen"].ToString();
                                 <img src="@Foto" class="img-fluid" alt="">
                             }
                             else

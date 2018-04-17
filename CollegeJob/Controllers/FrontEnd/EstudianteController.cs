@@ -8,6 +8,8 @@ using Business_Object;
 using System.Web.Mvc;
 using System.Net.Mail;
 using System.Net;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace CollegeJob.Controllers
 {
@@ -21,6 +23,8 @@ namespace CollegeJob.Controllers
 
         public ActionResult Index()
         {
+            Session["Contraseña"] = "0";
+            Session["ActPerfil"] = "0";
             //trae el contenido del dropdown
             double km = 0;
             string nom;
@@ -123,30 +127,42 @@ namespace CollegeJob.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarPerfil(string Nombre, string Apellidos, string Correo, string Fecha, string Telefono, byte[] img, HttpPostedFileBase Imagen)
+        public ActionResult ActualizarPerfil(string Nombre, string Apellidos, string Correo, string Fecha, string Telefono, string img, HttpPostedFileBase Imagen)
         {
             UsuarioBO bo = new UsuarioBO();
             if (Imagen != null)
             {
-                bo.Imagen = new byte[Imagen.ContentLength];
-                Imagen.InputStream.Read(bo.Imagen, 0, Imagen.ContentLength);
+                Account account = new Account("collegejob", "668222543257229", "KmLmrbmSfDXVabsyzcFHQxKdiIE");
+
+                CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(Imagen.FileName, Imagen.InputStream),
+                };
+
+                var uploadResult = cloudinary.Upload(uploadParams);
+
+                string ruta = uploadResult.SecureUri.ToString();
+
+                bo.ImagenUrl = ruta;
             }
             else
             {
-                bo.Imagen = img;
+                bo.ImagenUrl = img;
             }
             bo.Codigo = int.Parse(Session["Codigo"].ToString());
+            bo.Direccion = usuarioDAO.Buscardirreccion(bo.Codigo);
             bo.Nombre = Nombre;
             bo.Apellidos = Apellidos;
             bo.Email = Correo;
             bo.FechaNac = Convert.ToDateTime(Fecha);
             bo.Telefono = long.Parse(Telefono);
             int ActPerf = usuarioDAO.ActualizarUsuario2(bo);
-            Session["ActPerf"] = ActPerf;
-            ViewBag.ActPerf = Session["ActPerf"];
-
-            PerfilEstudiante();
-            return View("PerfilEstudiante");
+            //Session["ActPerfil"] = ActPerf;
+            Session["ActPerfil"] = "1";
+            //PerfilEstudiante();
+            return RedirectToAction("PerfilEstudiante","Estudiante");
 
         }
 
@@ -396,13 +412,13 @@ namespace CollegeJob.Controllers
                 bo.Codigo = int.Parse(Session["Codigo"].ToString());
                 bo.Contraseña = contra1;
                 usuarioDAO.ActualizaContra(bo);
+                Session["Contraseña"] = 1;
             }
             else
             {
-                //alertas bro
+                Session["Contraseña"] = 2;
             }
-            PerfilEstudiante();
-            return View("PerfilEstudiante");
+            return RedirectToAction("PerfilEstudiante","Estudiante");
         }
 
         [HttpPost]
@@ -435,6 +451,8 @@ namespace CollegeJob.Controllers
             {
                 string estado = "Rechazado";
                 tareasdao.RechazoTareaEmpleador(ta, estado, cod);
+                tareasdao.AgregarSaldo(cod, ta);
+
             }
 
             MisTareas();

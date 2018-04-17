@@ -10,6 +10,8 @@ using Business_Object;
 using Data_Access_Object;
 using System.Data;
 using System.IO;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace CollegeJob.Controllers
 {
@@ -31,6 +33,8 @@ namespace CollegeJob.Controllers
 
         public ActionResult DetalleTareaDispo(string Codigo)
         {
+            Session["Actualizar"] = 0;
+            Session["postulacion"] = 0;
             Session["CodigoTarea"] = Codigo;
             ViewData["Fecha"] = ObjDAO.BuscarFecha(Codigo);
             ViewData["permiso"] = Session["Permiso"].ToString();
@@ -60,6 +64,7 @@ namespace CollegeJob.Controllers
         [HttpPost]
         public ActionResult DetalleTareaPostular(string Tarea2, string oferta)
         {
+            Session["postulacion"] ="1";
             int Estudiante = int.Parse(Session["Codigo"].ToString());
             int Clave = int.Parse(Tarea2);
             int precio = int.Parse(oferta);
@@ -112,7 +117,8 @@ namespace CollegeJob.Controllers
             obj.CantPersonas = Convert.ToInt32(CantPersonas);
             obj.Codigo = ObjDAO.AgregarTarea(obj);
             AgregarImagenTarea(Imagen, obj.Codigo);
-            ViewBag.Script = "Agregado";           
+            Session["AgregarTarea"] = "1";
+            //ViewBag.Script = "Agregado";           
             return Redirect("/Tareas/AgregarTarea");
         }
         public void AgregarImagenTarea(IEnumerable<HttpPostedFileBase> Imagen, int IdTarea)
@@ -124,12 +130,20 @@ namespace CollegeJob.Controllers
             {
                 foreach (var item in Imagen)
                 {
-                    byte[] img = new byte[item.ContentLength];
-                    using (var binaryReader = new BinaryReader(item.InputStream))
+                    Account account = new Account("collegejob", "668222543257229", "KmLmrbmSfDXVabsyzcFHQxKdiIE");
+
+                    CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+
+                    var uploadParams = new ImageUploadParams
                     {
-                        img = binaryReader.ReadBytes(item.ContentLength);
-                    }
-                    FotBO.Imagen = img;
+                        File = new FileDescription(item.FileName, item.InputStream),
+                    };
+
+                    var uploadResult = cloudinary.Upload(uploadParams);
+
+                    string ruta = uploadResult.SecureUri.ToString();
+
+                    FotBO.Imagen = ruta;
                     DAOFotos.AgregarFoto(FotBO);
                 }
             }
@@ -247,6 +261,7 @@ namespace CollegeJob.Controllers
             objBOTareas.CodigoEstatus = 3;
             ObjDAO.ActualizarTarea(objBOTareas);
             DetalleTareaDispo(Session["CodigoTarea"].ToString());
+            Session["Actualizar"] = 1;
             //return Redirect("~/Tareas/DetalleTareaDispo?Codigo=" + Session["CodigoTarea"].ToString());
             return RedirectToAction("DetalleTareaDispo", "Tareas", new { @Codigo = Session["CodigoTarea"].ToString() });
         }
@@ -256,6 +271,13 @@ namespace CollegeJob.Controllers
         {
             int tarea=int.Parse(Session["CodigoTarea"].ToString());
             return PartialView(ObjDAO.ImgenesTarea(tarea));
+        }
+
+
+        public ActionResult PagosRealizados()
+        {
+            ViewData["Saldo"] = ObjDAO.Saldo(int.Parse(Session["Codigo"].ToString()));
+            return View(ObjDAO.PagosTareas(int.Parse(Session["Codigo"].ToString())));
         }
         
     }

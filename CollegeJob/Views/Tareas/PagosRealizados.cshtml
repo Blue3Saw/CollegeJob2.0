@@ -1,0 +1,91 @@
+﻿@using System.Data;
+@model DataTable
+@{
+    ViewBag.Title = "PagosRealizados";
+    Layout = "~/Views/MasterPages/_layoutEmpleador.cshtml";
+}
+<section class="section pb-3 text-center text-lg-left">
+
+    <!--Section heading-->
+    <h1 class="section-heading h1 dark-grey-text text-center mt-5 pt-lg-3">Pagos Realizados</h1>
+    <hr>
+    <!--Section description-->
+    <p class="section-description mb-5 mt-lg-5 mx-lg-5 text-center">
+        En este apartado podrás encontrar el historial de pagos que has realizado de tus tareas
+    </p>
+@{
+    if (Model.Rows.ToString() != "0")
+    {
+        <p class="section-description text-center">
+            <div class="row">
+                <div class="col-lg-4">
+                </div>
+                <div class="col-lg-4">
+                </div>
+                <div class="col-lg-4">
+                    @if (ViewData["Saldo"].ToString() != "")
+                {
+                        <h1>Saldo: $@ViewData["Saldo"]</h1>
+                    }
+                    else
+                    {
+                        <h1>Saldo:$0</h1>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="holder" id="holder"></div>
+                <div class="col-12">
+                    <table class="table table-responsive-md table-fixed">
+
+                        <!--Table head-->
+                        <thead>
+                            <tr>
+                                <th>No.Pago</th>
+                                <th>Cuenta de pago</th>
+                                <th>Estudiante</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <!--Table head-->
+                        <!--Table body-->
+                        <tbody id="itemContainer">
+                            @foreach (DataRow item in Model.Rows)
+                            {
+                                <tr>
+                                    <th scope="row">@item["Codigo"]</th>
+                                    <td>@item["Cuenta"]</td>
+                                    <td>@item["Estudiante"]</td>
+                                    <td>@item["Monto"]</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <!--Table body-->
+
+                    </table>
+                </div>
+            </div>
+        </p>
+    }
+    else
+    {
+         <p class="section-description text-center">
+             Toadavia no haz realizado pagos, te invito a crear tareas
+             </p>
+    }
+}
+    <div style="height:150px;"></div>
+</section>
+
+<script>
+        $(function () {
+            $("div.holder").jPages({
+                containerID: "itemContainer",
+                perPage: 10,
+                startPage: 1,
+                startRange: 1,
+                midRange: 1,
+                endRange: 1
+            });
+        });
+</script>

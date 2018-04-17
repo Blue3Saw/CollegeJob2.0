@@ -137,7 +137,7 @@ namespace CollegeJob.Controllers.BackEnd
         {
             UsuarioBO BO = new UsuarioBO();
             BO.Codigo = int.Parse(Codigo);
-            ObjUsuario.EliminarUsuario(BO);
+            //ObjUsuario.EliminarUsuario(BO);
 
             return View("Index");
         }

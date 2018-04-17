@@ -65,18 +65,18 @@
                         <!--Avatar-->
                         <div class="avatar mx-auto white text-center">
                             @if (row["Imagen"].ToString() != "")
-                            {
-                                string Foto = "data:image/jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
+                             {
+                                        string Foto = row["Imagen"].ToString();
                                 <p></p>
                                 <img class="img-fluid rounded-circle" style="width:250px; height:250px;" src="@Foto" alt="team member">
-                                <input type="hidden" value="@Convert.ToBase64String((byte[])row["Imagen"])" name="img">
+                                <input type="hidden" value="@Foto" name="img">
                                 <p></p>
                             }
                             else
                             {
                                 <p></p>
                                 <img class="img-fluid rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" alt="team member">
-                                <input type="hidden" value="@Convert.ToBase64String((byte[])row["Imagen"])" name="img">
+                                <input type="hidden" value="@row["Imagen"].ToString()" name="img">
                                 <p></p>
                             }
                             <p>
@@ -195,35 +195,32 @@
     <!--Fin modal contraseña-->
 </section>
 
-<script>
-    var btnNotificacion = document.getElementById("buttonN"),
-    btnPermiso = document.getElementById("buttonP")
-    titulo = "Fili Santillán",
-    opciones = {
-        icon: "/Recursos/FrontEnd/img/images/library.jpg",
-        body: "Notificación de prueba",
-        url: 'https://www.jasoft.org/Blog/post/Mostrando-notificaciones-desde-el-navegador-con-HTML5.aspx'
-    };
-    function permiso() {
-        Notification.requestPermission();
-    };
+@if (Session["ActPerfil"].ToString() == "1")
+{
+    <script>
+                window.onload = function () {
+                    swal('Correcto', 'Se Actualizaron correctamente tus datos', 'success')
+                }
+    </script>
+    Session["ActPerfil"] = "0";
+}
 
-    function mostrarNotificacion() {
-        if (Notification) {
-            if (Notification.permission == "granted") {
-                var n = new Notification(titulo, opciones);
-            }
 
-            else if (Notification.permission == "default") {
-                alert("Primero da los permisos de notificación");
-            }
-
-            else {
-                alert("Bloqueaste los permisos de notificación");
-            }
-        }
-    };
-
-    btnPermiso.addEventListener("click", permiso);
-    btnNotificacion.addEventListener("click", mostrarNotificacion);
-</script>
+@if (Session["Contraseña"].ToString() == "1")
+{
+    <script>
+                window.onload = function () {
+                    swal('Correcto', 'Se Actualizaron correctamente tus datos', 'success')
+                }
+    </script>
+    Session["Contraseña"] = "0";
+}
+else if(Session["Contraseña"].ToString() == "2")
+{
+    <script>
+                window.onload = function () {
+                    swal('Error', 'Ingresó datos incorrectos', 'error')
+                }
+    </script>
+    Session["Contraseña"] = "0";
+}

@@ -361,6 +361,7 @@
     <None Include="Properties\PublishProfiles\pagina.pubxml" />
     <Content Include="Views\Principal\Error.cshtml" />
     <Content Include="Views\Tareas\imagenesTareas.cshtml" />
+    <Content Include="Views\Tareas\PagosRealizados.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

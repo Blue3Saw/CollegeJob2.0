@@ -571,5 +571,36 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             return tablavirtual;
         }
+
+
+        public DataTable PagosTareas(int codigo)
+        {
+            Sentencia = "select (u.Nombre+' '+u.Apellidos)as 'Nombre', p.Codigo,p.Cuenta,p.Monto,p.Estudiante from Usuarios u,PagosTareas p where u.Codigo=p.Estudiante and p.Empleador='"+codigo+"' and p.estatus=0";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            return tablavirtual;
+        }
+        public string Saldo(int codigo)
+        {
+            Sentencia = "Select sum(Monto) from PagosTareas where Empleador='" + codigo+"' and estatus=1";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            DataRow lol = tablavirtual.Rows[0];
+            string valor = lol["Monto"].ToString();
+
+            return valor;
+        }
+
+        public int AgregarSaldo(int id,int tarea)
+        {
+            SqlCommand SentenciaSQL = new SqlCommand("update PagosTareas set estatus=1 where Estudiante='"+id+"' and Tarea='"+tarea+"'");
+            SentenciaSQL.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            SentenciaSQL.Parameters.Add("@Tarea", SqlDbType.VarChar).Value = tarea;
+            SentenciaSQL.CommandType = CommandType.Text;
+            return Conex.EjecutarComando(SentenciaSQL);
+        }
+
     }
 }

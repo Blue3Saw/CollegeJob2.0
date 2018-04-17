@@ -282,7 +282,7 @@ namespace Data_Access_Object
         public int ActualizarUsuario2(object ObjU)
         {
             UsuarioBO Dato = (UsuarioBO)ObjU;
-            SqlCommand SentenciaSQL = new SqlCommand("UPDATE Usuarios SET Nombre = @Nombre, Apellidos = @Apellidos, Direccion = @Direccion, FechaNac = @FechaNac, Telefono = @Telefono, Email = @Email, ImagenUrl = @ImagenUrl WHERE Codigo = @Codigo");
+            SqlCommand SentenciaSQL = new SqlCommand("UPDATE Usuarios SET Nombre = @Nombre, Apellidos = @Apellidos, Direccion = @Direccion, FechaNac = @FechaNac, Telefono = @Telefono, Email = @Email, Imagen = @ImagenUrl WHERE Codigo = @Codigo");
             SentenciaSQL.Parameters.Add("@Codigo", SqlDbType.Int).Value = Dato.Codigo;
             SentenciaSQL.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = Dato.Nombre;
             SentenciaSQL.Parameters.Add("@Apellidos", SqlDbType.VarChar).Value = Dato.Apellidos;
@@ -313,6 +313,18 @@ namespace Data_Access_Object
             mostar.Fill(tablavirtual);
             DataRow lol = tablavirtual.Rows[0];
             string valor = lol["Nombre"].ToString();
+
+            return valor;
+        }
+
+        public string Buscardirreccion(int Codigo)
+        {
+            sentencia = "select Direccion from Usuarios where Codigo='" + Codigo + "'";
+            SqlDataAdapter mostar = new SqlDataAdapter(sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            DataRow lol = tablavirtual.Rows[0];
+            string valor = lol["Direccion"].ToString();
 
             return valor;
         }

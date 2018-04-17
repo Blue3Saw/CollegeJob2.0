@@ -105,7 +105,7 @@ else
                         <th>Acciones</th>
 
                         </thead>
-                        <tbody>
+                        <tbody id="contenedor">
                             @foreach (DataRow row in TablaBusqueda.Rows)
                             {
                                 <tr>
@@ -114,7 +114,7 @@ else
                                     <td>@row["Estatus"]</td>
                                     <td>
                                         @Html.Raw(@Html.ActionLink("XXX", "EditarView", "AgregarEstudiante", new { Codigo = @row["Codigo"] }, new { @class = "btn-floating waves-effect waves-light teal" }).ToHtmlString().Replace("XXX", "<i class='material-icons'>edit</i>"))
-                                        <a class="btn-floating waves-effect waves-light teal" onclick="BorrarUsuario(@row["Codigo"])"><i class="material-icons">delete</i></a>
+                                        <a class="btn-floating waves-effect waves-light teal" onclick="BorrarUsuario(@row["Codigo"])"><i class="material-icons">delete <input type="hidden" id="codigo" value="@row["Codigo"]"/></i></a>
                                         
                                         @if (row["Estatus"].ToString() == "En revisión")
                                         {
@@ -134,13 +134,14 @@ else
 }
 
 <script type="text/javascript">
-    function MostrarDiv() {
+    function MostrarDiv(){
         $('#Nuevo').load('/AgregarEstudiante/Index');
     }
 </script>
 
 <script>
-    function BorrarUsuario(Codigo) {
+    function BorrarUsuario(variable) {
+        var algo = variable;
         swal({
             title: '¿Esta seguro?',
             text: "Estas a punto de borrar este usuario",
@@ -152,16 +153,25 @@ else
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
+                var data = new FormData();
+                var contenedor = $("#contenedor");
+                var Codigo = contenedor.find('input[id="codigo"]').val();
+                data.append("Codigo", algo);
                 $.ajax({
-                    url: 'http://localhost:50288/AgregarEstudiante/Eliminar?Codigo=' + Codigo,
-                }),
-                    swal({
-                        title: 'Eliminado',
-                        text: 'El usuario ha sido eliminado',
-                        type: 'success',
-                        showConfirmButton: false
-                    }),
-                    location.reload();
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    url: "@Url.Action("Eliminar", "AgregarEstudiante")",
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (data) {
+                        swal('Correcto', 'Se Elimino el usuario', 'success')
+                        //setTimeout(function () {
+                        //    location.reload();
+                        //}, 2000);
+                    }
+                });
             }
             else {
                 swal(
@@ -173,6 +183,7 @@ else
         })
     }
 </script>
+
 
 @if (ViewBag.Agregar != null)
 {
