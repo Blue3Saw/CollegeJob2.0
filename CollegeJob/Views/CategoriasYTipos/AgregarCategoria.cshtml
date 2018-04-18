@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div id="divcarga">
     <div class="container-fluid card">
-        <h2>Categorias</h2>
+        <h2>Categorías</h2>
         <div class="row" id="cat">
         <div class="col-md-8">
             <div>
-                <input type="text" class="form-control  border-input" name="categoria" placeholder="Categoria" id="categoria" required="required" />
+                <input type="text" class="form-control  border-input" name="categoria" placeholder="Categoría" id="categoria" required="required" />
             </div>
         </div>
         <div class="col-md-4">
@@ -29,18 +29,18 @@
             using (Ajax.BeginForm("ActualizarClasif", "CategoriasYTipos", new AjaxOptions() { HttpMethod = "POST" }))
             {
                 <div class="container-fluid card">
-                    <h3>Editar tipo de usuario</h3>
+                    <h3>Editar Categoría</h3>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="input-field">
                                 <input id="first_name" type="text" class="validate" name="Nombre" value="@ViewBag.Clasificacion" required="required" readonly="readonly">
-                                <label for="first_name">Tipo seleccionado</label>
+                                <label for="first_name">Categoría selecionada</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="input-field">
                                 <input id="first_name" type="text" class="validate" name="Nuevo" required="required">
-                                <label for="first_name">Claisifcación nueva</label>
+                                <label for="first_name">Categoría nueva</label>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -61,7 +61,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Tipo</th>
+                                <th>Categoría</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -91,7 +91,7 @@
         var data = { Codigo: Codigo };
         swal({
             title: '¿Esta seguro?',
-            text: "Estas a punto de borrar esta clasificación",
+            text: "Estas a punto de borrar esta categoría",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -127,7 +127,7 @@
                 swal(
                     'Cancelado',
                     'Se ha cancelado la operación',
-                    'error'
+                    'Error'
                 )
             }
         })

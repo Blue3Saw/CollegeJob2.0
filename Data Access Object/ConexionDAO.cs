@@ -19,9 +19,9 @@ namespace Data_Access_Object
         {
             //string cad_con = "Data Source=SQL7004.site4now.net;Initial Catalog=DB_A33A9E_CollegeJob;User Id=DB_A33A9E_CollegeJob_admin;Password=250897werever;";
             //string cad_con = "Data Source=LAPTOP-KIPDJJIR\\SQLEXPRESS; Initial Catalog=Integrador3; Integrated Security=True";
-            //string cad_con = "Data Source=SAIDY_PG; Initial Catalog=Integrador3; Integrated Security=True"; 
+            string cad_con = "Data Source=SAIDY_PG; Initial Catalog=Integrador3; Integrated Security=True"; 
             //string cad_con = "Data Source=LAPTOP-80619S9J\\MSSQLSERVER01; Initial Catalog=Integrador3; Integrated Security=True";
-            string cad_con = "Data Source=LAPTOP-2O4S06CT\\SQLEXPRESS; Initial Catalog=Integrador3; Integrated Security=True";
+            //string cad_con = "Data Source=LAPTOP-2O4S06CT\\SQLEXPRESS; Initial Catalog=Integrador3; Integrated Security=True";
             //string cad_con = "Data Source=SQL7004.site4now.net;Initial Catalog=DB_A361F4_CollegeJob;User Id=DB_A361F4_CollegeJob_admin;Password=miguel55;";
             con = new SqlConnection(cad_con);
             return con;
