@@ -25,14 +25,14 @@
     <hr>
     <!--Section description-->
     <p class="section-description mb-5 mt-lg-5 mx-lg-5 text-center">
-        En este apartado podrás encontrar todos los mensajes que haz enviado como haz recivido.
+        En este apartado podrás encontrar todos los mensajes que haz enviado y haz recibido.
     </p>
     @using (Ajax.BeginForm("FiltroMsg", "Estudiante", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
     {
         <p class="section-description text-center">
             <div class="row">
                 <div class="col s3">
-                    <label class="col-form-label">Seleccione una Opcion:</label>
+                    <label class="col-form-label">Seleccione una Opción:</label>
                 </div>
 
                 <div class="col s3">
@@ -42,8 +42,8 @@
                             @*@Html.DropDownList("categoria", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "btn btn-outline-default dropdown-toggle" })*@
                             <select class="btn btn-outline-default dropdown-toggle" name="opcion">
                                 <option value="3">Todos</option>
-                                <option value="0">Leidos</option>
-                                <option value="1">No leidos</option>
+                                <option value="0">Leídos</option>
+                                <option value="1">No leídos</option>
                             </select>
                         </div>
 
