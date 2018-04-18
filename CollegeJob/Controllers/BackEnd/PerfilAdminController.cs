@@ -7,6 +7,7 @@ using Business_Object;
 using Data_Access_Object;
 using System.IO;
 using System.Drawing;
+using System.Data;
 
 namespace CollegeJob.Controllers.BackEnd
 {
@@ -22,7 +23,8 @@ namespace CollegeJob.Controllers.BackEnd
         public ActionResult DatosPerfil()
         {
             int sesion = int.Parse(Session["Codigo"].ToString());
-            return View(objUsuario.TablaUsuarios3(sesion));
+            DataTable datos = objUsuario.TablaUsuarios3(sesion);
+            return View(datos);
         }
 
         [HttpPost]

@@ -81,7 +81,7 @@
                                         <div class="col-lg-4">
                                             @if (item["Imagen"].ToString() != "")
                                             {
-                                                string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])item["Imagen"]);
+                                                        string Foto = item["Imagen"].ToString();
                                                 <img class="img-fluid rounded-circle" src="@Foto" style="width:40px; height:40px;" alt="team member">
                                             }
                                             else
@@ -109,7 +109,7 @@
                                         <div class="col-lg-4">
                                             @if (item["Imagen"].ToString() != "")
                                             {
-                                                string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])item["Imagen"]);
+                                                        string Foto = item["Imagen"].ToString();
                                                 <img class="img-fluid rounded-circle" src="@Foto" alt="team member" style="width:40px; height:40px;">
                                             }
                                             else

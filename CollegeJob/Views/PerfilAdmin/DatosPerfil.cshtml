@@ -8,7 +8,6 @@
 
 @using (Ajax.BeginForm("actualizar", "PerfilAdmin", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
 
     <div class="content letrasindexusuarios">
         <div class="container-fluid">
@@ -18,14 +17,12 @@
                     <div class="col-lg-4 col-md-5">
                         <div class="card card-user">
                             <div class="image">
-                                <img src="~/Recursos/BackEnd/img/fondo.jpg" alt="...">
+                              
                             </div>
                             <div class="content">
                                 <div class="author">
-                                    @{
-                                        string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])row["Imagen"]);
-                                    }
-                                    <img class="avatar border-white" src="@Foto" width="200" height="200">
+                                    
+                                    <img class="avatar border-white" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" width="200" height="200">
                                     <h4 class="title">
                                         @row["Nombre"]<br>
                                         @row["Apellidos"]
@@ -50,8 +47,8 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>ID</label>
-                                                <input type="text" class="form-control border-input" name="ID" placeholder="ID" value="@row["Codigo"]" readonly="readonly" />
+                                                @*<label>ID</label>
+                                                <input type="text" class="form-control border-input" name="ID" placeholder="ID" value="@row["Codigo"]" readonly="readonly" />*@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -104,7 +101,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Imagen</label>
-                                                <input type="hidden" class="form-control border-input" name="img" placeholder="img" value="@Convert.ToBase64String((byte[])row["Imagen"])" readonly="readonly" />
+                                                <input type="hidden" class="form-control border-input" name="img" placeholder="img" value="@row["Imagen"]" readonly="readonly" />
                                                 <input type="file" class="form-control border-input" name="Imagen" placeholder="Imagen" value="@row["Imagen"]" accept=".png, .jpg, .jpeg" />
                                             </div>
                                         </div>

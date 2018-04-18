@@ -67,98 +67,106 @@ a:not([href]):not([tabindex]), a:not([href]):not([tabindex]):focus, a:not([href]
 }
 
 <div class="holder" id="holder"></div>
-    <ul id="itemContainer" class="row" style="list-style:none">
-@foreach (DataRow fila in Model.Rows)
-{
-    <li style="display:inline-block" class="col-lg-4 col-md-6 mb-4">
-        @using (Ajax.BeginForm("TerminarTareaEmpleador", "Empleador", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
-        {
+    @if (Model.Rows.Count!=0)
+    {
+        <ul id="itemContainer" class="row" style="list-style:none">
+            @foreach (DataRow fila in Model.Rows)
+            {
+                <li style="display:inline-block" class="col-lg-4 col-md-6 mb-4">
+                    @using (Ajax.BeginForm("TerminarTareaEmpleador", "Empleador", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+                    {
         <!--Card-->
-        <div class="card">
+                        <div class="card">
 
-            <!--Card image-->
-            <div class="view overlay rgba-white-slight">
-                @if (fila["Imagen"].ToString() != "")
-                {
-                    string Foto = fila["Imagen"].ToString();
-                    <img style="height:179px;width:370px;" src="@Foto" class="img-fluid" alt="">
-                }
-                else
-                {
-                    <img src="https://mdbootstrap.com/img/Photos/Others/images/86.jpg" class="img-fluid" alt="">
-                }
-                <a href="#">
-                    <div class="mask waves-effect waves-light"></div>
-                </a>
-            </div>
+                            <!--Card image-->
+                            <div class="view overlay rgba-white-slight">
+                                @if (fila["Imagen"].ToString() != "")
+                                {
+                                    string Foto = fila["Imagen"].ToString();
+                                    <img style="height:179px;width:370px;" src="@Foto" class="img-fluid" alt="">
+                                }
+                                else
+                                {
+                                    <img src="https://mdbootstrap.com/img/Photos/Others/images/86.jpg" class="img-fluid" alt="">
+                                }
+                                <a href="#">
+                                    <div class="mask waves-effect waves-light"></div>
+                                </a>
+                            </div>
 
-            <!--Card content-->
-            <div class="card-body">
-                <!--Title-->
-                <h4 class="card-title">@fila["Titulo"]</h4>
-                <!--Text-->
-                <p class="card-text cortar">@fila["Descripcion"]</p>
-                <input type="hidden" name="Tarea" value="@fila["Codigo"]" />
-               <div class="row">
-                   <div class="col-xl-6">
-                       <a href="/Tareas/DetalleTareaDispo?Codigo=@fila["Codigo"]" class="btn btn-default waves-effect waves-ligh">
-                           <i class="fa fa-plus-square left"></i> Ver más
-                       </a>
-                   </div>
-                   @if (fila["Estatus"].ToString() == "1")
-                   {
-                    <div class="col-xl-6">
-                        <button type="submit" class="btn btn-outline-default waves-effect waves-light">
-                            <i class="fa fa-check"></i>
-                            <span>Aprobada</span>
-                        </button>
-                    </div>
-                   }
-                   else if (fila["Estatus"].ToString() == "2")
-                   {
-                    <div class="col-xl-6">
-                        <button class="btn btn-outline-default waves-effect waves-light">
-                            <i class="fa fa-close"></i>
-                            <span>Rechazada</span>
-                        </button>
-                    </div>
-                   }
-                   else if (fila["Estatus"].ToString() == "3")
-                   {
-                    <div class="col-xl-6">
-                        <button class="btn btn-outline-default waves-effect waves-light" style="width:100px;height:50px;">
-                            <i class="fa fa-check"></i>
-                            <span>Verificación</span>
-                        </button>
-                    </div>
-                   }
-                   else if (fila["Estatus"].ToString() == "5")
-                   {
-                    <div class="col-xl-6">
-                        <button type="submit" class="btn btn-outline-default waves-effect waves-light">
-                            <i class="fa fa-close"></i>
-                            <span>Terminar</span>
-                        </button>
-                    </div>
-                   }
-                   else if (fila["Estatus"].ToString() == "6")
-                   {
-                    <div class="col-xl-6">
-                        <button class="btn btn-outline-default waves-effect waves-light">
-                            <i class="fa fa-close"></i>
-                            <span>Finalizada</span>
-                        </button>
-                    </div>
-                   }
-               </div>
-            </div>
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title">@fila["Titulo"]</h4>
+                                <!--Text-->
+                                <p class="card-text cortar">@fila["Descripcion"]</p>
+                                <input type="hidden" name="Tarea" value="@fila["Codigo"]" />
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <a href="/Tareas/DetalleTareaDispo?Codigo=@fila["Codigo"]" class="btn btn-default waves-effect waves-ligh">
+                                            <i class="fa fa-plus-square left"></i> Ver más
+                                        </a>
+                                    </div>
+                                    @if (fila["Estatus"].ToString() == "1")
+                                    {
+                                        <div class="col-xl-6">
+                                            <button type="submit" class="btn btn-outline-default waves-effect waves-light">
+                                                <i class="fa fa-check"></i>
+                                                <span>Aprobada</span>
+                                            </button>
+                                        </div>
+                                    }
+                                    else if (fila["Estatus"].ToString() == "2")
+                                    {
+                                        <div class="col-xl-6">
+                                            <button class="btn btn-outline-default waves-effect waves-light">
+                                                <i class="fa fa-close"></i>
+                                                <span>Rechazada</span>
+                                            </button>
+                                        </div>
+                                    }
+                                    else if (fila["Estatus"].ToString() == "3")
+                                    {
+                                        <div class="col-xl-6">
+                                            <button class="btn btn-outline-default waves-effect waves-light" style="width:130px;height:70px;">
+                                                <i class="fa fa-check"></i>
+                                                <span>Verificación</span>
+                                            </button>
+                                        </div>
+                                    }
+                                    else if (fila["Estatus"].ToString() == "5")
+                                    {
+                                        <div class="col-xl-6">
+                                            <button type="submit" class="btn btn-outline-default waves-effect waves-light">
+                                                <i class="fa fa-close"></i>
+                                                <span>Terminar</span>
+                                            </button>
+                                        </div>
+                                    }
+                                    else if (fila["Estatus"].ToString() == "6")
+                                    {
+                                        <div class="col-xl-6">
+                                            <button class="btn btn-outline-default waves-effect waves-light">
+                                                <i class="fa fa-close"></i>
+                                                <span>Finalizada</span>
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
 
-        </div>
+                        </div>
         <!--/.Card-->
-        }
-    </li>
-}
-    </ul>
+                    }
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p class="section-description mb-5 mt-lg-5 mx-lg-5 text-center">Todavia no tines tareas, te invito a ir a la seccion de Nueva para crear una</p>
+        <div style="height:300px;"></div>
+    }
 
 </section>
 <script>

@@ -18,7 +18,7 @@ namespace Data_Access_Object
         {
             FotosBO Dato = (FotosBO)ObjF;
             SqlCommand SentenciaSQL = new SqlCommand("INSERT INTO Fotos (Imagen, TareaID) VALUES (@Imagen, @TareaID)");
-            SentenciaSQL.Parameters.Add("@Imagen", SqlDbType.Image).Value = Dato.Imagen;
+            SentenciaSQL.Parameters.Add("@Imagen", SqlDbType.Text).Value = Dato.Imagen;
             SentenciaSQL.Parameters.Add("@TareaID", SqlDbType.Int).Value = Dato.CodigoTarea;
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);

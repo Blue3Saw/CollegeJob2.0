@@ -171,7 +171,7 @@
                                             @{
                                                 if (row["Imagen"].ToString() != "")
                                                 {
-                                                    string Foto = item["Imagen"].ToString();
+                                                    string Foto = row["Imagen"].ToString();
                                                     <img class="imagenredonda" src="@Foto" height="10" width="10" />
                                                 }
                                                 else

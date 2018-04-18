@@ -84,7 +84,7 @@
                                        foreach (DataRow filas in imagenesreal.Rows)
                                        {
 
-                                           string Foto = "data:image / jpeg; base64," + Convert.ToBase64String((byte[])filas["Imagen"]);
+                                           string Foto = filas["Imagen"].ToString();
                                            if (indice == 0)
                                            {
                                             <div class="carousel-item active">
