@@ -33,6 +33,8 @@ namespace CollegeJob.Controllers
 
         public ActionResult DetalleTareaDispo(string Codigo)
         {
+            Session["Persona"] = 0;
+            Session["Terminar"] = 0;
             Session["Actualizar"] = 0;
             Session["postulacion"] = 0;
             Session["CodigoTarea"] = Codigo;
@@ -44,6 +46,11 @@ namespace CollegeJob.Controllers
             ViewData["Tarea"] = Clave;
             ViewData["Postulados"] = ObjDAO.postulados(Clave);
             ViewData["Imagenes"] = ObjDAO.ImgenesTarea(Clave);
+
+            if (ObjDAO.NopersonasTareas(int.Parse(Codigo))<ObjDAO.personas(int.Parse(Codigo)))
+            {
+                Session["Persona"] = 1;
+            }
 
 
             //para obtener las categorias
@@ -258,7 +265,7 @@ namespace CollegeJob.Controllers
             objBOTareas.TipoTarea = ObjDAO.Buscarclasificacion(cmbClas);
             objBOTareas.Descripcion = Descripcion;
             objBOTareas.CantPersonas = int.Parse(CantPersonas);
-            objBOTareas.CodigoEstatus = 3;
+            objBOTareas.CodigoEstatus = 1;
             ObjDAO.ActualizarTarea(objBOTareas);
             DetalleTareaDispo(Session["CodigoTarea"].ToString());
             Session["Actualizar"] = 1;
@@ -279,6 +286,17 @@ namespace CollegeJob.Controllers
             ViewData["Saldo"] = ObjDAO.Saldo(int.Parse(Session["Codigo"].ToString()));
             return View(ObjDAO.PagosTareas(int.Parse(Session["Codigo"].ToString())));
         }
-        
+
+        public ActionResult TerminarTarea()
+        {
+
+            TareasBO bo = new TareasBO();
+            bo.Codigo = int.Parse(Session["CodigoTarea"].ToString());
+            bo.CodigoEstatus = 6;
+            ObjDAO.EliminarTarea(bo);
+            Session["Terminar"] = 1;
+            return Redirect("/Tareas/DetalleTareaDispo?Codigo=" + Session["CodigoTarea"].ToString());
+        }
+
     }
 }

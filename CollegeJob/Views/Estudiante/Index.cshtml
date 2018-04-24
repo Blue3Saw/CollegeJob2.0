@@ -56,6 +56,22 @@
     background-color:transparent;
     text-decoration: none;
 }
+         .cortar{
+  width:200px;
+  height:50px;
+  padding:20px;
+  text-overflow:ellipsis;
+  white-space:nowrap; 
+  overflow:hidden; 
+}
+.cortar:hover {
+  width: auto;
+  height:auto;
+  white-space: initial;
+  overflow:visible;
+  cursor: pointer;
+  padding:20px;
+}
 </style>
 
 <section class="section pb-3 text-center text-lg-left">
@@ -130,7 +146,7 @@
                             @if (fila["Imagen"].ToString() != "")
                             {
                                 string Foto = fila["Imagen"].ToString();
-                                <img src="@Foto" class="img-fluid" alt="">
+                                <img style="height:179px;width:370px;" src="@Foto" class="img-fluid" alt="">
                             }
                             else
                             {
@@ -144,7 +160,7 @@
                         <!--Card content-->
                         <div class="card-body">
                             <!--Title-->
-                            <h4 class="card-title name">@fila["Titulo"]</h4>
+                            <h4 class="card-title name cortar">@fila["Titulo"]</h4>
                             <!--Text-->
                             <p class="card-text">@fila["Clasificacion"]</p>
                             @if (indicador == 1)

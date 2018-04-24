@@ -136,6 +136,7 @@
     <Content Include="Recursos\FrontEnd\css\starrr.css" />
     <Content Include="Recursos\FrontEnd\css\style.css" />
     <Content Include="Recursos\FrontEnd\css\stylemdb.css" />
+    <Content Include="Recursos\FrontEnd\css\TimeLine.css" />
     <Content Include="Recursos\FrontEnd\font\fa\fontawesome-webfont.svg" />
     <Content Include="Recursos\FrontEnd\img\images\1.png" />
     <Content Include="Recursos\FrontEnd\img\images\1calif.png" />

@@ -33,7 +33,7 @@ namespace CollegeJob.Controllers.BackEnd
 
             if (boton1 == "1")
             {
-                bo.CodigoEstatus = 1;
+                bo.CodigoEstatus = 3;
                 bo.Codigo = int.Parse(codigo);
                 int TarAcep = dao.EliminarTarea(bo);
                 Session["TarAcep"] = TarAcep;

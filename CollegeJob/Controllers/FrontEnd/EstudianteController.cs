@@ -23,6 +23,7 @@ namespace CollegeJob.Controllers
 
         public ActionResult Index()
         {
+            tareasdao.ActualizardatosTAreas();
             Session["Contraseña"] = "0";
             Session["ActPerfil"] = "0";
             //trae el contenido del dropdown

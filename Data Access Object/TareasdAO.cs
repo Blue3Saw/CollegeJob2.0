@@ -12,7 +12,7 @@ namespace Data_Access_Object
     public class TareasDAO
     {
         ConexionDAO Conex = new ConexionDAO();
-        string Sentencia, Sentencia2, Sentencia3, Sentencia4, Sentencia5;
+        string Sentencia="";
         public DataTable TopParte1 = new DataTable();
         public DataTable TopParte2 = new DataTable();
 
@@ -28,7 +28,7 @@ namespace Data_Access_Object
             SentenciaSQL.Parameters.Add("@HoraFin", SqlDbType.Time).Value = Dato.HoraFin.ToString("HH:mm");
             SentenciaSQL.Parameters.Add("@Tipo", SqlDbType.Int).Value = Dato.TipoTarea;
             SentenciaSQL.Parameters.Add("@Descripcion", SqlDbType.Text).Value = Dato.Descripcion;
-            SentenciaSQL.Parameters.Add("@Estatus", SqlDbType.Int).Value = 3;
+            SentenciaSQL.Parameters.Add("@Estatus", SqlDbType.Int).Value = 1;
             SentenciaSQL.Parameters.Add("@Longitud", SqlDbType.Float).Value = Dato.Longitud;
             SentenciaSQL.Parameters.Add("@Latitud", SqlDbType.Float).Value = Dato.Latitud;
             SentenciaSQL.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Dato.Direccion;
@@ -183,7 +183,7 @@ namespace Data_Access_Object
 
         public DataTable TodasTareas2()
         {
-            Sentencia = "SELECT T.Codigo, T.Titulo, T.Descripcion, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE T.Estatus = 3";
+            Sentencia = "SELECT T.Codigo, T.Titulo, T.Descripcion, T.Fecha, T.HoraInicio, T.HoraFinal, (U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion,(SELECT top(1) F.Imagen FROM Fotos F WHERE T.Codigo = F.TareaID) AS 'Imagen' FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE T.Estatus = 1";
             SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
             DataTable tablavirtual = new DataTable();
             mostar.Fill(tablavirtual);
@@ -193,7 +193,7 @@ namespace Data_Access_Object
         public DataTable TareaSeleccionada(int Codigo)
         {
             TareasBO Datos = new TareasBO();
-            SqlCommand Com = new SqlCommand("SELECT T.Codigo, T.Titulo, T.Descripcion, T.Direccion, T.Longitud, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, T.Npos,(U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion,U.Codigo as Cod FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE T.Codigo = @Codigo");
+            SqlCommand Com = new SqlCommand("SELECT T.Codigo,T.Estatus, T.Titulo, T.Descripcion, T.Direccion, T.Longitud,CT.Codigo as Es, T.Latitud, T.Fecha, T.HoraInicio, T.HoraFinal, T.Npos,(U.Nombre + ' ' + U.Apellidos) AS 'Empleador', CT.Clasificacion,U.Codigo as Cod FROM Tareas T INNER JOIN Usuarios U ON T.UsuarioEmpleador = U.Codigo INNER JOIN ClasificacionTarea CT ON T.Tipo = CT.Codigo WHERE T.Codigo = @Codigo");
             Com.Parameters.Add("@Codigo", SqlDbType.Int).Value = Codigo;
             Com.CommandType = CommandType.Text;
             return Conex.EjecutarSentencia(Com).Tables[0];
@@ -600,6 +600,48 @@ namespace Data_Access_Object
             SentenciaSQL.Parameters.Add("@Tarea", SqlDbType.VarChar).Value = tarea;
             SentenciaSQL.CommandType = CommandType.Text;
             return Conex.EjecutarComando(SentenciaSQL);
+        }
+
+        public int personas(int codigo)
+        {
+            int dato = 0;
+            Sentencia = "select Npos from Tareas where Codigo='" + codigo + "'";
+            SqlDataAdapter mostar = new SqlDataAdapter(Sentencia, Conex.ConectarBD());
+            DataTable tablavirtual = new DataTable();
+            mostar.Fill(tablavirtual);
+            try
+            {
+                dato = int.Parse(tablavirtual.Rows[0][0].ToString());
+            }
+            catch
+            {
+                dato = 0;
+            }
+            return dato;
+        }
+
+        public void ActualizardatosTAreas()
+        {
+            DataTable algo = TodasTareas();
+            foreach (DataRow item in algo.Rows)
+            {
+                if (NopersonasTareas(int.Parse(item["Codigo"].ToString()))>=1)
+                {
+                    TareasBO bo = new TareasBO();
+                    bo.CodigoEstatus = 5;
+                    bo.Codigo = int.Parse(item["Codigo"].ToString());
+                    EliminarTarea(bo);
+                }
+               DateTime fechatarea= DateTime.Parse(item["Fecha"].ToString());
+                if (fechatarea < DateTime.Now)
+                {
+
+                    TareasBO bo = new TareasBO();
+                    bo.CodigoEstatus = 6;
+                    bo.Codigo = int.Parse(item["Codigo"].ToString());
+                    EliminarTarea(bo);
+                }
+            }
         }
 
     }
