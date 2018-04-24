@@ -7,7 +7,7 @@
 
 <style>
     .color {
-        background-color: #ddd8d8;
+        background-color: #fff;
         border-radius: 10px;
     }
 
@@ -35,7 +35,7 @@
 
                 <div class="col s3">
                     <div class="btn-group">
-
+                        
                         <div class="dropdown">
                             @*@Html.DropDownList("categoria", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "btn btn-outline-default dropdown-toggle" })*@
                             <select class="btn btn-outline-default dropdown-toggle" name="opcion">
@@ -72,14 +72,13 @@
                 <ul id="itemContainer" class="col-lg-6" style="list-style:none">
                     @foreach (DataRow item in Model.Rows)
                     {
-
                         if (item["Estatus"].ToString() == "1")
                         {
-                            <li style="display:inline-block" class="color2" id="@item["id"]" onclick="LlenarModal(this)">
-
+                            <li style=" margin-bottom:10px" class="color card" id="@item["id"]" onclick="LlenarModal(this)">
                                 <div class="col-lg-12">
                                     <h4 class="">@item["Titulo"]</h4>
                                     <div class="row">
+                                        
                                         <div class="col-lg-4">
                                             @if (item["Imagen"].ToString() != "")
                                             {
@@ -104,7 +103,7 @@
                         }
                         else
                         {
-                            <li class="color" id="@item["id"]" onclick="LlenarModal(this)">
+                            <li class="color card" id="@item["id"]" onclick="LlenarModal(this)" style=" margin-bottom:10px;">
                                 <div class="col-lg-12">
                                     <h4 class="">@item["Titulo"]</h4>
                                     <div class="row">
