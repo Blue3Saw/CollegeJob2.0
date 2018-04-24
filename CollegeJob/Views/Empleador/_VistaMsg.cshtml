@@ -2,56 +2,74 @@
 @model DataTable
 <style>
     .color {
-        background-color: #F2F2F2;
+        background-color: #fff;
         border-radius: 10px;
     }
 </style>
-<div id="algo">
-    @foreach (DataRow item in Model.Rows)
-    {
-        using (Ajax.BeginForm("enviar", "Empleador", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+<div class="container">
+    <div class="row">
+        <div id="algo" class="card col-md-12" >
+            @foreach (DataRow item in Model.Rows)
         {
-        <div class="color">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@item["Titulo"]</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                   Para: @item["Nombre"]
-                </div>
-                <div class="col-md-6">
-                    @item["FechaHora"]
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    Mensaje:<br/>
-                    @item["Mensaje"]
-                </div>
-            </div>
-            <div>
-                <input type="hidden" value="@item["Codigo"]" name="id"/>
-                <div class="row">
-                    <div class="col-md-12">
-                        <label>Título</label>
-                        <input type="text" rows="3" name="Titulo">
+            using (Ajax.BeginForm("enviar", "Empleador", new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+            {
+                <div class="color">
+                    
+                        <div class="col-md-12">
+                            <h2>@item["Titulo"]</h2>
+                        </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            Para: <br />
+                            @item["Nombre"]
+                        </div>
+                        <div class="col-md-6">
+                           Fecha:<br />
+                            @item["FechaHora"]
+                        </div>
+
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-md-12">
+                            Mensaje:<br />
+                            @item["Mensaje"]
+                    
+                   
+                        <input type="hidden" value="@item["Codigo"]" name="id" />
+                      
+
+                            <div class="col-md-12">
+                                <label>Título</label>
+                                <input type="text" rows="3" name="Titulo">
+                            </div>
+                        
+                       
+                            <div class="col-md-12">
+                                <label>Mensaje</label>
+                                <textarea type="text" rows="3" name="Mensaje"></textarea>
+                            </div>
+                        </div>
+                      
+                   
+
+                    </div>
+                    <div class="row">
+                    <div class="col-md-5"></div>
+                        <button class="btn default-color-dark">
+                            Enviar
+                            <i class="fa fa-send ml-2"></i>
+                        </button>
+
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <label>Mensaje</label>
-                        <textarea type="text" rows="3" name="Mensaje"></textarea>
-                    </div>
-                </div>
-                <button class="btn default-color-dark">
-                    Enviar
-                    <i class="fa fa-send ml-2"></i>
-                </button>
-            </div>
-        </div>
         }
 
     }
+        </div>
+
+    </div>
+
 </div>
+
